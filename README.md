@@ -1,1 +1,1 @@
-# hormigasais-site-
+# HormigasAIS-site **HormigasAIS** es una comunidad enfocada en automatización, inteligencia artificial y colaboración digital. Este sitio sirve como puerta de entrada a nuestras plataformas y comunidad. - Únete a nuestro Slack: [HormigasAIS Slack](https://join.slack.com/t/hormigas-ais/shared_invite/zt-33zssiv5x-WXs1_8mQ6_9m0O9g0VNgAA) - Repositorio central: [Thrumanshow GitHub](https://github.com/Thrumanshow) - Organización: [TheAntsMind](https://github.com/TheAntsMind) **Powered by HormigasAIS & TheAntsMind.**
