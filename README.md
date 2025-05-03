@@ -6,7 +6,7 @@ Este sitio servirá como centro para compartir avances, recursos y experimentos 
 
 ## Enlaces útiles
 
-- **Sitio web activo:** [thrumanshow.github.io/hormigasais-site-](https://thrumanshow.github.io/hormigasais-site-)
+- **Sitio web activo:** [thrumanshow.github.io/hormigasais-site-](https://thrumanshow.github.io/hormigasais-site)
 - **Canal Slack:** [Únete al canal HormigasAIS](https://join.slack.com/t/hormigas-ais/shared_invite/zt-33zssiv5x-WXs1_8mQ6_9m0O9g0VNgAA)
 - **Organización:** [TheAntsMind](https://github.com/TheAntsMind)
 
