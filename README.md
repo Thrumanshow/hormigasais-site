@@ -3,7 +3,7 @@
 Bienvenido al sitio oficial de la comunidad **HormigasAIS**.  
 Aquí conectamos a entusiastas de la automatización, IA y colaboración digital.
 
-- Visítanos: [Sitio web](https://thrumanshow.github.io/hormigasais-site)
+- Visítanos: [Sitio web]([https://thrumanshow.github.io/hormigasais-site](http://hormigasais-community.blogspot.com/))
 - Únete al Slack: [Canal HormigasAIS](https://join.slack.com/t/hormigas-ais/shared_invite/zt-33zssiv5x-WXs1_8mQ6_9m0O9g0VNgAA)
 
 ## Cómo contribuir
