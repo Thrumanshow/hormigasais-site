@@ -1,4 +1,4 @@
-# hormigasais-site-
+# hormigasais-site
 
 Bienvenido al repositorio **hormigasais-site-**, el sitio oficial experimental del proyecto HormigasAIS, creado por la comunidad **TheAntsMind**.
 
