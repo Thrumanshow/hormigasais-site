@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>HormigasAIS Site</title>
+</head>
+<body>
+    <h1>¡Bienvenido a HormigasAIS Site!</h1>
+    <p>Este es un sitio experimental conectado a GitHub Pages.</p>
+    <p>Visita nuestro <a href="https://join.slack.com/t/hormigas-ais/shared_invite/zt-33zssiv5x-WXs1_8mQ6_9m0O9g0VNgAA">Slack</a> y conoce más en la organización <a href="https://github.com/TheAntsMind">TheAntsMind</a>.</p>
+</body>
+</html>
