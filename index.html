@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐜 HormigasAIS | Protocolo LBH</title>
+    <style>
+        body { background: #0d1117; color: #58a6ff; font-family: 'Courier New', monospace; padding: 20px; line-height: 1.5; }
+        .colonia { border: 1px solid #30363d; padding: 25px; border-radius: 8px; max-width: 850px; margin: auto; background: #161b22; }
+        .tag { background: #238636; color: white; padding: 3px 10px; border-radius: 4px; font-size: 0.85em; font-weight: bold; }
+        .feromona-log { color: #8b949e; font-size: 0.9em; margin-top: 25px; border-top: 1px solid #30363d; padding-top: 15px; height: 200px; overflow-y: hidden; }
+        h1 { color: #f0f6fc; margin-bottom: 5px; }
+        h2 { color: #79c0ff; font-size: 1.2em; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 25px 0; }
+        .card { border: 1px solid #30363d; padding: 15px; border-radius: 6px; background: #0d1117; }
+        .status-dot { height: 10px; width: 10px; background-color: #238636; border-radius: 50%; display: inline-block; margin-right: 5px; }
+        .firma { color: #d29922; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="colonia">
+        <h1>🐜 HormigasAIS</h1>
+        <p><span class="tag">Protocolo LBH v2.0</span> — Nodo A16-SanMiguel-SV</p>
+        <hr style="border: 0; border-top: 1px solid #30363d; margin: 20px 0;">
+        
+        <h2>Inteligencia Colectiva Soberana</h2>
+        <p>Red distribuida de nodos autónomos que emiten, validan y consensúan feromonas digitales usando el Protocolo LBH — sin servidores centrales, sin dependencias externas.</p>
+        <p style="font-size: 0.85em; color: #8b949e;">Operado desde El Salvador · Android A16 · Termux</p>
+
+        <div class="grid">
+            <div class="card">
+                <div style="font-size: 0.8em; color: #8b949e;">CONSENSO COLONIA</div>
+                <div style="font-size: 1.2em; font-weight: bold;"><span class="status-dot"></span>ACTIVO</div>
+            </div>
+            <div class="card">
+                <div style="font-size: 0.8em; color: #8b949e;">NODOS ACTIVOS</div>
+                <div style="font-size: 1.2em; font-weight: bold;">1 (A16-Soberano)</div>
+            </div>
+            <div class="card">
+                <div style="font-size: 0.8em; color: #8b949e;">TRUST PROMEDIO</div>
+                <div style="font-size: 1.2em; font-weight: bold; color: #3fb950;">0.85</div>
+            </div>
+        </div>
+
+        <h3>Infraestructura</h3>
+        <ul style="list-style: none; padding: 0; font-size: 0.9em;">
+            <li>🔸 <strong>Sin VPS:</strong> Despliegue en el Borde (Edge)</li>
+            <li>🔸 <strong>Soberanía:</strong> Android · Cloudflare · KV</li>
+            <li>🔸 <strong>API:</strong> api.hormigasais.com</li>
+        </ul>
+
+        <div class="feromona-log" id="logs">
+            <span class="firma">// Firma CLHQ validada. Esperando pulso LBH...</span><br>
+        </div>
+        
+        <p style="text-align: center; margin-top: 30px; font-size: 0.8em; color: #484f58;">
+            © 2026 HormigasAIS · El Salvador · Protocolo LBH
+        </p>
+    </div>
+
+    <script>
+        const log = document.getElementById('logs');
+        function emitirFeromona() {
+            const now = new Date();
+            const timestamp = (now.getTime() / 1000).toFixed(3);
+            const timeStr = now.toLocaleTimeString();
+            const pheromone = {
+                timestamp: parseFloat(timestamp),
+                type: "mosquito_pulse",
+                origin: "manager_alpha",
+                status: "active",
+                mode: "master",
+                signature: "CLHQ-A16"
+            };
+            
+            const entry = document.createElement('div');
+            entry.innerHTML = `<span style="color: #3fb950;">[${timeStr}]</span> FEROMONA_EMITIDA: ${JSON.stringify(pheromone)}`;
+            log.prepend(entry);
+            
+            if (log.childNodes.length > 10) log.removeChild(log.lastChild);
+        }
+        setInterval(emitirFeromona, 10000);
+        emitirFeromona();
+    </script>
+</body>
+</html>
