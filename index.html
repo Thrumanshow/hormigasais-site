@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HormigasAIS — Protocolo LBH</title>
+<title>HormigasAIS — Protocolo LBH Soberano</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
 <style>
@@ -15,10 +15,9 @@
     --gris2: #2a2a2a;
     --texto: #e8e8e8;
     --rojo: #ff4444;
+    --azul: #4a9eff;
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   body {
     background: var(--negro);
     color: var(--texto);
@@ -26,8 +25,6 @@
     min-height: 100vh;
     overflow-x: hidden;
   }
-
-  /* GRID BACKGROUND */
   body::before {
     content: '';
     position: fixed;
@@ -39,528 +36,194 @@
     pointer-events: none;
     z-index: 0;
   }
-
-  /* HEADER */
   header {
-    position: relative;
-    z-index: 1;
-    padding: 2rem 2rem 1rem;
+    position: relative; z-index: 1;
+    padding: 1.5rem 2rem;
     border-bottom: 1px solid #222;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 1rem;
+    display: flex; align-items: center;
+    justify-content: space-between; flex-wrap: wrap; gap: 1rem;
   }
-
-  .logo {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: 1.4rem;
-    color: var(--amarillo);
-    letter-spacing: -0.02em;
-  }
-
+  .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.4rem; color: var(--amarillo); }
   .logo span { color: var(--verde); }
-
   .status-pill {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: rgba(0,255,159,0.08);
-    border: 1px solid rgba(0,255,159,0.2);
-    padding: 0.4rem 1rem;
-    border-radius: 999px;
-    font-size: 0.75rem;
-    color: var(--verde);
+    display: flex; align-items: center; gap: 0.5rem;
+    background: rgba(0,255,159,0.08); border: 1px solid rgba(0,255,159,0.2);
+    padding: 0.4rem 1rem; border-radius: 999px; font-size: 0.75rem; color: var(--verde);
   }
-
-  .dot {
-    width: 7px; height: 7px;
-    background: var(--verde);
-    border-radius: 50%;
-    animation: pulse 2s infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.4; transform: scale(0.8); }
-  }
-
-  /* NAV */
+  .dot { width: 7px; height: 7px; background: var(--verde); border-radius: 50%; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.8)} }
   nav {
-    position: relative;
-    z-index: 1;
-    padding: 0 2rem;
-    border-bottom: 1px solid #222;
-    display: flex;
-    gap: 0;
+    position: relative; z-index: 1;
+    padding: 0 2rem; border-bottom: 1px solid #222; display: flex; gap: 0; overflow-x: auto;
   }
-
   nav button {
-    background: none;
-    border: none;
-    border-bottom: 2px solid transparent;
-    color: #666;
-    font-family: 'Space Mono', monospace;
-    font-size: 0.8rem;
-    padding: 1rem 1.5rem;
-    cursor: pointer;
-    transition: all 0.2s;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+    background: none; border: none; border-bottom: 2px solid transparent;
+    color: #666; font-family: 'Space Mono', monospace; font-size: 0.75rem;
+    padding: 1rem 1.2rem; cursor: pointer; transition: all 0.2s;
+    text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap;
   }
-
   nav button:hover { color: var(--texto); }
-  nav button.active {
-    color: var(--amarillo);
-    border-bottom-color: var(--amarillo);
-  }
-
-  /* MAIN */
-  main {
-    position: relative;
-    z-index: 1;
-    max-width: 860px;
-    margin: 0 auto;
-    padding: 3rem 2rem;
-  }
-
+  nav button.active { color: var(--amarillo); border-bottom-color: var(--amarillo); }
+  main { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; padding: 3rem 2rem; }
   .section { display: none; }
   .section.active { display: block; }
 
   /* HERO */
-  .hero {
-    text-align: center;
-    padding: 2rem 0 4rem;
-  }
-
+  .hero { text-align: center; padding: 2rem 0 3rem; }
   .hero-tag {
-    display: inline-block;
-    background: rgba(245,197,24,0.1);
-    border: 1px solid rgba(245,197,24,0.3);
-    color: var(--amarillo);
-    font-size: 0.7rem;
-    padding: 0.3rem 0.8rem;
-    border-radius: 4px;
-    margin-bottom: 1.5rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
+    display: inline-block; background: rgba(245,197,24,0.1);
+    border: 1px solid rgba(245,197,24,0.3); color: var(--amarillo);
+    font-size: 0.7rem; padding: 0.3rem 0.8rem; border-radius: 4px;
+    margin-bottom: 1.5rem; letter-spacing: 0.1em; text-transform: uppercase;
   }
+  .hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(2rem,6vw,3.2rem); font-weight: 800; line-height: 1.1; margin-bottom: 1rem; color: #fff; }
+  .hero h1 em { font-style: normal; color: var(--amarillo); }
+  .hero p { color: #888; font-size: 0.85rem; line-height: 1.7; max-width: 520px; margin: 0 auto 2rem; }
+  .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .btn-primary { background: var(--amarillo); color: var(--negro); border: none; font-family: 'Space Mono', monospace; font-size: 0.82rem; font-weight: 700; padding: 0.9rem 1.8rem; border-radius: 6px; cursor: pointer; transition: all 0.2s; text-transform: uppercase; }
+  .btn-primary:hover { background: #fff; transform: translateY(-2px); }
+  .btn-outline { background: none; color: var(--texto); border: 1px solid #333; font-family: 'Space Mono', monospace; font-size: 0.82rem; padding: 0.9rem 1.8rem; border-radius: 6px; cursor: pointer; transition: all 0.2s; text-transform: uppercase; }
+  .btn-outline:hover { border-color: var(--amarillo); color: var(--amarillo); }
+  .stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: #222; border: 1px solid #222; border-radius: 8px; overflow: hidden; margin-top: 3rem; }
+  .stat { background: var(--gris); padding: 1.5rem; text-align: center; }
+  .stat-val { font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800; color: var(--amarillo); }
+  .stat-label { font-size: 0.7rem; color: #555; margin-top: 0.3rem; text-transform: uppercase; letter-spacing: 0.08em; }
 
-  .hero h1 {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(2rem, 6vw, 3.5rem);
-    font-weight: 800;
-    line-height: 1.1;
-    margin-bottom: 1rem;
-    color: #fff;
+  /* PLANES */
+  .planes-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin-bottom: 2rem; }
+  .plan-card {
+    background: var(--gris); border: 1px solid #2a2a2a;
+    border-radius: 12px; padding: 1.8rem; position: relative; transition: border 0.2s;
   }
+  .plan-card:hover { border-color: #444; }
+  .plan-card.popular { border-color: var(--amarillo); }
+  .popular-badge {
+    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+    background: var(--amarillo); color: var(--negro); font-size: 0.65rem;
+    font-weight: 700; padding: 0.25rem 0.8rem; border-radius: 999px;
+    text-transform: uppercase; letter-spacing: 0.08em; white-space: nowrap;
+  }
+  .plan-name { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 0.3rem; }
+  .plan-price { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; color: var(--amarillo); margin: 0.8rem 0 0.2rem; }
+  .plan-price span { font-size: 0.8rem; color: #666; font-family: 'Space Mono', monospace; }
+  .plan-desc { font-size: 0.72rem; color: #666; margin-bottom: 1.2rem; line-height: 1.5; }
+  .plan-features { list-style: none; margin-bottom: 1.5rem; }
+  .plan-features li { font-size: 0.75rem; color: #aaa; padding: 0.3rem 0; border-bottom: 1px solid #222; display: flex; gap: 0.5rem; }
+  .plan-features li:last-child { border: none; }
+  .plan-features li::before { content: '✓'; color: var(--verde); flex-shrink: 0; }
+  .btn-plan {
+    width: 100%; background: var(--gris2); border: 1px solid #333;
+    color: var(--texto); font-family: 'Space Mono', monospace; font-size: 0.75rem;
+    padding: 0.8rem; border-radius: 6px; cursor: pointer; transition: all 0.2s;
+    text-transform: uppercase; letter-spacing: 0.05em; text-decoration: none;
+    display: block; text-align: center;
+  }
+  .btn-plan:hover { border-color: var(--amarillo); color: var(--amarillo); }
+  .btn-plan.destacado { background: var(--amarillo); color: var(--negro); border-color: var(--amarillo); font-weight: 700; }
+  .btn-plan.destacado:hover { background: #fff; }
 
-  .hero h1 em {
-    font-style: normal;
-    color: var(--amarillo);
+  /* CLÁUSULA */
+  .clausula {
+    background: rgba(245,197,24,0.04); border: 1px solid rgba(245,197,24,0.15);
+    border-radius: 8px; padding: 1.2rem 1.5rem; font-size: 0.72rem; color: #888;
+    line-height: 1.7; margin-top: 1.5rem;
   }
+  .clausula strong { color: var(--amarillo); }
 
-  .hero p {
-    color: #888;
-    font-size: 0.9rem;
-    line-height: 1.7;
-    max-width: 520px;
-    margin: 0 auto 2.5rem;
+  /* BADGE SECTION */
+  .card { background: var(--gris); border: 1px solid #2a2a2a; border-radius: 12px; padding: 2rem; margin-bottom: 1.5rem; }
+  .card-title { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 0.4rem; }
+  .card-desc { font-size: 0.78rem; color: #666; margin-bottom: 1.5rem; line-height: 1.6; }
+  .field label { display: block; font-size: 0.72rem; color: #666; margin-bottom: 0.4rem; text-transform: uppercase; letter-spacing: 0.06em; }
+  .field input, .field select {
+    width: 100%; background: var(--negro); border: 1px solid #333; border-radius: 6px;
+    color: var(--texto); font-family: 'Space Mono', monospace; font-size: 0.82rem;
+    padding: 0.7rem 0.9rem; outline: none; transition: border 0.2s;
   }
+  .field input:focus, .field select:focus { border-color: var(--amarillo); }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+  .btn-gen { width: 100%; margin-top: 0.5rem; background: var(--amarillo); color: var(--negro); border: none; font-family: 'Space Mono', monospace; font-size: 0.85rem; font-weight: 700; padding: 1rem; border-radius: 8px; cursor: pointer; transition: all 0.2s; text-transform: uppercase; }
+  .btn-gen:hover { background: #fff; }
 
-  .btn-primary {
-    background: var(--amarillo);
-    color: var(--negro);
-    border: none;
-    font-family: 'Space Mono', monospace;
-    font-size: 0.85rem;
-    font-weight: 700;
-    padding: 0.9rem 2rem;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: all 0.2s;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+  /* BADGE PREVIEW */
+  .badge-preview { display: none; margin-top: 1.5rem; }
+  .badge-preview.visible { display: block; }
+  .badge-canvas-wrap { display: flex; justify-content: center; margin-bottom: 1.5rem; }
+  canvas { border-radius: 8px; max-width: 100%; }
+  .badge-code {
+    background: var(--negro); border: 1px solid #222; border-radius: 6px;
+    padding: 1rem; font-size: 0.72rem; color: #aaa; overflow-x: auto;
+    white-space: pre; line-height: 1.6; margin-bottom: 1rem;
   }
-
-  .btn-primary:hover {
-    background: #fff;
-    transform: translateY(-2px);
-  }
-
-  /* STATS */
-  .stats {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    background: #222;
-    border: 1px solid #222;
-    border-radius: 8px;
-    overflow: hidden;
-    margin-top: 3rem;
-  }
-
-  .stat {
-    background: var(--gris);
-    padding: 1.5rem;
-    text-align: center;
-  }
-
-  .stat-val {
-    font-family: 'Syne', sans-serif;
-    font-size: 1.8rem;
-    font-weight: 800;
-    color: var(--amarillo);
-  }
-
-  .stat-label {
-    font-size: 0.7rem;
-    color: #555;
-    margin-top: 0.3rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-  }
+  .badge-btns { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+  .btn-dl { background: var(--gris2); border: 1px solid #333; color: var(--texto); font-family: 'Space Mono', monospace; font-size: 0.75rem; padding: 0.6rem 1.2rem; border-radius: 6px; cursor: pointer; transition: all 0.2s; }
+  .btn-dl:hover { border-color: var(--verde); color: var(--verde); }
 
   /* SELLO SECTION */
-  .card {
-    background: var(--gris);
-    border: 1px solid #2a2a2a;
-    border-radius: 12px;
-    padding: 2rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .card-title {
-    font-family: 'Syne', sans-serif;
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: #fff;
-    margin-bottom: 0.4rem;
-  }
-
-  .card-desc {
-    font-size: 0.78rem;
-    color: #666;
-    margin-bottom: 1.5rem;
-    line-height: 1.6;
-  }
-
   .upload-zone {
-    border: 2px dashed #333;
-    border-radius: 8px;
-    padding: 3rem 2rem;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.2s;
-    position: relative;
+    border: 2px dashed #333; border-radius: 8px; padding: 2.5rem 2rem;
+    text-align: center; cursor: pointer; transition: all 0.2s; position: relative;
   }
-
-  .upload-zone:hover, .upload-zone.dragover {
-    border-color: var(--amarillo);
-    background: rgba(245,197,24,0.03);
-  }
-
-  .upload-zone input {
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    cursor: pointer;
-    width: 100%;
-    height: 100%;
-  }
-
+  .upload-zone:hover, .upload-zone.dragover { border-color: var(--amarillo); background: rgba(245,197,24,0.03); }
+  .upload-zone input { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
   .upload-icon { font-size: 2.5rem; margin-bottom: 0.8rem; }
-
-  .upload-zone p {
-    color: #555;
-    font-size: 0.8rem;
-  }
-
+  .upload-zone p { color: #555; font-size: 0.8rem; }
   .upload-zone strong { color: var(--amarillo); }
-
-  .field-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-    margin-top: 1rem;
-  }
-
-  .field label {
-    display: block;
-    font-size: 0.72rem;
-    color: #666;
-    margin-bottom: 0.4rem;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-  }
-
-  .field input {
-    width: 100%;
-    background: var(--negro);
-    border: 1px solid #333;
-    border-radius: 6px;
-    color: var(--texto);
-    font-family: 'Space Mono', monospace;
-    font-size: 0.82rem;
-    padding: 0.7rem 0.9rem;
-    outline: none;
-    transition: border 0.2s;
-  }
-
-  .field input:focus { border-color: var(--amarillo); }
-
-  .btn-seal {
-    width: 100%;
-    margin-top: 1.2rem;
-    background: var(--amarillo);
-    color: var(--negro);
-    border: none;
-    font-family: 'Space Mono', monospace;
-    font-size: 0.85rem;
-    font-weight: 700;
-    padding: 1rem;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.2s;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-  }
-
+  .btn-seal { width: 100%; margin-top: 1.2rem; background: var(--amarillo); color: var(--negro); border: none; font-family: 'Space Mono', monospace; font-size: 0.85rem; font-weight: 700; padding: 1rem; border-radius: 8px; cursor: pointer; transition: all 0.2s; text-transform: uppercase; }
   .btn-seal:hover { background: #fff; }
   .btn-seal:disabled { background: #333; color: #555; cursor: not-allowed; }
-
-  /* RESULTADO SELLO */
-  .sello-result {
-    display: none;
-    margin-top: 1.5rem;
-    background: rgba(0,255,159,0.04);
-    border: 1px solid rgba(0,255,159,0.2);
-    border-radius: 8px;
-    padding: 1.5rem;
-  }
-
+  .sello-result { display: none; margin-top: 1.5rem; background: rgba(0,255,159,0.04); border: 1px solid rgba(0,255,159,0.2); border-radius: 8px; padding: 1.5rem; }
   .sello-result.visible { display: block; }
-
-  .sello-result h3 {
-    color: var(--verde);
-    font-size: 0.85rem;
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .sello-data {
-    display: grid;
-    gap: 0.5rem;
-  }
-
-  .sello-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 1rem;
-    font-size: 0.75rem;
-    padding: 0.5rem 0;
-    border-bottom: 1px solid #1a1a1a;
-  }
-
+  .sello-result h3 { color: var(--verde); font-size: 0.85rem; margin-bottom: 1rem; }
+  .sello-data { display: grid; gap: 0.5rem; }
+  .sello-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; font-size: 0.75rem; padding: 0.5rem 0; border-bottom: 1px solid #1a1a1a; }
   .sello-row:last-child { border: none; }
   .sello-key { color: #555; text-transform: uppercase; letter-spacing: 0.06em; flex-shrink: 0; }
   .sello-val { color: var(--verde); text-align: right; word-break: break-all; }
+  .plan-limit { background: rgba(245,197,24,0.08); border: 1px solid rgba(245,197,24,0.2); border-radius: 6px; padding: 0.8rem 1rem; font-size: 0.75rem; color: var(--amarillo); margin-top: 1rem; text-align: center; }
 
-  .copy-btn {
-    background: rgba(245,197,24,0.1);
-    border: 1px solid rgba(245,197,24,0.3);
-    color: var(--amarillo);
-    font-family: 'Space Mono', monospace;
-    font-size: 0.72rem;
-    padding: 0.4rem 0.8rem;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 1rem;
-    transition: all 0.2s;
-  }
-
-  .copy-btn:hover { background: rgba(245,197,24,0.2); }
-
-  /* VERIFY SECTION */
-  .verify-input-row {
-    display: flex;
-    gap: 0.8rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .verify-input-row input {
-    flex: 1;
-    background: var(--negro);
-    border: 1px solid #333;
-    border-radius: 6px;
-    color: var(--texto);
-    font-family: 'Space Mono', monospace;
-    font-size: 0.82rem;
-    padding: 0.8rem 1rem;
-    outline: none;
-    transition: border 0.2s;
-  }
-
+  /* VERIFY */
+  .verify-input-row { display: flex; gap: 0.8rem; margin-bottom: 1.5rem; }
+  .verify-input-row input { flex: 1; background: var(--negro); border: 1px solid #333; border-radius: 6px; color: var(--texto); font-family: 'Space Mono', monospace; font-size: 0.82rem; padding: 0.8rem 1rem; outline: none; transition: border 0.2s; }
   .verify-input-row input:focus { border-color: var(--amarillo); }
-
-  .btn-verify {
-    background: var(--gris2);
-    border: 1px solid #333;
-    color: var(--texto);
-    font-family: 'Space Mono', monospace;
-    font-size: 0.8rem;
-    padding: 0.8rem 1.2rem;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: all 0.2s;
-    white-space: nowrap;
-  }
-
+  .btn-verify { background: var(--gris2); border: 1px solid #333; color: var(--texto); font-family: 'Space Mono', monospace; font-size: 0.8rem; padding: 0.8rem 1.2rem; border-radius: 6px; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
   .btn-verify:hover { border-color: var(--amarillo); color: var(--amarillo); }
-
-  .verify-result {
-    display: none;
-    border-radius: 8px;
-    padding: 1.5rem;
-    border: 1px solid #333;
-  }
-
-  .verify-result.ok {
-    display: block;
-    border-color: rgba(0,255,159,0.3);
-    background: rgba(0,255,159,0.04);
-  }
-
-  .verify-result.err {
-    display: block;
-    border-color: rgba(255,68,68,0.3);
-    background: rgba(255,68,68,0.04);
-  }
-
+  .verify-result { display: none; border-radius: 8px; padding: 1.5rem; border: 1px solid #333; }
+  .verify-result.ok { display: block; border-color: rgba(0,255,159,0.3); background: rgba(0,255,159,0.04); }
+  .verify-result.err { display: block; border-color: rgba(255,68,68,0.3); background: rgba(255,68,68,0.04); }
   .verify-result h3 { font-size: 0.85rem; margin-bottom: 1rem; }
   .verify-result.ok h3 { color: var(--verde); }
   .verify-result.err h3 { color: var(--rojo); }
 
   /* DOCS */
-  .docs-section h2 {
-    font-family: 'Syne', sans-serif;
-    font-size: 1.4rem;
-    font-weight: 800;
-    color: #fff;
-    margin-bottom: 0.5rem;
-  }
-
-  .docs-section .sub {
-    color: #555;
-    font-size: 0.8rem;
-    margin-bottom: 2.5rem;
-  }
-
-  .endpoint-block {
-    background: var(--gris);
-    border: 1px solid #2a2a2a;
-    border-radius: 10px;
-    overflow: hidden;
-    margin-bottom: 1rem;
-  }
-
-  .endpoint-header {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 1rem 1.5rem;
-    border-bottom: 1px solid #2a2a2a;
-  }
-
-  .method {
-    font-size: 0.72rem;
-    font-weight: 700;
-    padding: 0.25rem 0.6rem;
-    border-radius: 4px;
-    letter-spacing: 0.05em;
-  }
-
+  .docs-section h2 { font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 800; color: #fff; margin-bottom: 0.5rem; }
+  .docs-section .sub { color: #555; font-size: 0.8rem; margin-bottom: 2rem; }
+  .endpoint-block { background: var(--gris); border: 1px solid #2a2a2a; border-radius: 10px; overflow: hidden; margin-bottom: 1rem; }
+  .endpoint-header { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.5rem; border-bottom: 1px solid #2a2a2a; }
+  .method { font-size: 0.72rem; font-weight: 700; padding: 0.25rem 0.6rem; border-radius: 4px; letter-spacing: 0.05em; }
   .method.GET { background: rgba(0,255,159,0.15); color: var(--verde); }
   .method.POST { background: rgba(245,197,24,0.15); color: var(--amarillo); }
-
-  .endpoint-path {
-    font-size: 0.88rem;
-    color: #fff;
-  }
-
-  .endpoint-body {
-    padding: 1rem 1.5rem;
-  }
-
-  .endpoint-desc {
-    font-size: 0.78rem;
-    color: #666;
-    margin-bottom: 0.8rem;
-    line-height: 1.6;
-  }
-
-  .code-block {
-    background: var(--negro);
-    border: 1px solid #222;
-    border-radius: 6px;
-    padding: 1rem;
-    font-size: 0.75rem;
-    color: #aaa;
-    overflow-x: auto;
-    white-space: pre;
-    line-height: 1.6;
-  }
-
-  .code-block .key { color: var(--verde); }
-  .code-block .val { color: var(--amarillo); }
-  .code-block .str { color: #e891bc; }
+  .endpoint-path { font-size: 0.88rem; color: #fff; }
+  .endpoint-body { padding: 1rem 1.5rem; }
+  .endpoint-desc { font-size: 0.78rem; color: #666; margin-bottom: 0.8rem; line-height: 1.6; }
+  .code-block { background: var(--negro); border: 1px solid #222; border-radius: 6px; padding: 1rem; font-size: 0.75rem; color: #aaa; overflow-x: auto; white-space: pre; line-height: 1.6; }
 
   /* LOADING */
-  .loading {
-    display: none;
-    text-align: center;
-    padding: 2rem;
-    color: #555;
-    font-size: 0.8rem;
-  }
-
+  .loading { display: none; text-align: center; padding: 2rem; color: #555; font-size: 0.8rem; }
   .loading.visible { display: block; }
-
-  .spinner {
-    display: inline-block;
-    width: 20px; height: 20px;
-    border: 2px solid #333;
-    border-top-color: var(--amarillo);
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-    margin-bottom: 0.8rem;
-  }
-
+  .spinner { display: inline-block; width: 20px; height: 20px; border: 2px solid #333; border-top-color: var(--amarillo); border-radius: 50%; animation: spin 0.8s linear infinite; margin-bottom: 0.8rem; }
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  /* FOOTER */
-  footer {
-    position: relative;
-    z-index: 1;
-    text-align: center;
-    padding: 2rem;
-    border-top: 1px solid #1a1a1a;
-    color: #333;
-    font-size: 0.72rem;
-  }
-
+  footer { position: relative; z-index: 1; text-align: center; padding: 2rem; border-top: 1px solid #1a1a1a; color: #333; font-size: 0.72rem; }
   footer span { color: var(--amarillo); }
 
-  @media (max-width: 600px) {
+  @media (max-width: 700px) {
+    .planes-grid { grid-template-columns: 1fr; }
     .field-row { grid-template-columns: 1fr; }
     .stats { grid-template-columns: 1fr; }
     .verify-input-row { flex-direction: column; }
-    nav button { padding: 0.8rem 0.8rem; font-size: 0.7rem; }
+    nav button { padding: 0.8rem; font-size: 0.68rem; }
+    .badge-btns { flex-direction: column; }
   }
 </style>
 </head>
@@ -575,351 +238,499 @@
 </header>
 
 <nav>
-  <button class="active" onclick="showSection('home', this)">Inicio</button>
-  <button onclick="showSection('sello', this)">🔏 Sellar</button>
-  <button onclick="showSection('verify', this)">🔍 Verificar</button>
-  <button onclick="showSection('docs', this)">📖 Protocolo</button>
+  <button class="active" onclick="showSection('home',this)">Inicio</button>
+  <button onclick="showSection('planes',this)">💎 Planes</button>
+  <button onclick="showSection('sello',this)">🔏 Sellar</button>
+  <button onclick="showSection('badge',this)">🏷️ Badge</button>
+  <button onclick="showSection('verify',this)">🔍 Verificar</button>
+  <button onclick="showSection('docs',this)">📖 Protocolo</button>
 </nav>
 
 <main>
 
-  <!-- HOME -->
-  <section class="section active" id="home">
-    <div class="hero">
-      <div class="hero-tag">Protocolo LBH v2.0 — En producción</div>
-      <h1>Propiedad intelectual<br><em>soberana y distribuida</em></h1>
-      <p>HormigasAIS permite sellar y certificar activos digitales usando el Lenguaje Binario HormigasAIS. Sin servidores centrales. Sin nube. Soberanía total desde El Salvador.</p>
-      <button class="btn-primary" onclick="showSection('sello', document.querySelectorAll('nav button')[1])">
-        Sellar mi activo →
-      </button>
+<!-- HOME -->
+<section class="section active" id="home">
+  <div class="hero">
+    <div class="hero-tag">Protocolo LBH v2.0 — Producción Global</div>
+    <h1>Certifica tu propiedad<br><em>intelectual soberana</em></h1>
+    <p>El primer sistema de certificación criptográfica de activos digitales desarrollado desde el borde. Sin nube centralizada. Sin intermediarios. Desde El Salvador al mundo.</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="showSection('sello',document.querySelectorAll('nav button')[2])">Sellar ahora →</button>
+      <button class="btn-outline" onclick="showSection('planes',document.querySelectorAll('nav button')[1])">Ver planes</button>
+    </div>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="stat-val" id="statSellos">—</div><div class="stat-label">Sellos emitidos</div></div>
+    <div class="stat"><div class="stat-val">9</div><div class="stat-label">Nodos activos</div></div>
+    <div class="stat"><div class="stat-val">A16</div><div class="stat-label">Nodo maestro · SV</div></div>
+  </div>
+</section>
+
+<!-- PLANES -->
+<section class="section" id="planes">
+  <div style="text-align:center; margin-bottom:2.5rem;">
+    <div class="hero-tag">Lanzamiento — Precios de introducción</div>
+    <h2 style="font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:800;color:#fff;margin-bottom:0.5rem;">Elige tu plan</h2>
+    <p style="color:#666;font-size:0.82rem;">Certifica tus activos digitales con el Protocolo LBH</p>
+  </div>
+
+  <div class="planes-grid">
+    <!-- FREE -->
+    <div class="plan-card">
+      <div class="plan-name">Free</div>
+      <div class="plan-price">badge_monetizacion.sh<span>/siempre</span></div>
+      <div class="plan-desc">Para explorar el protocolo LBH</div>
+      <ul class="plan-features">
+        <li>3 sellos totales</li>
+        <li>Válido por 30 días</li>
+        <li>Badge descargable básico</li>
+        <li>Verificación pública</li>
+      </ul>
+      <a href="#" class="btn-plan" onclick="showSection('sello',document.querySelectorAll('nav button')[2]);return false;">Comenzar gratis</a>
     </div>
 
-    <div class="stats">
-      <div class="stat">
-        <div class="stat-val" id="statSellos">—</div>
-        <div class="stat-label">Sellos emitidos</div>
-      </div>
-      <div class="stat">
-        <div class="stat-val" id="statNodos">9</div>
-        <div class="stat-label">Nodos activos</div>
-      </div>
-      <div class="stat">
-        <div class="stat-val">A16</div>
-        <div class="stat-label">Nodo maestro</div>
-      </div>
+    <!-- PREMIUM -->
+    <div class="plan-card popular">
+      <div class="popular-badge">⭐ Más popular</div>
+      <div class="plan-name">Premium</div>
+      <div class="plan-price">.99<span>/mes</span></div>
+      <div class="plan-desc">Para creadores y profesionales independientes</div>
+      <ul class="plan-features">
+        <li>Sellos ilimitados</li>
+        <li>Válido 1 año renovable</li>
+        <li>PDF certificado descargable</li>
+        <li>Badge premium con plan visible</li>
+        <li>Prioridad en soporte</li>
+      </ul>
+      <a href="https://github.com/sponsors/Thrumanshow" target="_blank" class="btn-plan destacado">Suscribirse via GitHub →</a>
     </div>
-  </section>
 
-  <!-- SELLO -->
-  <section class="section" id="sello">
-    <div class="card">
-      <div class="card-title">🔏 Sellar activo digital</div>
-      <div class="card-desc">Genera un certificado criptográfico LBH para tu imagen o archivo. El sello queda registrado en la red HormigasAIS y es verificable públicamente.</div>
+    <!-- ENTERPRISE -->
+    <div class="plan-card">
+      <div class="plan-name">Enterprise</div>
+      <div class="plan-price">9<span>/mes</span></div>
+      <div class="plan-desc">Para plataformas y empresas con alto volumen</div>
+      <ul class="plan-features">
+        <li>API masiva ilimitada</li>
+        <li>Sello permanente</li>
+        <li>SLA garantizado</li>
+        <li>Integración personalizada</li>
+        <li>Soporte directo CLHQ</li>
+        <li>White-label disponible</li>
+      </ul>
+      <a href="https://github.com/sponsors/Thrumanshow" target="_blank" class="btn-plan">Contactar Enterprise →</a>
+    </div>
+  </div>
 
-      <div class="upload-zone" id="uploadZone">
-        <input type="file" id="fileInput" accept="image/*,.pdf,.png,.jpg,.jpeg">
-        <div class="upload-icon">📄</div>
-        <p><strong>Arrastra tu archivo</strong> o haz clic para seleccionar</p>
-        <p style="margin-top:0.4rem; font-size:0.7rem;">PNG, JPG, PDF — máx 10MB</p>
-      </div>
+  <!-- CLÁUSULA DINÁMICA -->
+  <div class="clausula">
+    <strong>⚠️ Nota sobre precios:</strong> HormigasAIS está en fase de lanzamiento. Los precios actuales son de introducción y pueden ajustarse en el futuro según los costos operativos, expansión de infraestructura y nuevas funcionalidades del Protocolo LBH. Los usuarios con plan activo al momento de cualquier cambio serán notificados con al menos 30 días de anticipación y podrán mantener sus condiciones originales durante su ciclo de facturación vigente. Al usar cualquier plan, aceptas que esta plataforma es soberana, distribuida y operada desde El Salvador bajo el Protocolo LBH v2.0.
+  </div>
 
-      <div class="field-row">
-        <div class="field">
-          <label>Propietario</label>
-          <input type="text" id="ownerInput" placeholder="Tu nombre o empresa">
+  <!-- PAGOS -->
+  <div class="card" style="margin-top:1.5rem;">
+    <div class="card-title">💳 Canales de pago disponibles</div>
+    <div class="card-desc">Elige el método que más te convenga para activar tu plan.</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+      <a href="https://github.com/sponsors/Thrumanshow" target="_blank" style="text-decoration:none;">
+        <div style="background:var(--negro);border:1px solid #333;border-radius:8px;padding:1.2rem;text-align:center;transition:border 0.2s;cursor:pointer;" onmouseover="this.style.borderColor='#f5c518'" onmouseout="this.style.borderColor='#333'">
+          <div style="font-size:1.5rem;margin-bottom:0.5rem;">🐙</div>
+          <div style="font-size:0.8rem;color:#fff;font-weight:700;">GitHub Sponsors</div>
+          <div style="font-size:0.7rem;color:#666;margin-top:0.3rem;">Recomendado para devs</div>
         </div>
-        <div class="field">
-          <label>Descripción del activo</label>
-          <input type="text" id="assetInput" placeholder="Logo, diseño, documento...">
+      </a>
+      <a href="https://paypal.me/Cruzloyda990@gmail.com" target="_blank" style="text-decoration:none;">
+        <div style="background:var(--negro);border:1px solid #333;border-radius:8px;padding:1.2rem;text-align:center;transition:border 0.2s;cursor:pointer;" onmouseover="this.style.borderColor='#4a9eff'" onmouseout="this.style.borderColor='#333'">
+          <div style="font-size:1.5rem;margin-bottom:0.5rem;">💙</div>
+          <div style="font-size:0.8rem;color:#fff;font-weight:700;">PayPal</div>
+          <div style="font-size:0.7rem;color:#666;margin-top:0.3rem;">Tarjeta / transferencia</div>
         </div>
-      </div>
-
-      <button class="btn-seal" id="btnSeal" onclick="sellarActivo()">
-        🐜 Generar Sello LBH
-      </button>
+      </a>
     </div>
+  </div>
+</section>
 
-    <div class="loading" id="loadingSello">
-      <div class="spinner"></div>
-      <div>Procesando en Nodo A16...</div>
+<!-- SELLO -->
+<section class="section" id="sello">
+  <div class="card">
+    <div class="card-title">🔏 Sellar activo digital</div>
+    <div class="card-desc">Genera un certificado criptográfico LBH. Plan Free: 3 sellos válidos por 30 días.</div>
+    <div class="upload-zone" id="uploadZone">
+      <input type="file" id="fileInput" accept="image/*,.pdf">
+      <div class="upload-icon">📄</div>
+      <p><strong>Arrastra tu archivo</strong> o haz clic para seleccionar</p>
+      <p style="margin-top:0.4rem;font-size:0.7rem;">PNG, JPG, PDF — máx 10MB</p>
     </div>
-
-    <div class="sello-result" id="selloResult">
-      <h3>✅ Sello emitido exitosamente</h3>
-      <div class="sello-data" id="selloData"></div>
-      <button class="copy-btn" id="copyBtn" onclick="copiarSello()">📋 Copiar firma</button>
-    </div>
-  </section>
-
-  <!-- VERIFY -->
-  <section class="section" id="verify">
-    <div class="card">
-      <div class="card-title">🔍 Verificar sello LBH</div>
-      <div class="card-desc">Ingresa la firma de un sello para verificar su autenticidad en la red HormigasAIS.</div>
-
-      <div class="verify-input-row">
-        <input type="text" id="sigInput" placeholder="CLHQ-XXXXXXXX">
-        <button class="btn-verify" onclick="verificarSello()">Verificar</button>
+    <div class="field-row" style="margin-top:1rem;">
+      <div class="field">
+        <label>Propietario</label>
+        <input type="text" id="ownerInput" placeholder="Tu nombre o empresa">
       </div>
-
-      <div class="loading" id="loadingVerify">
-        <div class="spinner"></div>
-        <div>Consultando red LBH...</div>
-      </div>
-
-      <div class="verify-result" id="verifyResult">
-        <h3 id="verifyTitle"></h3>
-        <div class="sello-data" id="verifyData"></div>
+      <div class="field">
+        <label>Descripción</label>
+        <input type="text" id="assetInput" placeholder="Logo, diseño, documento...">
       </div>
     </div>
-  </section>
+    <div class="field" style="margin-top:1rem;">
+      <label>Plan</label>
+      <select id="planSelect">
+        <option value="free">Free — 3 sellos · 30 días</option>
+        <option value="premium">Premium — Ilimitado · 1 año (.99/mes)</option>
+        <option value="enterprise">Enterprise — Permanente · API (9/mes)</option>
+      </select>
+    </div>
+    <button class="btn-seal" id="btnSeal" onclick="sellarActivo()">🐜 Generar Sello LBH</button>
+  </div>
+  <div class="loading" id="loadingSello"><div class="spinner"></div><div>Procesando en Nodo A16...</div></div>
+  <div class="sello-result" id="selloResult">
+    <h3>✅ Sello emitido exitosamente</h3>
+    <div class="sello-data" id="selloData"></div>
+    <div class="plan-limit" id="planLimit"></div>
+    <div style="display:flex;gap:0.8rem;margin-top:1rem;flex-wrap:wrap;">
+      <button class="btn-dl" onclick="copiarSello()">📋 Copiar firma</button>
+      <button class="btn-dl" onclick="showSection('badge',document.querySelectorAll('nav button')[3])">🏷️ Generar badge →</button>
+    </div>
+  </div>
+</section>
 
-  <!-- DOCS -->
-  <section class="section docs-section" id="docs">
-    <h2>Protocolo LBH</h2>
-    <p class="sub">Lenguaje Binario HormigasAIS — Especificación técnica v2.0</p>
-
-    <div class="endpoint-block">
-      <div class="endpoint-header">
-        <span class="method GET">GET</span>
-        <span class="endpoint-path">api.hormigasais.com/verify</span>
+<!-- BADGE -->
+<section class="section" id="badge">
+  <div class="card">
+    <div class="card-title">🏷️ Generar badge descargable</div>
+    <div class="card-desc">Crea tu badge PNG con la firma LBH para pegar en tu sitio web, redes sociales o documentos.</div>
+    <div class="field-row">
+      <div class="field">
+        <label>Firma CLHQ</label>
+        <input type="text" id="badgeSig" placeholder="CLHQ-XXXXXXXX" id="badgeSig">
       </div>
-      <div class="endpoint-body">
-        <p class="endpoint-desc">Verifica que el nodo soberano A16 está activo y retorna la firma maestra del protocolo.</p>
-        <div class="code-block"><span class="key">{
-  "status":</span> <span class="str">"VALIDADO"</span>,
-  <span class="key">"signature":</span> <span class="str">"CLHQ-MASTER-KEY"</span>,
-  <span class="key">"protocol":</span> <span class="str">"Lenguaje-Binario-HormigasAIS"</span>,
-  <span class="key">"origin":</span> <span class="str">"Nodo-Soberano-A16"</span>
-<span class="key">}</span></div>
+      <div class="field">
+        <label>Plan</label>
+        <select id="badgePlan">
+          <option value="free">Free</option>
+          <option value="premium">Premium ⭐</option>
+          <option value="enterprise">Enterprise 🏢</option>
+        </select>
       </div>
     </div>
-
-    <div class="endpoint-block">
-      <div class="endpoint-header">
-        <span class="method POST">POST</span>
-        <span class="endpoint-path">api.hormigasais.com/seal</span>
+    <div class="field-row">
+      <div class="field">
+        <label>Propietario</label>
+        <input type="text" id="badgeOwner" placeholder="Tu nombre">
       </div>
-      <div class="endpoint-body">
-        <p class="endpoint-desc">Registra un sello criptográfico para un activo digital. Retorna una firma única CLHQ verificable.</p>
-        <div class="code-block"><span class="key">// Request</span>
-{
-  <span class="key">"owner":</span> <span class="str">"Nombre-Propietario"</span>,
-  <span class="key">"asset":</span> <span class="str">"descripcion-del-activo"</span>,
-  <span class="key">"hash":</span> <span class="str">"sha256-del-archivo"</span>
-}
-
-<span class="key">// Response</span>
-{
-  <span class="key">"status":</span> <span class="str">"SELLADO"</span>,
-  <span class="key">"sello":</span> {
-    <span class="key">"signature":</span> <span class="str">"CLHQ-A8F3K2M1"</span>,
-    <span class="key">"protocol":</span> <span class="str">"Lenguaje-Binario-HormigasAIS"</span>,
-    <span class="key">"timestamp":</span> <span class="str">"2026-05-08T..."</span>
-  }
-}</div>
+      <div class="field">
+        <label>Válido hasta</label>
+        <input type="text" id="badgeExpiry" placeholder="Jun 2026" id="badgeExpiry">
       </div>
     </div>
+    <button class="btn-gen" onclick="generarBadge()">🐜 Generar Badge PNG</button>
+  </div>
 
-    <div class="endpoint-block">
-      <div class="endpoint-header">
-        <span class="method GET">GET</span>
-        <span class="endpoint-path">api.hormigasais.com/seal/{firma}</span>
-      </div>
-      <div class="endpoint-body">
-        <p class="endpoint-desc">Consulta y verifica la autenticidad de un sello emitido usando su firma CLHQ.</p>
-        <div class="code-block"><span class="key">// Response si existe</span>
-{
-  <span class="key">"status":</span> <span class="str">"VERIFICADO"</span>,
-  <span class="key">"sello":</span> { <span class="val">...</span> }
-}
-
-<span class="key">// Response si no existe</span>
-{
-  <span class="key">"error":</span> <span class="str">"Sello no encontrado"</span>
-}</div>
-      </div>
+  <div class="badge-preview" id="badgePreview">
+    <div class="badge-canvas-wrap">
+      <canvas id="badgeCanvas" width="400" height="120"></canvas>
     </div>
-
-    <div class="endpoint-block">
-      <div class="endpoint-header">
-        <span class="method POST">POST</span>
-        <span class="endpoint-path">api.hormigasais.com/push/{nodo}</span>
-      </div>
-      <div class="endpoint-body">
-        <p class="endpoint-desc">Envía una feromona de aprendizaje desde un nodo de la colonia.</p>
-        <div class="code-block">{
-  <span class="key">"type":</span> <span class="str">"learning"</span>,
-  <span class="key">"value":</span> <span class="val">0.85</span>,
-  <span class="key">"trust":</span> <span class="val">0.9</span>
-}</div>
-      </div>
+    <div class="card-desc" style="margin-bottom:0.8rem;">Código para pegar en tu sitio web:</div>
+    <div class="badge-code" id="badgeCode"></div>
+    <div class="badge-btns">
+      <button class="btn-dl" onclick="descargarBadge()">⬇️ Descargar PNG</button>
+      <button class="btn-dl" onclick="copiarCodigo()">📋 Copiar código HTML</button>
     </div>
+  </div>
+</section>
 
-    <div class="card" style="margin-top:2rem; border-color: rgba(245,197,24,0.2);">
-      <div class="card-title" style="color: var(--amarillo);">🐜 Sobre HormigasAIS</div>
-      <div class="card-desc" style="color: #888; line-height: 1.8;">
-        Desarrollado desde Android/Termux en San Miguel, El Salvador.<br>
-        Sin servidores externos. Sin nube. Soberanía total.<br><br>
-        <strong style="color: #aaa;">Fundador:</strong> Cristhiam Leonardo Hernández Quiñonez (CLHQ)<br>
-        <strong style="color: #aaa;">DOI:</strong> 10.5281/zenodo.19177759<br>
-        <strong style="color: #aaa;">Protocolo:</strong> LBH v2.0 — MESENTERY v1.0
-      </div>
+<!-- VERIFY -->
+<section class="section" id="verify">
+  <div class="card">
+    <div class="card-title">🔍 Verificar sello LBH</div>
+    <div class="card-desc">Ingresa una firma para verificar su autenticidad en la red HormigasAIS.</div>
+    <div class="verify-input-row">
+      <input type="text" id="sigInput" placeholder="CLHQ-XXXXXXXX">
+      <button class="btn-verify" onclick="verificarSello()">Verificar</button>
     </div>
-  </section>
+    <div class="loading" id="loadingVerify"><div class="spinner"></div><div>Consultando red LBH...</div></div>
+    <div class="verify-result" id="verifyResult">
+      <h3 id="verifyTitle"></h3>
+      <div class="sello-data" id="verifyData"></div>
+    </div>
+  </div>
+</section>
+
+<!-- DOCS -->
+<section class="section docs-section" id="docs">
+  <h2>Protocolo LBH</h2>
+  <p class="sub">Lenguaje Binario HormigasAIS — Especificación técnica v2.0</p>
+  <div class="endpoint-block">
+    <div class="endpoint-header"><span class="method GET">GET</span><span class="endpoint-path">api.hormigasais.com/verify</span></div>
+    <div class="endpoint-body"><p class="endpoint-desc">Verifica que el nodo soberano A16 está activo.</p>
+    <div class="code-block">{ "status": "VALIDADO", "signature": "CLHQ-MASTER-KEY", "protocol": "Lenguaje-Binario-HormigasAIS" }</div></div>
+  </div>
+  <div class="endpoint-block">
+    <div class="endpoint-header"><span class="method POST">POST</span><span class="endpoint-path">api.hormigasais.com/seal</span></div>
+    <div class="endpoint-body"><p class="endpoint-desc">Registra un sello criptográfico. Requiere plan activo para uso ilimitado.</p>
+    <div class="code-block">// Request
+{ "owner": "Nombre", "asset": "descripcion", "hash": "sha256" }
+// Response
+{ "status": "SELLADO", "sello": { "signature": "CLHQ-XXXXXX", ... } }</div></div>
+  </div>
+  <div class="endpoint-block">
+    <div class="endpoint-header"><span class="method GET">GET</span><span class="endpoint-path">api.hormigasais.com/seal/{firma}</span></div>
+    <div class="endpoint-body"><p class="endpoint-desc">Verifica la autenticidad de un sello por su firma CLHQ.</p>
+    <div class="code-block">{ "status": "VERIFICADO", "sello": { ... } }</div></div>
+  </div>
+  <div class="card" style="margin-top:2rem;border-color:rgba(245,197,24,0.2);">
+    <div class="card-title" style="color:var(--amarillo);">🐜 Sobre HormigasAIS</div>
+    <div class="card-desc" style="color:#888;line-height:1.8;">
+      Desarrollado desde Android/Termux en San Miguel, El Salvador.<br>
+      Sin servidores externos. Sin nube. Soberanía total.<br><br>
+      <strong style="color:#aaa;">Fundador:</strong> Cristhiam Leonardo Hernández Quiñonez (CLHQ)<br>
+      <strong style="color:#aaa;">DOI:</strong> 10.5281/zenodo.19177759<br>
+      <strong style="color:#aaa;">Protocolo:</strong> LBH v2.0 — MESENTERY v1.0
+    </div>
+  </div>
+</section>
 
 </main>
 
-<footer>
-  🐜 HormigasAIS — Nodo <span>A16-SanMiguel-SV</span> — Protocolo <span>LBH v2.0</span>
-</footer>
+<footer>🐜 HormigasAIS — Nodo <span>A16-SanMiguel-SV</span> — Protocolo <span>LBH v2.0</span></footer>
 
 <script>
 const API = 'https://api.hormigasais.com';
 let currentSig = '';
+let selloCount = parseInt(localStorage.getItem('lbh_sello_count') || '0');
+const FREE_LIMIT = 3;
 
-// Verificar estado API al cargar
+// Colores por plan
+const PLAN_COLORS = {
+  free:       { bg: '#1a1a1a', accent: '#f5c518', label: 'Free',        icon: '🐜' },
+  premium:    { bg: '#1a1220', accent: '#a855f7', label: 'Premium ⭐',  icon: '🐜' },
+  enterprise: { bg: '#0a1a1a', accent: '#00ff9f', label: 'Enterprise 🏢', icon: '🐜' }
+};
+
+// Expiración por plan
+function calcExpiry(plan) {
+  const d = new Date();
+  if (plan === 'free')       d.setDate(d.getDate() + 30);
+  else if (plan === 'premium') d.setFullYear(d.getFullYear() + 1);
+  else return 'Permanente';
+  return d.toLocaleDateString('es', { month: 'short', year: 'numeric' });
+}
+
 async function checkStatus() {
   try {
     const r = await fetch(API + '/verify');
     const d = await r.json();
-    if (d.status === 'VALIDADO') {
-      document.getElementById('statusText').textContent = 'Nodo A16 · Online';
-    }
-  } catch(e) {
-    document.getElementById('statusText').textContent = 'Reconectando...';
-  }
+    if (d.status === 'VALIDADO') document.getElementById('statusText').textContent = 'Nodo A16 · Online';
+  } catch(e) { document.getElementById('statusText').textContent = 'Reconectando...'; }
 }
 
-// Cargar stats
 async function loadStats() {
   try {
     const r = await fetch(API + '/all');
     const d = await r.json();
-    // Contar sellos
-    const sellos = d.filter ? d.filter(x => false).length : 0;
-    document.getElementById('statSellos').textContent = d.length || '—';
+    document.getElementById('statSellos').textContent = Array.isArray(d) ? d.length : '—';
   } catch(e) {}
 }
 
-// Cambiar sección
 function showSection(id, btn) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  btn.classList.add('active');
+  if (btn) btn.classList.add('active');
 }
 
 // Drag & drop
 const zone = document.getElementById('uploadZone');
 zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('dragover'); });
 zone.addEventListener('dragleave', () => zone.classList.remove('dragover'));
-zone.addEventListener('drop', e => {
-  e.preventDefault();
-  zone.classList.remove('dragover');
-  const file = e.dataTransfer.files[0];
-  if (file) handleFile(file);
-});
-
-document.getElementById('fileInput').addEventListener('change', e => {
-  if (e.target.files[0]) handleFile(e.target.files[0]);
-});
+zone.addEventListener('drop', e => { e.preventDefault(); zone.classList.remove('dragover'); const f = e.dataTransfer.files[0]; if(f) handleFile(f); });
+document.getElementById('fileInput').addEventListener('change', e => { if(e.target.files[0]) handleFile(e.target.files[0]); });
 
 function handleFile(file) {
-  zone.querySelector('p').innerHTML = `<strong>${file.name}</strong> (${(file.size/1024).toFixed(1)} KB)`;
+  zone.querySelector('p').innerHTML = '<strong>' + file.name + '</strong> (' + (file.size/1024).toFixed(1) + ' KB)';
   zone.style.borderColor = 'var(--amarillo)';
-  if (!document.getElementById('assetInput').value) {
-    document.getElementById('assetInput').value = file.name;
-  }
+  if (!document.getElementById('assetInput').value) document.getElementById('assetInput').value = file.name;
 }
 
-// Calcular hash SHA256
 async function sha256(file) {
   const buf = await file.arrayBuffer();
-  const hashBuf = await crypto.subtle.digest('SHA-256', buf);
-  const arr = Array.from(new Uint8Array(hashBuf));
-  return arr.map(b => b.toString(16).padStart(2,'0')).join('');
+  const h = await crypto.subtle.digest('SHA-256', buf);
+  return Array.from(new Uint8Array(h)).map(b => b.toString(16).padStart(2,'0')).join('');
 }
 
-// Sellar activo
 async function sellarActivo() {
+  const plan = document.getElementById('planSelect').value;
+  if (plan === 'free' && selloCount >= FREE_LIMIT) {
+    alert('Has alcanzado el límite de 3 sellos del plan Free. Actualiza a Premium para continuar.');
+    showSection('planes', document.querySelectorAll('nav button')[1]);
+    return;
+  }
   const file = document.getElementById('fileInput').files[0];
   const owner = document.getElementById('ownerInput').value.trim() || 'Anónimo';
   const asset = document.getElementById('assetInput').value.trim() || 'activo-digital';
-
   const btn = document.getElementById('btnSeal');
   const loading = document.getElementById('loadingSello');
   const result = document.getElementById('selloResult');
-
   result.classList.remove('visible');
   loading.classList.add('visible');
   btn.disabled = true;
-
   try {
     let hash = '';
     if (file) hash = await sha256(file);
-
     const res = await fetch(API + '/seal', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ owner, asset, hash })
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ owner, asset, hash, plan })
     });
-
     const data = await res.json();
-
     if (data.status === 'SELLADO' && data.sello) {
       const s = data.sello;
       currentSig = s.signature;
-
+      if (plan === 'free') {
+        selloCount++;
+        localStorage.setItem('lbh_sello_count', selloCount);
+      }
+      const expiry = calcExpiry(plan);
       const rows = [
         ['Estado', '✅ SELLADO'],
         ['Firma', s.signature],
         ['Propietario', s.owner],
         ['Activo', s.asset],
+        ['Plan', plan.toUpperCase()],
+        ['Válido hasta', expiry],
         ['Protocolo', s.protocol],
         ['Nodo', s.nodo],
         ['Timestamp', new Date(s.timestamp).toLocaleString()],
       ];
-
       if (hash) rows.push(['SHA-256', hash.substring(0,32) + '...']);
-
       document.getElementById('selloData').innerHTML = rows.map(([k,v]) =>
-        `<div class="sello-row"><span class="sello-key">${k}</span><span class="sello-val">${v}</span></div>`
+        '<div class="sello-row"><span class="sello-key">' + k + '</span><span class="sello-val">' + v + '</span></div>'
       ).join('');
-
+      if (plan === 'free') {
+        document.getElementById('planLimit').innerHTML =
+          '🐜 Sellos usados: ' + selloCount + '/' + FREE_LIMIT + ' — <a href="#" onclick="showSection(\'planes\',document.querySelectorAll(\'nav button\')[1]);return false;" style="color:var(--amarillo)">Actualiza a Premium →</a>';
+        document.getElementById('planLimit').style.display = 'block';
+      } else {
+        document.getElementById('planLimit').style.display = 'none';
+      }
+      // Pre-llenar badge
+      document.getElementById('badgeSig').value = s.signature;
+      document.getElementById('badgeOwner').value = s.owner;
+      document.getElementById('badgeExpiry').value = expiry;
+      document.getElementById('badgePlan').value = plan;
       result.classList.add('visible');
     }
-  } catch(e) {
-    alert('Error conectando con el nodo A16. Verifica tu conexión.');
-  }
-
+  } catch(e) { alert('Error conectando con el nodo A16.'); }
   loading.classList.remove('visible');
   btn.disabled = false;
 }
 
 function copiarSello() {
   navigator.clipboard.writeText(currentSig).then(() => {
-    const btn = document.getElementById('copyBtn');
-    btn.textContent = '✅ Copiado';
-    setTimeout(() => btn.textContent = '📋 Copiar firma', 2000);
+    const btns = document.querySelectorAll('.btn-dl');
+    btns[0].textContent = '✅ Copiado';
+    setTimeout(() => btns[0].textContent = '📋 Copiar firma', 2000);
   });
 }
 
-// Verificar sello
+// BADGE GENERATOR
+function generarBadge() {
+  const sig    = document.getElementById('badgeSig').value.trim() || 'CLHQ-XXXXXXXX';
+  const plan   = document.getElementById('badgePlan').value;
+  const owner  = document.getElementById('badgeOwner').value.trim() || 'Propietario';
+  const expiry = document.getElementById('badgeExpiry').value.trim() || calcExpiry(plan);
+  const c = document.getElementById('badgeCanvas');
+  const ctx = c.getContext('2d');
+  const cfg = PLAN_COLORS[plan];
+
+  // Fondo
+  ctx.fillStyle = cfg.bg;
+  ctx.beginPath();
+  ctx.roundRect(0, 0, 400, 120, 10);
+  ctx.fill();
+
+  // Borde
+  ctx.strokeStyle = cfg.accent;
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.roundRect(1, 1, 398, 118, 10);
+  ctx.stroke();
+
+  // Barra izquierda
+  ctx.fillStyle = cfg.accent;
+  ctx.fillRect(0, 0, 4, 120);
+
+  // Icono hormiga
+  ctx.font = 'bold 28px serif';
+  ctx.fillText('🐜', 18, 52);
+
+  // Título
+  ctx.fillStyle = cfg.accent;
+  ctx.font = 'bold 13px monospace';
+  ctx.fillText('CERTIFICADO LBH · ' + cfg.label.toUpperCase(), 58, 28);
+
+  // Firma
+  ctx.fillStyle = '#ffffff';
+  ctx.font = 'bold 16px monospace';
+  ctx.fillText(sig, 58, 52);
+
+  // Propietario
+  ctx.fillStyle = '#aaaaaa';
+  ctx.font = '11px monospace';
+  ctx.fillText('Propietario: ' + owner, 58, 72);
+
+  // Expiración
+  ctx.fillStyle = '#666666';
+  ctx.font = '10px monospace';
+  ctx.fillText('Válido hasta: ' + expiry + '  |  hormigasais.com/verify', 58, 90);
+
+  // Línea inferior
+  ctx.fillStyle = cfg.accent;
+  ctx.font = '9px monospace';
+  ctx.fillText('Protocolo: Lenguaje-Binario-HormigasAIS  ·  Nodo: A16-SanMiguel-SV', 18, 110);
+
+  // Mostrar preview y código
+  const dataURL = c.toDataURL('image/png');
+  document.getElementById('badgeCode').textContent =
+'<!-- Badge HormigasAIS LBH -->\n' +
+'<a href="https://hormigasais.com/verify" target="_blank">\n' +
+'  <img src="' + dataURL.substring(0, 60) + '..."\n' +
+'       alt="Certificado LBH ' + sig + '"\n' +
+'       title="Verificar en hormigasais.com"\n' +
+'       style="height:60px;border-radius:6px;">\n' +
+'</a>\n' +
+'<!-- Firma: ' + sig + ' | Plan: ' + plan + ' | Válido hasta: ' + expiry + ' -->';
+
+  document.getElementById('badgePreview').classList.add('visible');
+}
+
+function descargarBadge() {
+  const c = document.getElementById('badgeCanvas');
+  const sig = document.getElementById('badgeSig').value.trim() || 'badge-lbh';
+  const a = document.createElement('a');
+  a.download = 'badge-lbh-' + sig + '.png';
+  a.href = c.toDataURL('image/png');
+  a.click();
+}
+
+function copiarCodigo() {
+  const code = document.getElementById('badgeCode').textContent;
+  navigator.clipboard.writeText(code).then(() => {
+    const btns = document.querySelectorAll('.badge-btns .btn-dl');
+    btns[1].textContent = '✅ Copiado';
+    setTimeout(() => btns[1].textContent = '📋 Copiar código HTML', 2000);
+  });
+}
+
+// VERIFY
 async function verificarSello() {
   const sig = document.getElementById('sigInput').value.trim();
   if (!sig) return;
-
   const loading = document.getElementById('loadingVerify');
   const result = document.getElementById('verifyResult');
-
   result.className = 'verify-result';
   loading.classList.add('visible');
-
   try {
     const res = await fetch(API + '/seal/' + sig);
     const data = await res.json();
-
     if (data.status === 'VERIFICADO' && data.sello) {
       const s = data.sello;
       const rows = [
@@ -931,10 +742,9 @@ async function verificarSello() {
         ['Nodo emisor', s.nodo],
         ['Emitido', new Date(s.timestamp).toLocaleString()],
       ];
-
       document.getElementById('verifyTitle').textContent = '✅ Sello verificado — Auténtico';
       document.getElementById('verifyData').innerHTML = rows.map(([k,v]) =>
-        `<div class="sello-row"><span class="sello-key">${k}</span><span class="sello-val">${v}</span></div>`
+        '<div class="sello-row"><span class="sello-key">' + k + '</span><span class="sello-val">' + v + '</span></div>'
       ).join('');
       result.classList.add('ok');
     } else {
@@ -944,19 +754,13 @@ async function verificarSello() {
     }
   } catch(e) {
     document.getElementById('verifyTitle').textContent = '⚠️ Error de conexión';
-    document.getElementById('verifyData').innerHTML = '';
     result.classList.add('err');
   }
-
   loading.classList.remove('visible');
 }
 
-// Enter en campo verificar
-document.getElementById('sigInput').addEventListener('keydown', e => {
-  if (e.key === 'Enter') verificarSello();
-});
+document.getElementById('sigInput').addEventListener('keydown', e => { if(e.key==='Enter') verificarSello(); });
 
-// Init
 checkStatus();
 loadStats();
 </script>
