@@ -244,6 +244,7 @@
   <button onclick="showSection('badge',this)">🏷️ Badge</button>
   <button onclick="showSection('verify',this)">🔍 Verificar</button>
   <button onclick="showSection('docs',this)">📖 Protocolo</button>
+  <button onclick="showSection('admin',this)">🔐 Admin</button>
 </nav>
 
 <main>
@@ -768,3 +769,137 @@ loadStats();
 </script>
 </body>
 </html>
+<script>
+// Inyectar sección admin en el DOM
+document.addEventListener('DOMContentLoaded', function() {
+  const main = document.querySelector('main');
+  if (!main) return;
+
+  const adminSection = document.createElement('section');
+  adminSection.className = 'section';
+  adminSection.id = 'admin';
+  adminSection.innerHTML = `
+    <div style="font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;color:#fff;margin-bottom:0.5rem;">🔐 Panel de Auditoría</div>
+    <p style="color:#555;font-size:0.8rem;margin-bottom:2rem;">Acceso privado — Solo para CLHQ</p>
+
+    <div style="background:#1a1a1a;border:1px solid #2a2a2a;border-radius:12px;padding:2rem;margin-bottom:1.5rem;">
+      <div style="font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;color:#fff;margin-bottom:1rem;">Clave de acceso</div>
+      <div style="display:flex;gap:0.8rem;margin-bottom:1rem;">
+        <input type="password" id="auditKey" placeholder="CLHQ-AUDIT-XXXX"
+          style="flex:1;background:#0a0a0a;border:1px solid #333;border-radius:6px;color:#e8e8e8;font-family:'Space Mono',monospace;font-size:0.82rem;padding:0.8rem 1rem;outline:none;">
+        <button onclick="cargarAuditoria()" style="background:#f5c518;color:#0a0a0a;border:none;font-family:'Space Mono',monospace;font-size:0.8rem;font-weight:700;padding:0.8rem 1.2rem;border-radius:6px;cursor:pointer;">Acceder</button>
+      </div>
+      <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+        <button onclick="filtrarAudit('SEAL_EMITIDO')" style="background:#1a1a1a;border:1px solid #333;color:#aaa;font-family:'Space Mono',monospace;font-size:0.7rem;padding:0.4rem 0.8rem;border-radius:4px;cursor:pointer;">🔏 Sellos</button>
+        <button onclick="filtrarAudit('SEAL_VERIFICADO')" style="background:#1a1a1a;border:1px solid #333;color:#aaa;font-family:'Space Mono',monospace;font-size:0.7rem;padding:0.4rem 0.8rem;border-radius:4px;cursor:pointer;">🔍 Verificaciones</button>
+        <button onclick="filtrarAudit('VERIFY')" style="background:#1a1a1a;border:1px solid #333;color:#aaa;font-family:'Space Mono',monospace;font-size:0.7rem;padding:0.4rem 0.8rem;border-radius:4px;cursor:pointer;">📡 Pings API</button>
+        <button onclick="cargarStats()" style="background:#1a1a1a;border:1px solid #333;color:#f5c518;font-family:'Space Mono',monospace;font-size:0.7rem;padding:0.4rem 0.8rem;border-radius:4px;cursor:pointer;">📊 Stats</button>
+        <button onclick="cargarAuditoria()" style="background:#1a1a1a;border:1px solid #333;color:#aaa;font-family:'Space Mono',monospace;font-size:0.7rem;padding:0.4rem 0.8rem;border-radius:4px;cursor:pointer;">🔄 Todo</button>
+      </div>
+    </div>
+
+    <div id="statsPanel" style="display:none;background:#1a1a1a;border:1px solid rgba(0,255,159,0.2);border-radius:8px;padding:1.5rem;margin-bottom:1.5rem;"></div>
+
+    <div id="auditPanel" style="background:#1a1a1a;border:1px solid #2a2a2a;border-radius:8px;padding:1.5rem;">
+      <div style="color:#555;font-size:0.8rem;text-align:center;">Ingresa tu clave para ver los logs</div>
+    </div>
+  `;
+  main.appendChild(adminSection);
+});
+
+const API = 'https://api.hormigasais.com';
+
+async function cargarAuditoria(tipo) {
+  const key = document.getElementById('auditKey').value.trim();
+  if (!key) { alert('Ingresa tu clave de auditoría'); return; }
+
+  const panel = document.getElementById('auditPanel');
+  panel.innerHTML = '<div style="text-align:center;color:#555;padding:2rem;">Cargando logs...</div>';
+
+  try {
+    let url = API + '/audit?limit=50&key=' + encodeURIComponent(key);
+    if (tipo) url += '&tipo=' + tipo;
+
+    const r = await fetch(url);
+    const data = await r.json();
+
+    if (data.error) {
+      panel.innerHTML = '<div style="color:#ff4444;text-align:center;padding:1rem;">❌ ' + data.error + '</div>';
+      return;
+    }
+
+    const rows = data.eventos.map(e => {
+      const color = {
+        'SEAL_EMITIDO': '#f5c518',
+        'SEAL_VERIFICADO': '#00ff9f',
+        'SEAL_ERROR': '#ff4444',
+        'AUDIT_ACCESO_DENEGADO': '#ff4444',
+        'VERIFY': '#4a9eff',
+        'VISIT': '#666',
+        'FEROMONA_PUSH': '#a855f7'
+      }[e.tipo] || '#aaa';
+
+      return '<div style="display:grid;grid-template-columns:140px 160px 1fr;gap:0.5rem;padding:0.6rem 0;border-bottom:1px solid #1a1a1a;font-size:0.72rem;">' +
+        '<span style="color:' + color + '">' + e.tipo + '</span>' +
+        '<span style="color:#555">' + new Date(e.ts).toLocaleString() + '</span>' +
+        '<span style="color:#888">' + (e.owner || e.signature || e.path || e.node || '') +
+        (e.plan ? ' [' + e.plan + ']' : '') +
+        (e.pais && e.pais !== 'unknown' ? ' 🌍' + e.pais : '') + '</span>' +
+        '</div>';
+    }).join('');
+
+    panel.innerHTML =
+      '<div style="display:flex;justify-content:space-between;margin-bottom:1rem;">' +
+      '<span style="color:#aaa;font-size:0.78rem;">Total: <strong style="color:#f5c518">' + data.total + '</strong> eventos</span>' +
+      '<span style="color:#555;font-size:0.7rem;">' + (data.hasta ? new Date(data.hasta).toLocaleDateString() : '') + '</span>' +
+      '</div>' +
+      '<div style="display:grid;grid-template-columns:140px 160px 1fr;gap:0.5rem;padding:0.4rem 0;border-bottom:1px solid #333;font-size:0.65rem;color:#444;text-transform:uppercase;letter-spacing:0.06em;">' +
+      '<span>Tipo</span><span>Fecha/Hora</span><span>Detalle</span></div>' +
+      rows;
+
+  } catch(e) {
+    panel.innerHTML = '<div style="color:#ff4444;text-align:center;padding:1rem;">⚠️ Error de conexión</div>';
+  }
+}
+
+async function filtrarAudit(tipo) {
+  await cargarAuditoria(tipo);
+}
+
+async function cargarStats() {
+  const key = document.getElementById('auditKey').value.trim();
+  if (!key) { alert('Ingresa tu clave de auditoría'); return; }
+
+  const statsPanel = document.getElementById('statsPanel');
+  statsPanel.style.display = 'block';
+  statsPanel.innerHTML = 'Cargando stats...';
+
+  try {
+    const r = await fetch(API + '/audit/stats?key=' + encodeURIComponent(key));
+    const data = await r.json();
+
+    if (data.error) {
+      statsPanel.innerHTML = '<span style="color:#ff4444">' + data.error + '</span>';
+      return;
+    }
+
+    const s = data.stats;
+    const tiposHtml = Object.entries(s.por_tipo || {})
+      .sort((a,b) => b[1]-a[1])
+      .map(([tipo, cnt]) => '<span style="color:#aaa;font-size:0.75rem;">' + tipo + ': <strong style="color:#f5c518">' + cnt + '</strong></span>')
+      .join(' · ');
+
+    statsPanel.innerHTML =
+      '<div style="font-family:Syne,sans-serif;font-size:0.9rem;font-weight:700;color:#00ff9f;margin-bottom:0.8rem;">📊 Estadísticas del Nodo A16</div>' +
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;">' +
+      '<div style="text-align:center;"><div style="font-family:Syne,sans-serif;font-size:1.8rem;font-weight:800;color:#f5c518">' + s.total_sellos + '</div><div style="font-size:0.7rem;color:#555">SELLOS EMITIDOS</div></div>' +
+      '<div style="text-align:center;"><div style="font-family:Syne,sans-serif;font-size:1.8rem;font-weight:800;color:#f5c518">' + s.total_eventos + '</div><div style="font-size:0.7rem;color:#555">EVENTOS TOTALES</div></div>' +
+      '</div>' +
+      '<div style="font-size:0.72rem;color:#555;margin-bottom:0.5rem;">Por tipo:</div>' +
+      '<div style="display:flex;flex-wrap:wrap;gap:0.8rem;">' + tiposHtml + '</div>';
+
+  } catch(e) {
+    statsPanel.innerHTML = '<span style="color:#ff4444">Error de conexión</span>';
+  }
+}
+</script>
