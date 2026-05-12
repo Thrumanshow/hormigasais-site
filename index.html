@@ -245,7 +245,7 @@
   <button onclick="showSection('verify',this)">🔍 Verificar</button>
   <button onclick="showSection('docs',this)">📖 Protocolo</button>
   <button onclick="showSection('admin',this)">🔐 Admin</button>
-  <button onclick="showSection('admin',this)">🔐 Admin</button>
+  
 </nav>
 
 <main>
@@ -393,6 +393,7 @@
     <div style="display:flex;gap:0.8rem;margin-top:1rem;flex-wrap:wrap;">
       <button class="btn-dl" onclick="copiarSello()">📋 Copiar firma</button>
       <button class="btn-dl" onclick="showSection('badge',document.querySelectorAll('nav button')[3])">🏷️ Generar badge →</button>
+      <button class="btn-dl" onclick="descargarManifest()" id="btnManifest">📄 Descargar Manifest →</button>
     </div>
   </div>
 </section>
@@ -1035,6 +1036,57 @@ async function cargarStats() {
 
   } catch(e) {
     statsPanel.innerHTML = '<span style="color:#ff4444">Error de conexión</span>';
+  }
+}
+</script>
+<script>
+async function descargarManifest() {
+  if (!currentSig) { alert('Primero genera un sello'); return; }
+  const btn = document.getElementById('btnManifest');
+  btn.textContent = '⏳ Generando...';
+  try {
+    const r = await fetch('https://api.hormigasais.com/manifest/' + currentSig);
+    if (!r.ok) { alert('Error al generar manifest'); return; }
+    const blob = await r.blob();
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'manifest-' + currentSig + '.json';
+    a.click();
+    btn.textContent = '✅ Descargado';
+    setTimeout(() => btn.textContent = '📄 Descargar Manifest →', 3000);
+  } catch(e) {
+    alert('Error de conexión');
+    btn.textContent = '📄 Descargar Manifest →';
+  }
+}
+
+// Agregar botón de manifest en verificación también
+const origVerify = window.verificarSello;
+window.verificarSelloConManifest = async function() {
+  await verificarSello();
+  const result = document.getElementById('verifyResult');
+  if (result && result.classList.contains('ok')) {
+    const sig = document.getElementById('sigInput').value.trim();
+    if (!document.getElementById('btnVerifyManifest')) {
+      const btn = document.createElement('button');
+      btn.id = 'btnVerifyManifest';
+      btn.className = 'btn-verify';
+      btn.style.marginTop = '1rem';
+      btn.style.width = '100%';
+      btn.textContent = '📄 Descargar Manifest de este sello';
+      btn.onclick = async () => {
+        btn.textContent = '⏳ Generando...';
+        const r = await fetch('https://api.hormigasais.com/manifest/' + sig);
+        const blob = await r.blob();
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'manifest-' + sig + '.json';
+        a.click();
+        btn.textContent = '✅ Descargado';
+        setTimeout(() => btn.textContent = '📄 Descargar Manifest de este sello', 3000);
+      };
+      result.appendChild(btn);
+    }
   }
 }
 </script>
