@@ -1090,3 +1090,107 @@ window.verificarSelloConManifest = async function() {
   }
 }
 </script>
+<script>
+// Verificación de archivo por hash (firma fuerte)
+async function verificarArchivo() {
+  const fileInput = document.getElementById('verifyFileInput');
+  const file = fileInput ? fileInput.files[0] : null;
+  if (!file) { alert('Selecciona un archivo para verificar'); return; }
+
+  const btn = document.getElementById('btnVerifyFile');
+  const result = document.getElementById('verifyFileResult');
+  if (btn) btn.textContent = '⏳ Calculando hash...';
+  if (result) result.style.display = 'none';
+
+  try {
+    // Calcular SHA-256 del archivo en el navegador
+    const buf = await file.arrayBuffer();
+    const hashBuf = await crypto.subtle.digest('SHA-256', buf);
+    const hash = Array.from(new Uint8Array(hashBuf))
+      .map(b => b.toString(16).padStart(2,'0')).join('');
+
+    if (btn) btn.textContent = '⏳ Verificando en red LBH...';
+
+    const r = await fetch('https://api.hormigasais.com/verify-file', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ hash })
+    });
+    const data = await r.json();
+
+    if (result) {
+      result.style.display = 'block';
+      if (data.status === 'VERIFICADO') {
+        const s = data.sello;
+        result.style.borderColor = 'rgba(0,255,159,0.3)';
+        result.style.background = 'rgba(0,255,159,0.04)';
+        result.innerHTML =
+          '<div style="color:#00ff9f;font-size:0.85rem;font-weight:700;margin-bottom:1rem;">✅ Archivo auténtico — Sello LBH verificado</div>' +
+          '<div style="font-size:0.75rem;color:#aaa;line-height:1.8;">' +
+          '<div><span style="color:#555">FIRMA:</span> <span style="color:#00ff9f">' + s.signature + '</span></div>' +
+          '<div><span style="color:#555">PROPIETARIO:</span> ' + s.owner + '</div>' +
+          '<div><span style="color:#555">ACTIVO:</span> ' + s.asset + '</div>' +
+          '<div><span style="color:#555">EMITIDO:</span> ' + new Date(s.emitido).toLocaleString() + '</div>' +
+          '<div><span style="color:#555">HASH:</span> <span style="font-size:0.65rem">' + hash.substring(0,32) + '...</span></div>' +
+          '<div style="margin-top:0.5rem;color:#f5c518">' + (data.firma_fuerte || '') + '</div>' +
+          '</div>';
+      } else {
+        result.style.borderColor = 'rgba(255,68,68,0.3)';
+        result.style.background = 'rgba(255,68,68,0.04)';
+        result.innerHTML =
+          '<div style="color:#ff4444;font-size:0.85rem;font-weight:700;margin-bottom:0.5rem;">❌ Archivo no registrado</div>' +
+          '<div style="font-size:0.75rem;color:#888;">Este archivo no tiene ningún sello LBH. Puedes sellarlo en la pestaña 🔏 Sellar.</div>' +
+          '<div style="font-size:0.65rem;color:#555;margin-top:0.5rem;">Hash calculado: ' + hash.substring(0,32) + '...</div>';
+      }
+    }
+  } catch(e) {
+    if (result) {
+      result.style.display = 'block';
+      result.innerHTML = '<div style="color:#ff4444">⚠️ Error de conexión con el nodo A16</div>';
+    }
+  }
+  if (btn) btn.textContent = '🔍 Verificar archivo';
+}
+
+// Inyectar UI de verificación de archivo en la sección verify
+document.addEventListener('DOMContentLoaded', function() {
+  const verifySection = document.getElementById('verify');
+  if (!verifySection) return;
+
+  const divider = document.createElement('div');
+  divider.style.cssText = 'border-top:1px solid #222;margin:1.5rem 0;padding-top:1.5rem;';
+  divider.innerHTML =
+    '<div style="font-family:Syne,sans-serif;font-size:1rem;font-weight:700;color:#fff;margin-bottom:0.4rem;">🔐 Verificación por archivo (Firma Fuerte)</div>' +
+    '<div style="font-size:0.78rem;color:#666;margin-bottom:1rem;">Sube el archivo original para verificar si coincide criptográficamente con un sello LBH registrado.</div>' +
+    '<div style="border:2px dashed #333;border-radius:8px;padding:1.5rem;text-align:center;margin-bottom:1rem;position:relative;cursor:pointer;" ' +
+    'onmouseover="this.style.borderColor=\'#f5c518\'" onmouseout="this.style.borderColor=\'#333\'">' +
+    '<input type="file" id="verifyFileInput" style="position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;">' +
+    '<div style="font-size:1.5rem;margin-bottom:0.5rem;">📂</div>' +
+    '<div style="font-size:0.8rem;color:#555;"><strong style="color:#f5c518">Arrastra el archivo</strong> o haz clic para seleccionar</div>' +
+    '<div style="font-size:0.7rem;color:#444;margin-top:0.3rem;">El hash SHA-256 se calcula en tu dispositivo — el archivo no se sube a ningún servidor</div>' +
+    '</div>' +
+    '<button id="btnVerifyFile" onclick="verificarArchivo()" ' +
+    'style="width:100%;background:#1a1a1a;border:1px solid #333;color:#e8e8e8;font-family:Space Mono,monospace;font-size:0.8rem;padding:0.9rem;border-radius:6px;cursor:pointer;transition:all 0.2s;" ' +
+    'onmouseover="this.style.borderColor=\'#f5c518\';this.style.color=\'#f5c518\'" ' +
+    'onmouseout="this.style.borderColor=\'#333\';this.style.color=\'#e8e8e8\'">' +
+    '🔍 Verificar archivo' +
+    '</button>' +
+    '<div id="verifyFileResult" style="display:none;margin-top:1rem;border:1px solid #333;border-radius:8px;padding:1.2rem;"></div>';
+
+  const card = verifySection.querySelector('.card');
+  if (card) card.appendChild(divider);
+
+  // Actualizar nombre de archivo seleccionado
+  setTimeout(() => {
+    const fi = document.getElementById('verifyFileInput');
+    if (fi) fi.addEventListener('change', e => {
+      const f = e.target.files[0];
+      if (f) {
+        const zone = fi.closest('div');
+        if (zone) zone.querySelector('div:nth-child(3)').innerHTML =
+          '<strong style="color:#f5c518">' + f.name + '</strong> (' + (f.size/1024).toFixed(1) + ' KB)';
+      }
+    });
+  }, 100);
+});
+</script>
