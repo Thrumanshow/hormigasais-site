@@ -65,8 +65,8 @@
   nav button:hover { color: var(--texto); }
   nav button.active { color: var(--amarillo); border-bottom-color: var(--amarillo); }
   main { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; padding: 3rem 2rem; }
-  .section { display: none; }
-  .section.active { display: block; }
+  .section { display: none; opacity: 0; transition: opacity 0.3s; }
+  .section.active { display: block !important; opacity: 1 !important; }
 
   /* HERO */
   .hero { text-align: center; padding: 2rem 0 3rem; }
@@ -495,8 +495,49 @@
   </div>
 </section>
 
-<section class="section" id="colonia"></section>
-<section class="section" id="admin"></section>
+<section class="section" id="colonia">
+  <div style="font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;color:#fff;margin-bottom:0.3rem;">🐜 Colonia HormigasAIS</div>
+  <p style="color:#555;font-size:0.78rem;margin-bottom:2rem;">Red distribuida soberana — Nodo maestro A16-SanMiguel-SV</p>
+  <div id="consensoPublico" style="background:#1a1a1a;border:1px solid #2a2a2a;border-radius:12px;padding:1.5rem;margin-bottom:1.5rem;">
+    <div style="text-align:center;color:#555;font-size:0.8rem;">Cargando estado de la colonia...</div>
+  </div>
+  <div id="nodosPublicos" style="margin-bottom:1.5rem;"></div>
+  <div style="background:#1a1a1a;border:1px solid #2a2a2a;border-radius:8px;padding:1.2rem;">
+    <div style="font-size:0.78rem;color:#666;margin-bottom:0.8rem;">🔐 Ver detalles técnicos (admin)</div>
+    <div style="display:flex;gap:0.8rem;">
+      <input type="password" id="coloniaAdminKey" placeholder="Clave admin"
+        style="flex:1;background:#0a0a0a;border:1px solid #333;border-radius:6px;color:#e8e8e8;font-family:'Space Mono',monospace;font-size:0.78rem;padding:0.6rem 0.9rem;outline:none;">
+      <button onclick="cargarColoniaAdmin()"
+        style="background:#1a1a1a;border:1px solid #333;color:#aaa;font-family:'Space Mono',monospace;font-size:0.75rem;padding:0.6rem 1rem;border-radius:6px;cursor:pointer;">
+        Ver detalles
+      </button>
+    </div>
+    <div id="coloniaAdminData" style="margin-top:1rem;"></div>
+  </div>
+</section>
+<section class="section" id="admin">
+  <div style="font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;color:#fff;margin-bottom:0.5rem;">🔐 Panel de Auditoría</div>
+  <p style="color:#555;font-size:0.8rem;margin-bottom:2rem;">Acceso privado — Solo para CLHQ</p>
+  <div style="background:#1a1a1a;border:1px solid #2a2a2a;border-radius:12px;padding:2rem;margin-bottom:1.5rem;">
+    <div style="font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;color:#fff;margin-bottom:1rem;">Clave de acceso</div>
+    <div style="display:flex;gap:0.8rem;margin-bottom:1rem;">
+      <input type="password" id="auditKey" placeholder="CLHQ-AUDIT-XXXX"
+        style="flex:1;background:#0a0a0a;border:1px solid #333;border-radius:6px;color:#e8e8e8;font-family:'Space Mono',monospace;font-size:0.82rem;padding:0.8rem 1rem;outline:none;">
+      <button onclick="cargarAuditoria()" style="background:#f5c518;color:#0a0a0a;border:none;font-family:'Space Mono',monospace;font-size:0.8rem;font-weight:700;padding:0.8rem 1.2rem;border-radius:6px;cursor:pointer;">Acceder</button>
+    </div>
+    <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+      <button onclick="filtrarAudit('SEAL_EMITIDO')" style="background:#1a1a1a;border:1px solid #333;color:#aaa;font-family:'Space Mono',monospace;font-size:0.7rem;padding:0.4rem 0.8rem;border-radius:4px;cursor:pointer;">🔏 Sellos</button>
+      <button onclick="filtrarAudit('SEAL_VERIFICADO')" style="background:#1a1a1a;border:1px solid #333;color:#aaa;font-family:'Space Mono',monospace;font-size:0.7rem;padding:0.4rem 0.8rem;border-radius:4px;cursor:pointer;">🔍 Verificaciones</button>
+      <button onclick="filtrarAudit('VERIFY')" style="background:#1a1a1a;border:1px solid #333;color:#aaa;font-family:'Space Mono',monospace;font-size:0.7rem;padding:0.4rem 0.8rem;border-radius:4px;cursor:pointer;">📡 Pings</button>
+      <button onclick="cargarStats()" style="background:#1a1a1a;border:1px solid #333;color:#f5c518;font-family:'Space Mono',monospace;font-size:0.7rem;padding:0.4rem 0.8rem;border-radius:4px;cursor:pointer;">📊 Stats</button>
+      <button onclick="cargarAuditoria()" style="background:#1a1a1a;border:1px solid #333;color:#aaa;font-family:'Space Mono',monospace;font-size:0.7rem;padding:0.4rem 0.8rem;border-radius:4px;cursor:pointer;">🔄 Todo</button>
+    </div>
+  </div>
+  <div id="statsPanel" style="display:none;background:#1a1a1a;border:1px solid rgba(0,255,159,0.2);border-radius:8px;padding:1.5rem;margin-bottom:1.5rem;"></div>
+  <div id="auditPanel" style="background:#1a1a1a;border:1px solid #2a2a2a;border-radius:8px;padding:1.5rem;">
+    <div style="color:#555;font-size:0.8rem;text-align:center;">Ingresa tu clave para ver los logs</div>
+  </div>
+</section>
 </main>
 
 <footer>🐜 HormigasAIS — Nodo <span>A16-SanMiguel-SV</span> — Protocolo <span>LBH v2.0</span></footer>
