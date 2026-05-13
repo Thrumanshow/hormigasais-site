@@ -901,9 +901,42 @@ async function cargarStats() {
 <script>
 const API = 'https://api.hormigasais.com';
 
+
+const API = "https://api.hormigasais.com";
+
 async function cargarAuditoria(tipo) {
-  const key = document.getElementById('auditKey').value.trim();
-  if (!key) { alert('Ingresa tu clave de auditoría'); return; }
+    const keyInput = document.getElementById('auditKey');
+    const panel = document.getElementById('auditPanel');
+    if (!keyInput || !panel) return;
+    
+    const key = keyInput.value.trim();
+    if (!key) { alert('Ingresa tu clave de auditoría CLHQ'); return; }
+
+    panel.innerHTML = '<div style="text-align:center;color:#f5c518;padding:2rem;">📡 Sincronizando con la Colonia...</div>';
+
+    try {
+        let url = `${API}/audit?key=${encodeURIComponent(key)}`;
+        if (tipo) url += `&tipo=${tipo}`;
+        
+        const r = await fetch(url);
+        const data = await r.json();
+
+        if (data.error) {
+            panel.innerHTML = `<div style="color:#ff4444;text-align:center;padding:1rem;">❌ ${data.error}</div>`;
+        } else {
+            // Renderizado de logs reales
+            panel.innerHTML = data.logs.map(log => `
+                <div style="border-bottom:1px solid #2a2a2a;padding:0.8rem;font-family:'Space Mono',monospace;font-size:0.75rem;">
+                    <span style="color:#555;">[${log.timestamp}]</span> 
+                    <b style="color:#f5c518;">${log.type}</b>: ${JSON.stringify(log.data)}
+                </div>
+            `).join('') || '<div style="color:#555;text-align:center;">No hay registros para esta firma.</div>';
+        }
+    } catch (e) {
+        panel.innerHTML = '<div style="color:#ff4444;text-align:center;padding:1rem;">❌ Error de conexión con el Nodo Maestro.</div>';
+    }
+}
+
 
   const panel = document.getElementById('auditPanel');
   panel.innerHTML = '<div style="text-align:center;color:#555;padding:2rem;">Cargando logs...</div>';
