@@ -819,22 +819,7 @@ loadStats();
 
 const API = 'https://api.hormigasais.com';
 
-async function cargarAuditoria(tipo) {
-  const key = document.getElementById('auditKey').value.trim();
-  if (!key) { alert('Ingresa tu clave de auditoría'); return; }
 
-  const panel = document.getElementById('auditPanel');
-  panel.innerHTML = '<div style="text-align:center;color:#555;padding:2rem;">Cargando logs...</div>';
-
-  try {
-    let url = API + '/audit?limit=50&key=' + encodeURIComponent(key);
-    if (tipo) url += '&tipo=' + tipo;
-
-    const r = await fetch(url);
-    const data = await r.json();
-
-    if (data.error) {
-      panel.innerHTML = '<div style="color:#ff4444;text-align:center;padding:1rem;">❌ ' + data.error + '</div>';
       return;
     }
 
