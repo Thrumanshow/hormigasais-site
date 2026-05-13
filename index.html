@@ -244,6 +244,7 @@
   <button onclick="showSection('badge',this)">🏷️ Badge</button>
   <button onclick="showSection('verify',this)">🔍 Verificar</button>
   <button onclick="showSection('docs',this)">📖 Protocolo</button>
+  <button onclick="showSection('colonia',this)">🐜 Colonia</button>
   <button onclick="showSection('admin',this)">🔐 Admin</button>
   
 </nav>
@@ -1193,4 +1194,151 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }, 100);
 });
+</script>
+<script>
+// ── PESTAÑA COLONIA ─────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', function() {
+  const main = document.querySelector('main');
+  if (!main) return;
+
+  const coloniaSection = document.createElement('section');
+  coloniaSection.className = 'section';
+  coloniaSection.id = 'colonia';
+  coloniaSection.innerHTML = `
+    <div style="font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;color:#fff;margin-bottom:0.3rem;">🐜 Colonia HormigasAIS</div>
+    <p style="color:#555;font-size:0.78rem;margin-bottom:2rem;">Red distribuida soberana — Nodo maestro A16-SanMiguel-SV</p>
+
+    <!-- CONSENSO PÚBLICO -->
+    <div id="consensoPublico" style="background:#1a1a1a;border:1px solid #2a2a2a;border-radius:12px;padding:1.5rem;margin-bottom:1.5rem;">
+      <div style="text-align:center;color:#555;font-size:0.8rem;">Cargando estado de la colonia...</div>
+    </div>
+
+    <!-- NODOS PÚBLICOS -->
+    <div id="nodosPublicos" style="margin-bottom:1.5rem;"></div>
+
+    <!-- ACCESO ADMIN DETALLADO -->
+    <div style="background:#1a1a1a;border:1px solid #2a2a2a;border-radius:8px;padding:1.2rem;">
+      <div style="font-size:0.78rem;color:#666;margin-bottom:0.8rem;">🔐 Ver detalles técnicos (admin)</div>
+      <div style="display:flex;gap:0.8rem;">
+        <input type="password" id="coloniaAdminKey" placeholder="Clave admin"
+          style="flex:1;background:#0a0a0a;border:1px solid #333;border-radius:6px;color:#e8e8e8;font-family:'Space Mono',monospace;font-size:0.78rem;padding:0.6rem 0.9rem;outline:none;">
+        <button onclick="cargarColoniaAdmin()"
+          style="background:#1a1a1a;border:1px solid #333;color:#aaa;font-family:'Space Mono',monospace;font-size:0.75rem;padding:0.6rem 1rem;border-radius:6px;cursor:pointer;">
+          Ver detalles
+        </button>
+      </div>
+      <div id="coloniaAdminData" style="margin-top:1rem;"></div>
+    </div>
+  `;
+  main.appendChild(coloniaSection);
+  cargarColoniaPublica();
+});
+
+const API = typeof API !== 'undefined' ? API : 'https://api.hormigasais.com';
+
+function estadoColor(estado) {
+  return { ACTIVO: '#00ff9f', DEGRADADO: '#f5c518', CRITICO: '#ff4444', INACTIVO: '#555' }[estado] || '#aaa';
+}
+
+function trustBar(trust) {
+  const pct = Math.round(parseFloat(trust) * 100);
+  const color = pct >= 70 ? '#00ff9f' : pct >= 40 ? '#f5c518' : '#ff4444';
+  return '<div style="background:#0a0a0a;border-radius:999px;height:6px;margin-top:4px;overflow:hidden;">' +
+    '<div style="width:' + pct + '%;height:100%;background:' + color + ';border-radius:999px;transition:width 0.5s;"></div>' +
+    '</div>';
+}
+
+async function cargarColoniaPublica() {
+  try {
+    const r = await fetch(API + '/colonia');
+    const d = await r.json();
+
+    // Consenso
+    const res = d.resumen || {};
+    const consensoColor = { ACEPTAR: '#00ff9f', REVISAR: '#f5c518', RECHAZAR: '#ff4444' }[res.consenso] || '#aaa';
+    document.getElementById('consensoPublico').innerHTML =
+      '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#222;border-radius:8px;overflow:hidden;">' +
+      '<div style="background:#0a0a0a;padding:1rem;text-align:center;"><div style="font-family:Syne,sans-serif;font-size:1.5rem;font-weight:800;color:' + consensoColor + '">' + (res.consenso || '—') + '</div><div style="font-size:0.65rem;color:#555;margin-top:0.3rem;text-transform:uppercase;letter-spacing:0.06em;">Consenso</div></div>' +
+      '<div style="background:#0a0a0a;padding:1rem;text-align:center;"><div style="font-family:Syne,sans-serif;font-size:1.5rem;font-weight:800;color:#f5c518">' + (res.nodos_activos || 0) + '/' + (res.total_nodos || 0) + '</div><div style="font-size:0.65rem;color:#555;margin-top:0.3rem;text-transform:uppercase;letter-spacing:0.06em;">Nodos activos</div></div>' +
+      '<div style="background:#0a0a0a;padding:1rem;text-align:center;"><div style="font-family:Syne,sans-serif;font-size:1.5rem;font-weight:800;color:#f5c518">' + (res.total_sellos || 0) + '</div><div style="font-size:0.65rem;color:#555;margin-top:0.3rem;text-transform:uppercase;letter-spacing:0.06em;">Sellos emitidos</div></div>' +
+      '<div style="background:#0a0a0a;padding:1rem;text-align:center;"><div style="font-family:Syne,sans-serif;font-size:1.5rem;font-weight:800;color:#f5c518">' + parseFloat(res.trust_promedio || 0).toFixed(2) + '</div><div style="font-size:0.65rem;color:#555;margin-top:0.3rem;text-transform:uppercase;letter-spacing:0.06em;">Trust promedio</div></div>' +
+      '</div>';
+
+    // Nodos
+    const nodos = d.nodos || [];
+    if (nodos.length === 0) {
+      document.getElementById('nodosPublicos').innerHTML =
+        '<div style="text-align:center;color:#333;font-size:0.8rem;padding:1rem;">Sin nodos registrados aún</div>';
+      return;
+    }
+
+    let html = '<div style="font-family:Syne,sans-serif;font-size:0.85rem;font-weight:700;color:#fff;margin-bottom:0.8rem;">Nodos de la colonia</div>';
+    html += '<div style="background:#1a1a1a;border:1px solid #2a2a2a;border-radius:8px;overflow:hidden;">';
+    html += '<div style="display:grid;grid-template-columns:1fr 80px 100px 80px;gap:0.5rem;padding:0.6rem 1rem;background:#111;font-size:0.65rem;color:#444;text-transform:uppercase;letter-spacing:0.06em;">' +
+      '<span>Nodo</span><span>Estado</span><span>Trust</span><span>Actividad</span></div>';
+
+    nodos.forEach(n => {
+      const color = estadoColor(n.estado);
+      html += '<div style="display:grid;grid-template-columns:1fr 80px 100px 80px;gap:0.5rem;padding:0.7rem 1rem;border-top:1px solid #222;align-items:center;">' +
+        '<span style="font-size:0.78rem;color:#aaa;">' + n.id + '</span>' +
+        '<span style="font-size:0.7rem;color:' + color + ';font-weight:700;">' + n.estado + '</span>' +
+        '<div><div style="font-size:0.75rem;color:' + color + '">' + (parseFloat(n.trust)*100).toFixed(0) + '%</div>' + trustBar(n.trust) + '</div>' +
+        '<span style="font-size:0.7rem;color:#555;">' + n.ultima + '</span>' +
+        '</div>';
+    });
+    html += '</div>';
+    document.getElementById('nodosPublicos').innerHTML = html;
+
+  } catch(e) {
+    document.getElementById('consensoPublico').innerHTML =
+      '<div style="text-align:center;color:#555;font-size:0.8rem;">⚠️ No se pudo conectar con el nodo A16</div>';
+  }
+}
+
+async function cargarColoniaAdmin() {
+  const key = document.getElementById('coloniaAdminKey').value.trim();
+  if (!key) { alert('Ingresa tu clave admin'); return; }
+
+  const panel = document.getElementById('coloniaAdminData');
+  panel.innerHTML = '<div style="color:#555;font-size:0.75rem;">Cargando datos admin...</div>';
+
+  try {
+    const r = await fetch(API + '/colonia?key=' + encodeURIComponent(key));
+    const d = await r.json();
+
+    if (d.error) {
+      panel.innerHTML = '<div style="color:#ff4444;font-size:0.75rem;">❌ ' + d.error + '</div>';
+      return;
+    }
+
+    const nodos = d.nodos || [];
+    let html = '<div style="font-size:0.75rem;color:#00ff9f;margin-bottom:0.8rem;">✅ Acceso admin — datos técnicos completos</div>';
+
+    nodos.forEach(n => {
+      const color = estadoColor(n.estado);
+      html += '<div style="background:#0a0a0a;border:1px solid #222;border-radius:6px;padding:0.8rem;margin-bottom:0.5rem;">' +
+        '<div style="display:flex;justify-content:space-between;margin-bottom:0.4rem;">' +
+        '<span style="font-size:0.78rem;color:#fff;font-weight:700;">' + n.id + '</span>' +
+        '<span style="font-size:0.7rem;color:' + color + '">' + n.estado + '</span></div>' +
+        '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.5rem;">' +
+        '<div style="font-size:0.68rem;"><span style="color:#444">trust:</span> <span style="color:#f5c518">' + n.trust + '</span></div>' +
+        '<div style="font-size:0.68rem;"><span style="color:#444">value:</span> <span style="color:#aaa">' + (n.value || '—') + '</span></div>' +
+        '<div style="font-size:0.68rem;"><span style="color:#444">type:</span> <span style="color:#aaa">' + (n.type || '—') + '</span></div>' +
+        '</div>' +
+        '<div style="font-size:0.65rem;color:#333;margin-top:0.3rem;">' + (n.timestamp || '') + '</div>' +
+        '</div>';
+    });
+
+    if (d.admin) {
+      html += '<div style="background:#0a0a0a;border:1px solid #222;border-radius:6px;padding:0.8rem;margin-top:0.5rem;">' +
+        '<div style="font-size:0.75rem;color:#f5c518;margin-bottom:0.3rem;">📊 Estadísticas globales</div>' +
+        '<div style="font-size:0.7rem;color:#aaa;">Total eventos auditados: <strong style="color:#f5c518">' + d.admin.audit_total + '</strong></div>' +
+        '</div>';
+    }
+
+    panel.innerHTML = html;
+  } catch(e) {
+    panel.innerHTML = '<div style="color:#ff4444;font-size:0.75rem;">⚠️ Error de conexión</div>';
+  }
+}
 </script>
