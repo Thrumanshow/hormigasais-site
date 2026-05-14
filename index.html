@@ -244,6 +244,7 @@
   <button onclick="showSection('badge',this)">🏷️ Badge</button>
   <button onclick="showSection('verify',this)">🔍 Verificar</button>
   <button onclick="showSection('docs',this)">📖 Protocolo</button>
+  <button onclick="showSection('cuenta',this)">👤 Mi Cuenta</button>
   <button onclick="showSection('colonia',this)">🐜 Colonia</button>
   <button onclick="showSection('admin',this)">🔐 Admin</button>
   
@@ -1210,5 +1211,129 @@ async function cargarColoniaAdmin() {
   } catch(e) {
     panel.innerHTML = '<div style="color:#ff4444;font-size:0.75rem;">⚠️ Error de conexión</div>';
   }
+}
+</script>
+<script>
+// ── PESTAÑA MI CUENTA ───────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', function() {
+  const cuentaSection = document.getElementById('cuenta');
+  if (!cuentaSection) return;
+
+  cuentaSection.innerHTML = `
+    <div style="font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;color:#fff;margin-bottom:0.3rem;">👤 Mi Cuenta</div>
+    <p style="color:#555;font-size:0.78rem;margin-bottom:2rem;">Accede con tu API Key LBH para ver tu dashboard personal</p>
+
+    <div id="loginForm" style="background:#1a1a1a;border:1px solid #2a2a2a;border-radius:12px;padding:2rem;margin-bottom:1.5rem;">
+      <div style="font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;color:#fff;margin-bottom:0.5rem;">Tu API Key LBH</div>
+      <div style="font-size:0.75rem;color:#666;margin-bottom:1.2rem;">La recibiste por email al activar tu plan. Formato: LBH-XXXXXX-XXXXXX</div>
+      <div style="display:flex;gap:0.8rem;margin-bottom:1rem;">
+        <input type="text" id="apiKeyInput" placeholder="LBH-XXXXXX-XXXXXX"
+          style="flex:1;background:#0a0a0a;border:1px solid #333;border-radius:6px;color:#e8e8e8;font-family:'Space Mono',monospace;font-size:0.82rem;padding:0.8rem 1rem;outline:none;letter-spacing:0.05em;"
+          onkeydown="if(event.key==='Enter') accederCuenta()">
+        <button onclick="accederCuenta()"
+          style="background:#f5c518;color:#0a0a0a;border:none;font-family:'Space Mono',monospace;font-size:0.8rem;font-weight:700;padding:0.8rem 1.5rem;border-radius:6px;cursor:pointer;">
+          Acceder →
+        </button>
+      </div>
+      <div style="font-size:0.72rem;color:#444;">¿No tienes API key? Activa un plan en <a href="#" onclick="showSection('planes',document.querySelectorAll('nav button')[1]);return false;" style="color:var(--amarillo)">💎 Planes</a></div>
+    </div>
+
+    <div id="dashboardCliente" style="display:none;"></div>
+  `;
+});
+
+const API_URL = 'https://api.hormigasais.com';
+
+async function accederCuenta() {
+  const apiKey = document.getElementById('apiKeyInput').value.trim();
+  if (!apiKey) { alert('Ingresa tu API Key'); return; }
+
+  const dashboard = document.getElementById('dashboardCliente');
+  const loginForm = document.getElementById('loginForm');
+  dashboard.innerHTML = '<div style="text-align:center;color:#555;padding:2rem;font-size:0.8rem;">📡 Conectando con el nodo A16...</div>';
+  dashboard.style.display = 'block';
+
+  try {
+    const r = await fetch(API_URL + '/cliente/dashboard', {
+      headers: { 'X-API-Key': apiKey }
+    });
+    const data = await r.json();
+
+    if (data.error) {
+      dashboard.innerHTML =
+        '<div style="background:#1a1a1a;border:1px solid rgba(255,68,68,0.3);border-radius:8px;padding:1.5rem;text-align:center;">' +
+        '<div style="color:#ff4444;font-size:0.85rem;margin-bottom:0.5rem;">❌ ' + data.error + '</div>' +
+        '<div style="font-size:0.75rem;color:#555;">Verifica tu API Key o contacta a chrisquionez354@gmail.com</div>' +
+        '</div>';
+      return;
+    }
+
+    const c = data.cliente;
+    const planColor = { FREE: '#f5c518', PREMIUM: '#a855f7', ENTERPRISE: '#00ff9f' }[c.plan] || '#aaa';
+
+    // Header del dashboard
+    let html =
+      '<div style="background:#1a1a1a;border:1px solid #2a2a2a;border-radius:12px;padding:1.5rem;margin-bottom:1rem;">' +
+      '<div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:1rem;">' +
+      '<div>' +
+      '<div style="font-family:Syne,sans-serif;font-size:1.2rem;font-weight:800;color:#fff;">' + c.owner + '</div>' +
+      '<div style="font-size:0.75rem;color:#555;margin-top:0.2rem;">' + c.email + '</div>' +
+      '</div>' +
+      '<div style="background:rgba(245,197,24,0.1);border:1px solid rgba(245,197,24,0.3);border-radius:999px;padding:0.3rem 1rem;font-size:0.75rem;font-weight:700;color:' + planColor + '">⭐ ' + c.plan + '</div>' +
+      '</div>' +
+      '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#222;border-radius:8px;overflow:hidden;margin-top:1.2rem;">' +
+      '<div style="background:#0a0a0a;padding:1rem;text-align:center;"><div style="font-family:Syne,sans-serif;font-size:1.5rem;font-weight:800;color:#f5c518">' + c.sellos_emitidos + '</div><div style="font-size:0.65rem;color:#555;margin-top:0.2rem;text-transform:uppercase;">Sellos</div></div>' +
+      '<div style="background:#0a0a0a;padding:1rem;text-align:center;"><div style="font-family:Syne,sans-serif;font-size:0.85rem;font-weight:700;color:#aaa;margin-top:0.3rem;">' + c.sellos_limite + '</div><div style="font-size:0.65rem;color:#555;margin-top:0.2rem;text-transform:uppercase;">Límite</div></div>' +
+      '<div style="background:#0a0a0a;padding:1rem;text-align:center;"><div style="font-family:Syne,sans-serif;font-size:0.85rem;font-weight:700;color:#00ff9f;margin-top:0.3rem;">' + c.dias_restantes + '</div><div style="font-size:0.65rem;color:#555;margin-top:0.2rem;text-transform:uppercase;">Validez</div></div>' +
+      '</div>' +
+      '</div>';
+
+    // Mis sellos
+    const sellos = data.mis_sellos || [];
+    if (sellos.length > 0) {
+      html += '<div style="font-family:Syne,sans-serif;font-size:0.9rem;font-weight:700;color:#fff;margin-bottom:0.8rem;">🔏 Mis sellos</div>';
+      html += '<div style="background:#1a1a1a;border:1px solid #2a2a2a;border-radius:8px;overflow:hidden;">';
+      html += '<div style="display:grid;grid-template-columns:1fr 1fr 80px;gap:0.5rem;padding:0.6rem 1rem;background:#111;font-size:0.65rem;color:#444;text-transform:uppercase;letter-spacing:0.06em;"><span>Firma</span><span>Activo</span><span>Acciones</span></div>';
+      sellos.forEach(s => {
+        html += '<div style="display:grid;grid-template-columns:1fr 1fr 80px;gap:0.5rem;padding:0.7rem 1rem;border-top:1px solid #222;align-items:center;">' +
+          '<span style="font-size:0.72rem;color:#00ff9f;">' + s.signature + '</span>' +
+          '<span style="font-size:0.72rem;color:#aaa;">' + s.asset + '</span>' +
+          '<a href="https://api.hormigasais.com/manifest/' + s.signature + '" target="_blank" style="font-size:0.65rem;color:#f5c518;text-decoration:none;border:1px solid rgba(245,197,24,0.3);padding:0.2rem 0.5rem;border-radius:4px;">📄 Manifest</a>' +
+          '</div>';
+      });
+      html += '</div>';
+    } else {
+      html += '<div style="background:#1a1a1a;border:1px solid #2a2a2a;border-radius:8px;padding:1.5rem;text-align:center;">' +
+        '<div style="color:#555;font-size:0.8rem;">Aún no tienes sellos — <a href="#" onclick="showSection(\'sello\',document.querySelectorAll(\'nav button\')[3]);return false;" style="color:var(--amarillo)">Sellar ahora →</a></div>' +
+        '</div>';
+    }
+
+    // Botones de acción
+    html +=
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin-top:1rem;">' +
+      '<a href="https://github.com/sponsors/Thrumanshow" target="_blank" style="background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:1rem;text-align:center;text-decoration:none;transition:border 0.2s;" onmouseover="this.style.borderColor=\'#f5c518\'" onmouseout="this.style.borderColor=\'#333\'">' +
+      '<div style="font-size:1.2rem;margin-bottom:0.3rem;">⭐</div>' +
+      '<div style="font-size:0.75rem;color:#fff;font-weight:700;">Renovar plan</div>' +
+      '<div style="font-size:0.65rem;color:#555;margin-top:0.2rem;">GitHub Sponsors</div>' +
+      '</a>' +
+      '<button onclick="cerrarSesion()" style="background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:1rem;cursor:pointer;transition:border 0.2s;" onmouseover="this.style.borderColor=\'#ff4444\'" onmouseout="this.style.borderColor=\'#333\'">' +
+      '<div style="font-size:1.2rem;margin-bottom:0.3rem;">🚪</div>' +
+      '<div style="font-size:0.75rem;color:#fff;font-weight:700;">Cerrar sesión</div>' +
+      '<div style="font-size:0.65rem;color:#555;margin-top:0.2rem;">Limpiar API Key</div>' +
+      '</button>' +
+      '</div>';
+
+    dashboard.innerHTML = html;
+    loginForm.style.display = 'none';
+
+  } catch(e) {
+    dashboard.innerHTML = '<div style="background:#1a1a1a;border:1px solid rgba(255,68,68,0.3);border-radius:8px;padding:1.5rem;text-align:center;color:#ff4444;font-size:0.8rem;">⚠️ Error de conexión con el nodo A16</div>';
+  }
+}
+
+function cerrarSesion() {
+  document.getElementById('apiKeyInput').value = '';
+  document.getElementById('dashboardCliente').style.display = 'none';
+  document.getElementById('loginForm').style.display = 'block';
 }
 </script>
