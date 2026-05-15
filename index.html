@@ -247,6 +247,7 @@
   <button onclick="showSection('cuenta',this)">👤 Mi Cuenta</button>
   <button onclick="showSection('manual',this)">📋 Manual</button>
   <button onclick="showSection('colonia',this)">🐜 Colonia</button>
+  <button onclick="showSection('xoxo',this)">🎁 XOXO-BUS</button>
   <button onclick="showSection('admin',this)">🔐 Admin</button>
   
 </nav>
@@ -496,6 +497,7 @@
     </div>
   </div>
 </section>
+<section class="section" id="xoxo"></section>
 <section class="section" id="admin">
   <div style="font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;color:#fff;margin-bottom:0.5rem;">🔐 Panel de Auditoría</div>
   <p style="color:#555;font-size:0.8rem;margin-bottom:2rem;">Acceso privado — Solo para CLHQ</p>
@@ -1462,4 +1464,245 @@ document.addEventListener('DOMContentLoaded', function() {
     </div>
   `;
 });
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const xoxoSection = document.getElementById('xoxo');
+  if (!xoxoSection) return;
+
+  xoxoSection.innerHTML = `
+    <div style="max-width:680px;margin:0 auto;">
+
+      <div style="font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;color:#fff;margin-bottom:0.3rem;">🎁 XOXO-BUS</div>
+      <p style="color:#555;font-size:0.78rem;margin-bottom:1.5rem;">Canal Master CLHQ — Tarjetas de regalo soberanas</p>
+
+      <!-- LOGIN MASTER -->
+      <div id="xoxoLoginForm" style="background:#1a1a1a;border:1px solid #2a2a2a;border-radius:12px;padding:1.5rem;margin-bottom:1.5rem;">
+        <div style="font-size:0.82rem;color:#666;margin-bottom:1rem;">🔐 Acceso exclusivo Master CLHQ</div>
+        <div style="display:flex;gap:0.8rem;">
+          <input type="password" id="xoxoMasterKey" placeholder="Clave Master CLHQ"
+            style="flex:1;background:#0a0a0a;border:1px solid #333;border-radius:6px;color:#e8e8e8;font-family:'Space Mono',monospace;font-size:0.8rem;padding:0.7rem 0.9rem;outline:none;"
+            onkeydown="if(event.key==='Enter') accederXOXO()">
+          <button onclick="accederXOXO()"
+            style="background:#f5c518;color:#0a0a0a;border:none;font-family:'Space Mono',monospace;font-size:0.78rem;font-weight:700;padding:0.7rem 1.2rem;border-radius:6px;cursor:pointer;">
+            Entrar
+          </button>
+        </div>
+      </div>
+
+      <!-- PANEL XOXO (oculto hasta autenticar) -->
+      <div id="xoxoPanel" style="display:none;">
+
+        <!-- GENERAR REGALO -->
+        <div style="background:#1a1a1a;border:1px solid rgba(245,197,24,0.2);border-radius:12px;padding:1.5rem;margin-bottom:1.5rem;">
+          <div style="font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;color:#fff;margin-bottom:1.2rem;">🎁 Generar tarjeta de regalo</div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;">
+            <div>
+              <label style="font-size:0.7rem;color:#555;text-transform:uppercase;letter-spacing:0.06em;display:block;margin-bottom:0.4rem;">Plan</label>
+              <select id="giftPlan" style="width:100%;background:#0a0a0a;border:1px solid #333;border-radius:6px;color:#e8e8e8;font-family:'Space Mono',monospace;font-size:0.8rem;padding:0.7rem 0.9rem;outline:none;">
+                <option value="premium">Premium — $10/mes</option>
+                <option value="enterprise">Enterprise — $49/mes</option>
+                <option value="free">Free — 30 días</option>
+              </select>
+            </div>
+            <div>
+              <label style="font-size:0.7rem;color:#555;text-transform:uppercase;letter-spacing:0.06em;display:block;margin-bottom:0.4rem;">Destinatario</label>
+              <input type="text" id="giftDest" placeholder="Nombre del destinatario"
+                style="width:100%;background:#0a0a0a;border:1px solid #333;border-radius:6px;color:#e8e8e8;font-family:'Space Mono',monospace;font-size:0.8rem;padding:0.7rem 0.9rem;outline:none;">
+            </div>
+          </div>
+
+          <div style="margin-bottom:1rem;">
+            <label style="font-size:0.7rem;color:#555;text-transform:uppercase;letter-spacing:0.06em;display:block;margin-bottom:0.4rem;">Email (opcional)</label>
+            <input type="email" id="giftEmail" placeholder="email@destinatario.com"
+              style="width:100%;background:#0a0a0a;border:1px solid #333;border-radius:6px;color:#e8e8e8;font-family:'Space Mono',monospace;font-size:0.8rem;padding:0.7rem 0.9rem;outline:none;">
+          </div>
+
+          <div style="margin-bottom:1rem;">
+            <label style="font-size:0.7rem;color:#555;text-transform:uppercase;letter-spacing:0.06em;display:block;margin-bottom:0.4rem;">Mensaje personalizado</label>
+            <input type="text" id="giftMsg" placeholder="🎁 Bienvenido a la Colonia HormigasAIS"
+              style="width:100%;background:#0a0a0a;border:1px solid #333;border-radius:6px;color:#e8e8e8;font-family:'Space Mono',monospace;font-size:0.8rem;padding:0.7rem 0.9rem;outline:none;">
+          </div>
+
+          <button onclick="generarRegalo()"
+            style="width:100%;background:var(--amarillo);color:#0a0a0a;border:none;font-family:'Space Mono',monospace;font-size:0.85rem;font-weight:700;padding:0.9rem;border-radius:8px;cursor:pointer;">
+            🎁 Generar Código de Regalo
+          </button>
+        </div>
+
+        <!-- RESULTADO REGALO -->
+        <div id="giftResult" style="display:none;background:rgba(0,255,159,0.04);border:1px solid rgba(0,255,159,0.2);border-radius:8px;padding:1.5rem;margin-bottom:1.5rem;">
+          <div style="color:var(--verde);font-size:0.85rem;font-weight:700;margin-bottom:1rem;">✅ Tarjeta de regalo generada</div>
+          <div id="giftData"></div>
+          <button onclick="copiarEmail()" style="margin-top:1rem;background:rgba(245,197,24,0.1);border:1px solid rgba(245,197,24,0.3);color:var(--amarillo);font-family:'Space Mono',monospace;font-size:0.72rem;padding:0.4rem 0.9rem;border-radius:4px;cursor:pointer;">
+            📋 Copiar email para enviar
+          </button>
+        </div>
+
+        <!-- LISTA DE REGALOS -->
+        <div style="background:#1a1a1a;border:1px solid #2a2a2a;border-radius:12px;padding:1.5rem;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
+            <div style="font-family:'Syne',sans-serif;font-size:0.9rem;font-weight:700;color:#fff;">📋 Historial de regalos</div>
+            <button onclick="cargarRegalos()" style="background:#1a1a1a;border:1px solid #333;color:#aaa;font-family:'Space Mono',monospace;font-size:0.7rem;padding:0.3rem 0.8rem;border-radius:4px;cursor:pointer;">🔄 Actualizar</button>
+          </div>
+          <div id="giftsList" style="color:#555;font-size:0.78rem;text-align:center;padding:1rem;">Haz clic en Actualizar para ver los regalos</div>
+        </div>
+
+      </div>
+
+      <!-- CANJEAR REGALO (público) -->
+      <div style="background:#1a1a1a;border:1px solid #2a2a2a;border-radius:12px;padding:1.5rem;margin-top:1.5rem;">
+        <div style="font-family:'Syne',sans-serif;font-size:0.9rem;font-weight:700;color:#fff;margin-bottom:0.5rem;">🎁 ¿Tienes un código de regalo?</div>
+        <div style="font-size:0.75rem;color:#666;margin-bottom:1rem;">Ingresa tu código REGALO-CLHQ-XXXXXXXX para activar tu plan</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin-bottom:0.8rem;">
+          <input type="text" id="redeemCode" placeholder="REGALO-CLHQ-XXXXXXXX"
+            style="background:#0a0a0a;border:1px solid #333;border-radius:6px;color:#e8e8e8;font-family:'Space Mono',monospace;font-size:0.78rem;padding:0.7rem 0.9rem;outline:none;">
+          <input type="text" id="redeemOwner" placeholder="Tu nombre"
+            style="background:#0a0a0a;border:1px solid #333;border-radius:6px;color:#e8e8e8;font-family:'Space Mono',monospace;font-size:0.78rem;padding:0.7rem 0.9rem;outline:none;">
+        </div>
+        <input type="email" id="redeemEmail" placeholder="Tu email (opcional)"
+          style="width:100%;background:#0a0a0a;border:1px solid #333;border-radius:6px;color:#e8e8e8;font-family:'Space Mono',monospace;font-size:0.78rem;padding:0.7rem 0.9rem;outline:none;margin-bottom:0.8rem;">
+        <button onclick="canjearRegalo()"
+          style="width:100%;background:#1a1a1a;border:1px solid var(--amarillo);color:var(--amarillo);font-family:'Space Mono',monospace;font-size:0.8rem;padding:0.8rem;border-radius:6px;cursor:pointer;">
+          🎁 Canjear código
+        </button>
+        <div id="redeemResult" style="margin-top:1rem;"></div>
+      </div>
+
+    </div>
+  `;
+
+  cargarRegalos();
+});
+
+const XOXO_API = 'https://api.hormigasais.com';
+let xoxoKey = '';
+let emailParaCopiar = '';
+
+function accederXOXO() {
+  xoxoKey = document.getElementById('xoxoMasterKey').value.trim();
+  if (!xoxoKey) { alert('Ingresa tu clave Master'); return; }
+  document.getElementById('xoxoLoginForm').style.display = 'none';
+  document.getElementById('xoxoPanel').style.display = 'block';
+  cargarRegalos();
+}
+
+async function generarRegalo() {
+  const plan = document.getElementById('giftPlan').value;
+  const dest = document.getElementById('giftDest').value.trim();
+  const email = document.getElementById('giftEmail').value.trim();
+  const msg = document.getElementById('giftMsg').value.trim() || '🎁 Bienvenido a la Colonia HormigasAIS';
+
+  const result = document.getElementById('giftResult');
+  const data = document.getElementById('giftData');
+
+  try {
+    const r = await fetch(XOXO_API + '/xoxo/gift?key=' + encodeURIComponent(xoxoKey), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ plan, destinatario: dest, email, mensaje: msg })
+    });
+    const d = await r.json();
+
+    if (d.error) { alert('Error: ' + d.error); return; }
+
+    const g = d.gift;
+    emailParaCopiar = d.instrucciones_email.asunto + '\n\n' + d.instrucciones_email.cuerpo;
+
+    data.innerHTML =
+      '<div style="display:grid;gap:0.5rem;">' +
+      row('Código', '<span style="font-family:Space Mono,monospace;color:#f5c518;font-size:0.9rem;">' + g.codigo + '</span>') +
+      row('Plan', g.plan.toUpperCase()) +
+      row('Destinatario', g.destinatario || '—') +
+      row('Mensaje', g.mensaje) +
+      row('Válido hasta', new Date(g.expiry_gift).toLocaleDateString()) +
+      '</div>';
+
+    result.style.display = 'block';
+    cargarRegalos();
+  } catch(e) {
+    alert('Error de conexión');
+  }
+}
+
+function row(k, v) {
+  return '<div style="display:flex;justify-content:space-between;padding:0.4rem 0;border-bottom:1px solid #1a1a1a;font-size:0.75rem;"><span style="color:#555;text-transform:uppercase;letter-spacing:0.06em;">' + k + '</span><span style="color:#aaa;">' + v + '</span></div>';
+}
+
+function copiarEmail() {
+  navigator.clipboard.writeText(emailParaCopiar).then(() => {
+    const btn = document.querySelector('#giftResult button');
+    btn.textContent = '✅ Copiado';
+    setTimeout(() => btn.textContent = '📋 Copiar email para enviar', 2000);
+  });
+}
+
+async function cargarRegalos() {
+  if (!xoxoKey) return;
+  const lista = document.getElementById('giftsList');
+  try {
+    const r = await fetch(XOXO_API + '/xoxo/lista?key=' + encodeURIComponent(xoxoKey));
+    const d = await r.json();
+    if (d.error) { lista.innerHTML = '<div style="color:#ff4444;font-size:0.75rem;">' + d.error + '</div>'; return; }
+
+    if (d.total === 0) { lista.innerHTML = '<div style="color:#555;font-size:0.78rem;text-align:center;">Sin regalos emitidos aún</div>'; return; }
+
+    let html = '<div style="font-size:0.72rem;color:#555;margin-bottom:0.8rem;">Total: ' + d.total + ' | Canjeados: ' + d.canjeados + ' | Pendientes: ' + d.pendientes + '</div>';
+    html += '<div style="display:grid;gap:0.5rem;">';
+    (d.regalos || []).forEach(g => {
+      const color = g.canjeado ? '#555' : '#f5c518';
+      html += '<div style="background:#0a0a0a;border:1px solid #222;border-radius:6px;padding:0.8rem;">' +
+        '<div style="display:flex;justify-content:space-between;margin-bottom:0.3rem;">' +
+        '<span style="font-family:Space Mono,monospace;font-size:0.75rem;color:' + color + '">' + g.codigo + '</span>' +
+        '<span style="font-size:0.65rem;background:' + (g.canjeado ? '#1a1a1a' : 'rgba(245,197,24,0.1)') + ';color:' + color + ';padding:0.2rem 0.5rem;border-radius:4px;">' + (g.canjeado ? '✅ Canjeado' : '⏳ Pendiente') + '</span>' +
+        '</div>' +
+        '<div style="font-size:0.68rem;color:#555;">' + g.plan.toUpperCase() + ' · ' + (g.destinatario || 'Sin destinatario') + '</div>' +
+        '</div>';
+    });
+    html += '</div>';
+    lista.innerHTML = html;
+  } catch(e) {
+    lista.innerHTML = '<div style="color:#ff4444;font-size:0.75rem;">Error de conexión</div>';
+  }
+}
+
+async function canjearRegalo() {
+  const codigo = document.getElementById('redeemCode').value.trim().toUpperCase();
+  const owner = document.getElementById('redeemOwner').value.trim();
+  const email = document.getElementById('redeemEmail').value.trim();
+  const result = document.getElementById('redeemResult');
+
+  if (!codigo) { alert('Ingresa tu código de regalo'); return; }
+
+  result.innerHTML = '<div style="color:#555;font-size:0.78rem;">📡 Verificando con el nodo A16...</div>';
+
+  try {
+    const r = await fetch(XOXO_API + '/xoxo/redeem', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ codigo, owner, email })
+    });
+    const d = await r.json();
+
+    if (d.error) {
+      result.innerHTML = '<div style="background:rgba(255,68,68,0.06);border:1px solid rgba(255,68,68,0.2);border-radius:8px;padding:1rem;color:#ff4444;font-size:0.78rem;">❌ ' + d.error + '</div>';
+      return;
+    }
+
+    result.innerHTML =
+      '<div style="background:rgba(0,255,159,0.04);border:1px solid rgba(0,255,159,0.2);border-radius:8px;padding:1.2rem;">' +
+      '<div style="color:var(--verde);font-weight:700;font-size:0.85rem;margin-bottom:0.8rem;">✅ ¡Regalo canjeado exitosamente!</div>' +
+      '<div style="font-size:0.75rem;color:#aaa;margin-bottom:0.5rem;">' + d.mensaje + '</div>' +
+      '<div style="background:#0a0a0a;border:1px solid #222;border-radius:6px;padding:0.8rem;margin:0.8rem 0;">' +
+      '<div style="font-size:0.7rem;color:#555;margin-bottom:0.3rem;">TU API KEY</div>' +
+      '<div style="font-family:Space Mono,monospace;font-size:0.9rem;color:#f5c518;">' + d.api_key + '</div>' +
+      '</div>' +
+      '<div style="font-size:0.72rem;color:#666;">Plan: <strong style="color:#fff">' + d.cliente.plan + '</strong> · Válido: <strong style="color:#fff">' + d.cliente.expiry + '</strong></div>' +
+      '<div style="font-size:0.7rem;color:#555;margin-top:0.5rem;">Guarda tu API Key y úsala en la pestaña 👤 Mi Cuenta</div>' +
+      '</div>';
+  } catch(e) {
+    result.innerHTML = '<div style="color:#ff4444;font-size:0.78rem;">⚠️ Error de conexión</div>';
+  }
+}
 </script>
