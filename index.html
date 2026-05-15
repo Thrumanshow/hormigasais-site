@@ -245,6 +245,7 @@
   <button onclick="showSection('verify',this)">🔍 Verificar</button>
   <button onclick="showSection('docs',this)">📖 Protocolo</button>
   <button onclick="showSection('cuenta',this)">👤 Mi Cuenta</button>
+  <button onclick="showSection('manual',this)">📋 Manual</button>
   <button onclick="showSection('colonia',this)">🐜 Colonia</button>
   <button onclick="showSection('admin',this)">🔐 Admin</button>
   
@@ -1215,6 +1216,7 @@ async function cargarColoniaAdmin() {
 </script>
 
 <section class="section" id="cuenta"></section>
+<section class="section" id="manual"></section>
 
 <script>
 // ── PESTAÑA MI CUENTA ───────────────────────────────────────────
@@ -1339,4 +1341,125 @@ function cerrarSesion() {
   document.getElementById('dashboardCliente').style.display = 'none';
   document.getElementById('loginForm').style.display = 'block';
 }
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const manualSection = document.getElementById('manual');
+  if (!manualSection) return;
+
+  manualSection.innerHTML = `
+    <div style="max-width:680px;margin:0 auto;">
+
+      <!-- BIENVENIDA -->
+      <div style="background:linear-gradient(135deg,rgba(245,197,24,0.08),rgba(0,255,159,0.05));border:1px solid rgba(245,197,24,0.2);border-radius:16px;padding:2rem;margin-bottom:2rem;text-align:center;">
+        <div style="font-size:2rem;margin-bottom:0.8rem;">🐜</div>
+        <div style="font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;color:#fff;margin-bottom:0.8rem;">¡Bienvenido a la Colonia, Arquitecto de Contenido!</div>
+        <p style="font-size:0.82rem;color:#888;line-height:1.8;margin-bottom:1rem;">
+          Ya sea que estés en el plan Free o Enterprise, has dado el paso más importante: <strong style="color:var(--amarillo)">reclamar tu soberanía digital.</strong>
+        </p>
+        <p style="font-size:0.82rem;color:#888;line-height:1.8;">
+          ¿Crees que la certificación de propiedad intelectual es difícil? Es más simple de lo que parece. Aquí tienes tu hoja de ruta:
+        </p>
+      </div>
+
+      <!-- ÍNDICE -->
+      <div style="font-family:'Syne',sans-serif;font-size:0.75rem;font-weight:700;color:#444;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:1rem;">
+        📍 Índice de Sincronización Soberana
+      </div>
+
+      <!-- PASO 1 -->
+      <div style="background:#1a1a1a;border:1px solid #2a2a2a;border-radius:12px;padding:1.5rem;margin-bottom:1rem;cursor:pointer;transition:border 0.2s;" onmouseover="this.style.borderColor='rgba(245,197,24,0.3)'" onmouseout="this.style.borderColor='#2a2a2a'">
+        <div style="display:flex;align-items:flex-start;gap:1rem;">
+          <div style="background:rgba(245,197,24,0.1);border:1px solid rgba(245,197,24,0.3);border-radius:8px;padding:0.6rem 0.9rem;font-family:'Syne',sans-serif;font-size:1rem;font-weight:800;color:var(--amarillo);flex-shrink:0;">1</div>
+          <div style="flex:1;">
+            <div style="font-family:'Syne',sans-serif;font-size:0.95rem;font-weight:700;color:#fff;margin-bottom:0.3rem;">¿Qué es el Protocolo LBH? 🐜</div>
+            <div style="font-size:0.75rem;color:#666;margin-bottom:0.8rem;line-height:1.6;">Entiende el lenguaje binario que protege tu ADN digital. El Protocolo LBH es el sistema que hace que tu sello sea único, verificable y soberano.</div>
+            <div style="font-size:0.75rem;color:#888;line-height:1.7;margin-bottom:0.8rem;">
+              Cuando sellas un activo, el nodo A16 en San Miguel, El Salvador genera una firma criptográfica única: <span style="color:var(--verde);font-family:'Space Mono',monospace;">CLHQ-XXXXXXXX</span>. Esta firma es irrepetible y queda registrada en la red HormigasAIS para siempre.
+            </div>
+            <button onclick="showSection('docs',document.querySelectorAll('nav button')[7])" style="background:rgba(245,197,24,0.1);border:1px solid rgba(245,197,24,0.3);color:var(--amarillo);font-family:'Space Mono',monospace;font-size:0.7rem;padding:0.4rem 0.9rem;border-radius:4px;cursor:pointer;">
+              Ver Protocolo técnico →
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- PASO 2 -->
+      <div style="background:#1a1a1a;border:1px solid #2a2a2a;border-radius:12px;padding:1.5rem;margin-bottom:1rem;transition:border 0.2s;" onmouseover="this.style.borderColor='rgba(0,255,159,0.3)'" onmouseout="this.style.borderColor='#2a2a2a'">
+        <div style="display:flex;align-items:flex-start;gap:1rem;">
+          <div style="background:rgba(0,255,159,0.1);border:1px solid rgba(0,255,159,0.3);border-radius:8px;padding:0.6rem 0.9rem;font-family:'Syne',sans-serif;font-size:1rem;font-weight:800;color:var(--verde);flex-shrink:0;">2</div>
+          <div style="flex:1;">
+            <div style="font-family:'Syne',sans-serif;font-size:0.95rem;font-weight:700;color:#fff;margin-bottom:0.3rem;">Tu Escritura de Propiedad — El Manifest 📄</div>
+            <div style="font-size:0.75rem;color:#666;margin-bottom:0.8rem;line-height:1.6;">Después de sellar, descarga tu manifest desde la pestaña Mi Cuenta. Es tu certificado criptográfico portátil.</div>
+
+            <!-- ADVERTENCIA SOBERANA -->
+            <div style="background:rgba(255,68,68,0.06);border:1px solid rgba(255,68,68,0.2);border-radius:8px;padding:1rem;margin-bottom:0.8rem;">
+              <div style="font-size:0.72rem;font-weight:700;color:#ff4444;margin-bottom:0.5rem;">⚠️ ADVERTENCIA SOBERANA</div>
+              <div style="font-size:0.72rem;color:#aaa;line-height:1.7;">
+                El archivo <span style="font-family:'Space Mono',monospace;color:#f5c518;">manifest-CLHQ-XXXXXXXX.json</span> es tu escritura privada de propiedad. Guárdalo en un lugar seguro y <strong style="color:#ff4444">no lo compartas públicamente</strong> — contiene tu firma HMAC que prueba la autenticidad del sello.<br><br>
+                Para que otros verifiquen tu propiedad, comparte solo tu firma pública: <span style="font-family:'Space Mono',monospace;color:var(--verde);">CLHQ-XXXXXXXX</span>
+              </div>
+            </div>
+
+            <button onclick="showSection('cuenta',document.querySelectorAll('nav button')[1])" style="background:rgba(0,255,159,0.1);border:1px solid rgba(0,255,159,0.3);color:var(--verde);font-family:'Space Mono',monospace;font-size:0.7rem;padding:0.4rem 0.9rem;border-radius:4px;cursor:pointer;">
+              Ir a Mi Cuenta →
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- PASO 3 -->
+      <div style="background:#1a1a1a;border:1px solid #2a2a2a;border-radius:12px;padding:1.5rem;margin-bottom:1rem;transition:border 0.2s;" onmouseover="this.style.borderColor='rgba(168,85,247,0.3)'" onmouseout="this.style.borderColor='#2a2a2a'">
+        <div style="display:flex;align-items:flex-start;gap:1rem;">
+          <div style="background:rgba(168,85,247,0.1);border:1px solid rgba(168,85,247,0.3);border-radius:8px;padding:0.6rem 0.9rem;font-family:'Syne',sans-serif;font-size:1rem;font-weight:800;color:#a855f7;flex-shrink:0;">3</div>
+          <div style="flex:1;">
+            <div style="font-family:'Syne',sans-serif;font-size:0.95rem;font-weight:700;color:#fff;margin-bottom:0.3rem;">Tu Firma y Traducción Digital 🔏</div>
+            <div style="font-size:0.75rem;color:#666;margin-bottom:0.8rem;line-height:1.6;">Tu firma <span style="font-family:'Space Mono',monospace;color:var(--amarillo);">CLHQ-XXXXXXXX</span> es la traducción humana de tu manifest. Es lo que compartes con el mundo.</div>
+            <div style="font-size:0.75rem;color:#888;line-height:1.7;margin-bottom:0.8rem;">
+              Con tu firma puedes:<br>
+              • Generar tu <strong style="color:#fff;">badge PNG</strong> para pegar en tu sitio o redes<br>
+              • Compartir el link de verificación pública<br>
+              • Incluirla en contratos y documentos legales<br>
+              • Registrarla en LinkedIn como certificación profesional
+            </div>
+            <button onclick="showSection('badge',document.querySelectorAll('nav button')[4])" style="background:rgba(168,85,247,0.1);border:1px solid rgba(168,85,247,0.3);color:#a855f7;font-family:'Space Mono',monospace;font-size:0.7rem;padding:0.4rem 0.9rem;border-radius:4px;cursor:pointer;">
+              Generar mi Badge →
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- PASO 4 -->
+      <div style="background:#1a1a1a;border:1px solid #2a2a2a;border-radius:12px;padding:1.5rem;margin-bottom:2rem;transition:border 0.2s;" onmouseover="this.style.borderColor='rgba(74,158,255,0.3)'" onmouseout="this.style.borderColor='#2a2a2a'">
+        <div style="display:flex;align-items:flex-start;gap:1rem;">
+          <div style="background:rgba(74,158,255,0.1);border:1px solid rgba(74,158,255,0.3);border-radius:8px;padding:0.6rem 0.9rem;font-family:'Syne',sans-serif;font-size:1rem;font-weight:800;color:#4a9eff;flex-shrink:0;">4</div>
+          <div style="flex:1;">
+            <div style="font-family:'Syne',sans-serif;font-size:0.95rem;font-weight:700;color:#fff;margin-bottom:0.3rem;">Manual de Implementación Completo 📖</div>
+            <div style="font-size:0.75rem;color:#666;margin-bottom:0.8rem;line-height:1.6;">¿Quieres ver exactamente cómo pegar tu sello en GitHub, Instagram, contratos legales o tu sitio web? La documentación completa está en:</div>
+            <div style="background:#0a0a0a;border:1px solid #222;border-radius:6px;padding:0.8rem;font-family:'Space Mono',monospace;font-size:0.75rem;color:var(--amarillo);margin-bottom:0.8rem;">
+              docs.hormigasais.com/manual.html
+            </div>
+            <div style="font-size:0.72rem;color:#888;line-height:1.7;margin-bottom:0.8rem;">
+              El manual está disponible en <strong style="color:#fff;">Español e Inglés</strong> y cubre:<br>
+              🌐 Sitio web (con o sin experiencia previa)<br>
+              🐙 GitHub README y repositorios<br>
+              📱 Instagram, LinkedIn, Twitter/X, Facebook<br>
+              📄 Contratos digitales y PDF profesionales
+            </div>
+            <a href="https://docs.hormigasais.com/manual.html" target="_blank" style="display:inline-block;background:rgba(74,158,255,0.1);border:1px solid rgba(74,158,255,0.3);color:#4a9eff;font-family:'Space Mono',monospace;font-size:0.7rem;padding:0.4rem 0.9rem;border-radius:4px;text-decoration:none;">
+              Abrir manual completo →
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- SOPORTE -->
+      <div style="background:rgba(245,197,24,0.04);border:1px solid rgba(245,197,24,0.15);border-radius:8px;padding:1.2rem;text-align:center;font-size:0.75rem;color:#666;">
+        ¿Tienes dudas? Escríbenos a <strong style="color:var(--amarillo);">chrisquionez354@gmail.com</strong><br>
+        <span style="font-size:0.7rem;color:#444;margin-top:0.3rem;display:block;">🐜 HormigasAIS — Nodo A16-SanMiguel-SV — Protocolo LBH v2.0</span>
+      </div>
+
+    </div>
+  `;
+});
 </script>
