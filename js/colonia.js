@@ -134,6 +134,10 @@ function mostrarComposer() {
   const panel = document.getElementById('auditPanel');
   if (!panel) return;
   const key = document.getElementById('auditKey') ? document.getElementById('auditKey').value.trim() : '';
+  if (!key) {
+    panel.innerHTML = '<div style="color:#ff4444;font-size:0.78rem;padding:1rem;text-align:center;">⚠️ Ingresa tu clave admin primero y haz clic en Acceder</div>';
+    return;
+  }
 
   panel.innerHTML = `
     <div style="font-family:'Syne',sans-serif;font-size:0.9rem;font-weight:700;color:#fff;margin-bottom:1.2rem;">
