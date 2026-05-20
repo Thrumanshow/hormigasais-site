@@ -128,3 +128,118 @@ async function cargarStats() {
       '</div><div style="display:flex;flex-wrap:wrap;gap:0.8rem;">'+tiposHtml+'</div>';
   } catch(e) { statsPanel.innerHTML = '<span style="color:#ff4444">Error de conexión</span>'; }
 }
+
+// ── EMAIL SOBERANO desde Admin ────────────────────────────────
+function mostrarComposer() {
+  const panel = document.getElementById('auditPanel');
+  if (!panel) return;
+  const key = document.getElementById('auditKey') ? document.getElementById('auditKey').value.trim() : '';
+
+  panel.innerHTML = `
+    <div style="font-family:'Syne',sans-serif;font-size:0.9rem;font-weight:700;color:#fff;margin-bottom:1.2rem;">
+      📧 Enviar correo soberano
+      <span style="font-size:0.7rem;color:#555;font-family:'Space Mono',monospace;font-weight:400;margin-left:0.5rem;">desde clhq@hormigasais.com</span>
+    </div>
+
+    <div style="display:grid;gap:0.8rem;margin-bottom:1rem;">
+      <div>
+        <label style="font-size:0.65rem;color:#555;text-transform:uppercase;letter-spacing:0.06em;display:block;margin-bottom:0.3rem;">Para</label>
+        <input type="email" id="emailPara" placeholder="destinatario@email.com"
+          style="width:100%;background:#0a0a0a;border:1px solid #333;border-radius:6px;color:#e8e8e8;font-family:'Space Mono',monospace;font-size:0.78rem;padding:0.7rem 0.9rem;outline:none;">
+      </div>
+      <div>
+        <label style="font-size:0.65rem;color:#555;text-transform:uppercase;letter-spacing:0.06em;display:block;margin-bottom:0.3rem;">Nombre destinatario (opcional)</label>
+        <input type="text" id="emailNombre" placeholder="Nombre del destinatario"
+          style="width:100%;background:#0a0a0a;border:1px solid #333;border-radius:6px;color:#e8e8e8;font-family:'Space Mono',monospace;font-size:0.78rem;padding:0.7rem 0.9rem;outline:none;">
+      </div>
+      <div>
+        <label style="font-size:0.65rem;color:#555;text-transform:uppercase;letter-spacing:0.06em;display:block;margin-bottom:0.3rem;">Asunto</label>
+        <input type="text" id="emailAsunto" placeholder="Asunto del correo"
+          style="width:100%;background:#0a0a0a;border:1px solid #333;border-radius:6px;color:#e8e8e8;font-family:'Space Mono',monospace;font-size:0.78rem;padding:0.7rem 0.9rem;outline:none;">
+      </div>
+      <div>
+        <label style="font-size:0.65rem;color:#555;text-transform:uppercase;letter-spacing:0.06em;display:block;margin-bottom:0.3rem;">Mensaje</label>
+        <textarea id="emailMensaje" placeholder="Escribe tu mensaje aquí..." rows="6"
+          style="width:100%;background:#0a0a0a;border:1px solid #333;border-radius:6px;color:#e8e8e8;font-family:'Space Mono',monospace;font-size:0.78rem;padding:0.7rem 0.9rem;outline:none;resize:vertical;line-height:1.6;"></textarea>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:0.8rem;">
+      <button onclick="enviarEmailSoberano('${key}')"
+        style="flex:1;background:var(--amarillo);color:#0a0a0a;border:none;font-family:'Space Mono',monospace;font-size:0.82rem;font-weight:700;padding:0.9rem;border-radius:8px;cursor:pointer;">
+        📧 Enviar desde clhq@hormigasais.com
+      </button>
+      <button onclick="cargarAuditoria()"
+        style="background:#1a1a1a;border:1px solid #333;color:#aaa;font-family:'Space Mono',monospace;font-size:0.78rem;padding:0.9rem 1rem;border-radius:8px;cursor:pointer;">
+        ✕ Cancelar
+      </button>
+    </div>
+
+    <div id="emailResult" style="margin-top:1rem;"></div>
+  `;
+}
+
+async function enviarEmailSoberano(key) {
+  const para    = document.getElementById('emailPara') ? document.getElementById('emailPara').value.trim() : '';
+  const nombre  = document.getElementById('emailNombre') ? document.getElementById('emailNombre').value.trim() : '';
+  const asunto  = document.getElementById('emailAsunto') ? document.getElementById('emailAsunto').value.trim() : '';
+  const mensaje = document.getElementById('emailMensaje') ? document.getElementById('emailMensaje').value.trim() : '';
+  const result  = document.getElementById('emailResult');
+
+  if (!para || !asunto || !mensaje) {
+    if (result) result.innerHTML = '<div style="color:#ff4444;font-size:0.78rem;">⚠️ Completa Para, Asunto y Mensaje</div>';
+    return;
+  }
+
+  const btn = document.querySelector('#auditPanel button');
+  if (btn) { btn.textContent = '⏳ Enviando...'; btn.disabled = true; }
+
+  try {
+    const r = await fetch(API + '/email/enviar?key=' + encodeURIComponent(key), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ para, asunto, mensaje, nombre_destinatario: nombre })
+    });
+    const d = await r.json();
+
+    if (result) {
+      if (d.status === 'EMAIL_ENVIADO') {
+        result.innerHTML =
+          '<div style="background:rgba(0,255,159,0.04);border:1px solid rgba(0,255,159,0.2);border-radius:8px;padding:1rem;">' +
+          '<div style="color:#00ff9f;font-weight:700;font-size:0.82rem;margin-bottom:0.5rem;">✅ Email enviado exitosamente</div>' +
+          '<div style="font-size:0.72rem;color:#aaa;line-height:1.8;">' +
+          '<div>Para: <strong style="color:#fff">' + para + '</strong></div>' +
+          '<div>Asunto: ' + asunto + '</div>' +
+          '<div style="color:#555;font-size:0.65rem;margin-top:0.3rem;">Resend ID: ' + (d.resend_id || '—') + '</div>' +
+          '<div style="color:#555;font-size:0.65rem;">' + new Date(d.timestamp).toLocaleString() + '</div>' +
+          '</div></div>';
+      } else {
+        result.innerHTML =
+          '<div style="background:rgba(255,68,68,0.06);border:1px solid rgba(255,68,68,0.2);border-radius:8px;padding:1rem;color:#ff4444;font-size:0.78rem;">' +
+          '❌ Error: ' + (d.error || JSON.stringify(d)) + '</div>';
+      }
+    }
+  } catch(e) {
+    if (result) result.innerHTML = '<div style="color:#ff4444;font-size:0.78rem;">⚠️ Error de conexión</div>';
+  }
+
+  const btnFinal = document.querySelector('#auditPanel button');
+  if (btnFinal) { btnFinal.textContent = '📧 Enviar desde clhq@hormigasais.com'; btnFinal.disabled = false; }
+}
+
+// Agregar botón Email al panel Admin cuando se autentica
+const _origCargarAuditoria = typeof cargarAuditoria !== 'undefined' ? cargarAuditoria : null;
+function inyectarBotonEmail() {
+  const statsPanel = document.getElementById('statsPanel');
+  if (!statsPanel) return;
+  if (document.getElementById('btnEmailComposer')) return;
+
+  const btnEmail = document.createElement('button');
+  btnEmail.id = 'btnEmailComposer';
+  btnEmail.onclick = mostrarComposer;
+  btnEmail.style.cssText = 'background:#1a1a1a;border:1px solid rgba(245,197,24,0.3);color:var(--amarillo);font-family:Space Mono,monospace;font-size:0.7rem;padding:0.4rem 0.8rem;border-radius:4px;cursor:pointer;margin-left:0.5rem;';
+  btnEmail.textContent = '📧 Enviar email';
+
+  const filtersDiv = statsPanel.previousElementSibling;
+  if (filtersDiv) filtersDiv.appendChild(btnEmail);
+}
