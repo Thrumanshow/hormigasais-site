@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HormigasAIS — Sistema de Custodia Legal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <style>
+    body { background: #0a0a0a; margin: 0; padding: 0; font-family: 'Space Mono', monospace; color: #e8e8e8; }
+    .wrapper { max-width: 800px; margin: 0 auto; padding: 3rem 1.5rem; }
+    .lang-switcher { display: flex; gap: 1rem; margin-bottom: 2rem; justify-content: flex-end; }
+    .lang-btn { background: #1a1a1a; border: 1px solid #333; color: #aaa; padding: 0.4rem 0.8rem; border-radius: 4px; cursor: pointer; font-family: inherit; font-size: 0.75rem; }
+    .lang-btn.active { border-color: #f5c518; color: #f5c518; }
+    .legal-nav { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; margin-bottom: 2rem; }
+    @media(max-width: 600px) { .legal-nav { grid-template-columns: 1fr; } }
+    .nav-tab { background: #111; border: 1px solid #222; color: #888; padding: 0.8rem; text-align: left; cursor: pointer; font-family: inherit; font-size: 0.8rem; border-radius: 6px; }
+    .nav-tab.active { border-color: #00ff9f; color: #fff; background: rgba(0,255,159,0.02); }
+    .content-box { background: #111; border: 1px solid #222; border-radius: 12px; padding: 2rem; min-height: 300px; line-height: 1.7; font-size: 0.85rem; }
+    .content-box h2 { font-family: 'Syne', sans-serif; font-size: 1.2rem; color: #fff; margin-top: 0; border-bottom: 1px solid #222; padding-bottom: 0.5rem; }
+    .content-box p { color: #888; margin-bottom: 1rem; }
+    .download-pdf-zone { margin-top: 1.5rem; text-align: left; }
+    .pdf-btn { background: rgba(245, 197, 24, 0.1); border: 1px solid #f5c518; color: #f5c518; padding: 0.6rem 1rem; border-radius: 6px; cursor: pointer; font-family: inherit; font-size: 0.8rem; text-decoration: none; display: inline-block; }
+    .pdf-btn:hover { background: #f5c518; color: #0a0a0a; }
+    .badge-signature { font-size: 0.7rem; color: #555; margin-top: 2rem; border-top: 1px solid #222; padding-top: 1rem; text-align: right; }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <div class="lang-switcher">
+    <button class="lang-btn active" onclick="setLang('es')">ESPAÑOL</button>
+    <button class="lang-btn" onclick="setLang('en')">ENGLISH</button>
+  </div>
+
+  <div style="font-family:'Syne',sans-serif; font-weight:800; color:#f5c518; font-size:1.4rem; margin-bottom:1.5rem;">🐜 HormigasAIS Legal Framework</div>
+
+  <div class="legal-nav">
+    <button class="nav-tab active" onclick="switchSection('privacidad', this)">I. Privacidad (GDPR)</button>
+    <button class="nav-tab" onclick="switchSection('terminos', this)">II. Términos (Decreto 722)</button>
+    <button class="nav-tab" onclick="switchSection('propiedad', this)">III. Propiedad Intelectual</button>
+    <button class="nav-tab" onclick="switchSection('contrato', this)">IV. Contrato LBH-SYS-004</button>
+  </div>
+
+  <div class="content-box" id="legal-content"></div>
+
+  <div class="download-pdf-zone">
+    <a href="/MANIFESTO_LEGAL_SOBERANO.pdf" class="pdf-btn" download>📥 Descargar Manifiesto Legal Certificado (PDF)</a>
+  </div>
+
+  <div class="badge-signature">
+    AUTORIDAD MÁSTER: [CLHQ] | CRYPTO-HASH VERIFIED
+  </div>
+</div>
+
+<script>
+  let currentLang = 'es';
+  let currentSection = 'privacidad';
+
+  const db = {
+    privacidad: {
+      es: `<h2>Política de Privacidad — Gobernanza de Datos LBH</h2><p>HormigasAIS procesa metadatos criptográficos descentralizados de activos digitales directamente en hardware perimetral. En estricta conformidad con los principios del GDPR, no se recopilan, indexan ni centralizan registros de identidad civil o datos biométricos de personas naturales de manera persistente.</p>`,
+      en: `<h2>Privacy Policy — LBH Data Governance</h2><p>HormigasAIS processes decentralized cryptographic metadata of digital assets directly on edge hardware. In strict compliance with GDPR principles, no civil identity records or biometric profiles of natural persons are persistently collected, indexed, or centralized.</p>`
+    },
+    terminos: {
+      es: `<h2>Términos de Servicio — Marco Regulatorio</h2><p>El uso del ecosistema distribuido implica la aceptación de interacciones basadas en contratos biológicos de baja huella energética. Los presentes términos se amparan de forma soberana bajo el Decreto N.º 722 de la República de El Salvador.</p>`,
+      en: `<h2>Terms of Service — Regulatory Framework</h2><p>Usage of the distributed ecosystem constitutes acceptance of low-energy biological contract interactions. These terms are sovereignly anchored under Decree No. 722 of the Republic of El Salvador.</p>`
+    },
+    propiedad: {
+      es: `<h2>Propiedad Intelectual y Licencias</h2><p>La arquitectura del Lenguaje Binario HormigasAIS (LBH) v2.0, sus esquemas de codificación perimetral en baja frecuencia y la matriz de orquestación de la colonia son propiedad intelectual exclusiva de su diseñador de protocolos, Cristhiam Leonardo Hernández Quiñonez [CLHQ]. Certificado bajo el registro DOI: 10.5281/zenodo.17767205.</p>`,
+      en: `<h2>Intellectual Property & Licensing</h2><p>The architecture of the Lenguaje Binario HormigasAIS (LBH) v2.0, its low-frequency edge encoding schemes, and the colony orchestration matrix are the exclusive intellectual property of its protocol designer, Cristhiam Leonardo Hernández Quiñonez [CLHQ]. Certified under registry DOI: 10.5281/zenodo.17767205.</p>`
+    },
+    contrato: {
+      es: `<h2>Contrato Soberano e Inmunidad (LBH-SYS-004)</h2><p><strong>CUSTODIA HISTÓRICA:</strong> 36bb39bfc933d3ea2941cadc3db46693ce89fc22b885f654c12010e4ca2a31e8</p><p>Este segmento establece la inmunidad activa y el hardening de la infraestructura de borde. Decreta la inhabilitación inmediata de componentes pesados heredados monolíticos mediante micro-pulsos binarios automatizados. Amparado bajo el Decreto Legislativo N.º 234, Ley de Fomento a la Inteligencia Artificial, Art. 4.</p>`,
+      en: `<h2>Sovereign Contract & Immunity (LBH-SYS-004)</h2><p><strong>HISTORIC CUSTODY:</strong> 36bb39bfc933d3ea2941cadc3db46693ce89fc22b885f654c12010e4ca2a31e8</p><p>This segment establishes active immunity and edge infrastructure hardening. It mandates the immediate disabling of monolithic legacy modules through automated binary micro-pulses. Protected under Legislative Decree No. 234, Artificial Intelligence Promotion Law, Art. 4.</p>`
+    }
+  };
+
+  function render() {
+    document.getElementById('legal-content').innerHTML = db[currentSection][currentLang];
+  }
+
+  function setLang(lang) {
+    currentLang = lang;
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+    render();
+  }
+
+  function switchSection(section, element) {
+    currentSection = section;
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    element.classList.add('active');
+    render();
+    window.location.hash = section;
+  }
+
+  function checkUrlHash() {
+    const hash = window.location.hash.replace('#', '');
+    if (db[hash]) {
+      currentSection = hash;
+      const tabs = document.querySelectorAll('.nav-tab');
+      let index = 0;
+      if(hash === 'terminos') index = 1;
+      if(hash === 'propiedad') index = 2;
+      if(hash === 'contrato') index = 3;
+      document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+      tabs[index].classList.add('active');
+    }
+    render();
+  }
+
+  window.addEventListener('load', checkUrlHash);
+  window.addEventListener('hashchange', checkUrlHash);
+</script>
+
+</body>
+</html>
