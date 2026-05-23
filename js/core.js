@@ -16,6 +16,7 @@ function showSection(id, btn) {
   // Triggers por sección
   const triggers = {
     colonia:  () => typeof cargarColoniaPublica === 'function' && cargarColoniaPublica(),
+    accesible:() => typeof window.RenderHormigasAccesible === 'function' && window.RenderHormigasAccesible(),
     admin:    () => {},
     cuenta:   () => {},
     xoxo:     () => typeof cargarRegalos === 'function' && cargarRegalos(),
