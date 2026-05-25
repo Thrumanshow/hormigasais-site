@@ -1,0 +1,15 @@
+@keyframes pulso {
+  0% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.3); }
+  100% { opacity: 0.4; transform: scale(1); }
+}
+
+.indicador-pulso {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background: #00ff9f;
+  border-radius: 50%;
+  animation: pulso 2s infinite;
+  margin-right: 8px;
+}
