@@ -159,6 +159,37 @@ async function analizarVideo() {
     bar.style.width = score_val + '%';
     bar.style.background = score_val >= 55 ? 'var(--verde)' : score_val >= 35 ? 'var(--amarillo)' : '#ff4444';
 
+
+    // Panel cortex hormiga_de_web
+    const cortexPanel = document.getElementById('cortexPanel');
+    if (cortexPanel && data.cortex_hormiga) {
+      const c = data.cortex_hormiga;
+      const prob = data.probabilidad_ia || 0;
+      cortexPanel.style.display = 'block';
+      cortexPanel.innerHTML =
+        '<div style="font-size:0.62rem;color:#555;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.8rem;display:flex;align-items:center;gap:0.5rem;">' +
+        '<div style="width:6px;height:6px;border-radius:50%;background:#f5c518;box-shadow:0 0 6px #f5c518;"></div>' +
+        'CORTEX HORMIGA_DE_WEB — ENTRENAMIENTO ACTIVO' +
+        '</div>' +
+        '<div style="display:grid;gap:0.3rem;font-size:0.72rem;">' +
+        '<div style="display:flex;justify-content:space-between;padding:0.4rem 0;border-bottom:1px solid #111;">' +
+        '<span style="color:#555;">Estado hormiga</span>' +
+        '<span style="color:#f5c518;">' + (c.estado || '—') + '</span></div>' +
+        '<div style="display:flex;justify-content:space-between;padding:0.4rem 0;border-bottom:1px solid #111;">' +
+        '<span style="color:#555;">Probabilidad IA</span>' +
+        '<span style="color:' + (prob > 0.5 ? '#ff4444' : '#00ff9f') + ';">' + Math.round(prob * 100) + '%</span></div>' +
+        '<div style="display:flex;justify-content:space-between;padding:0.4rem 0;border-bottom:1px solid #111;">' +
+        '<span style="color:#555;">Confianza hormiga</span>' +
+        '<span style="color:#aaa;">' + Math.round((c.confianza_hormiga || 0) * 100) + '%</span></div>' +
+        '<div style="display:flex;justify-content:space-between;padding:0.4rem 0;border-bottom:1px solid #111;">' +
+        '<span style="color:#555;">Directiva</span>' +
+        '<span style="color:#aaa;font-size:0.65rem;">' + (c.directiva || '—') + '</span></div>' +
+        '<div style="display:flex;justify-content:space-between;padding:0.4rem 0;">' +
+        '<span style="color:#555;">Estrategia</span>' +
+        '<span style="color:#aaa;font-size:0.65rem;">' + (c.estrategia || '—') + '</span></div>' +
+        '</div>';
+    }
+
     // Feromona
     if (data.feromona) {
       feromona.style.display = 'block';
