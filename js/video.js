@@ -5,20 +5,21 @@
 // ================================================================
 
 document.addEventListener('DOMContentLoaded', function() {
+// CONFIGURACIÓN DE NODO A16
+  const API_URL = 'https://hormigasaisa16.share.zrok.io/video/analizar';
+  console.log('Nodo A16 listo, apuntando a:', API_URL);
   const sec = document.getElementById('video');
   if (!sec) return;
 
   sec.innerHTML = `
     <div style="max-width:680px;margin:0 auto;">
 
-      <!-- HEADER -->
       <div style="font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;color:#fff;margin-bottom:0.3rem;">👁️ Video Intelligence</div>
       <p style="color:#555;font-size:0.78rem;margin-bottom:0.3rem;">Análisis de consistencia biológica — Detector de IA generativa</p>
       <div style="background:rgba(0,255,159,0.06);border:1px solid rgba(0,255,159,0.15);border-radius:6px;padding:0.6rem 1rem;font-size:0.72rem;color:#00ff9f;margin-bottom:2rem;">
         🆓 Servicio gratuito — YouTube · TikTok · Instagram · MP4 y más
       </div>
 
-      <!-- INPUT URL -->
       <div style="background:#1a1a1a;border:1px solid #2a2a2a;border-radius:12px;padding:1.5rem;margin-bottom:1.5rem;">
         <label style="font-size:0.65rem;color:#555;text-transform:uppercase;letter-spacing:0.08em;display:block;margin-bottom:0.5rem;">
           LINK_DE_VIDEO_A_VERIFICAR
@@ -41,10 +42,8 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
       </div>
 
-      <!-- ORÁCULO -->
       <div id="oraculoPanel" style="background:#1a1a1a;border:1px solid #2a2a2a;border-radius:12px;padding:2rem;text-align:center;min-height:280px;display:flex;flex-direction:column;align-items:center;justify-content:center;">
 
-        <!-- Círculo indicador -->
         <div id="oraculoCircle" style="width:90px;height:90px;border-radius:50%;background:#111;border:3px solid #2a2a2a;display:flex;align-items:center;justify-content:center;font-size:2rem;margin-bottom:1.2rem;transition:all 0.4s;">
           👁️
         </div>
@@ -56,7 +55,6 @@ document.addEventListener('DOMContentLoaded', function() {
           Inserta un link para que el nodo A16 analice su estructura biológica.
         </div>
 
-        <!-- Score bar -->
         <div id="scoreContainer" style="display:none;width:100%;max-width:400px;margin-top:1.5rem;">
           <div style="display:flex;justify-content:space-between;font-size:0.68rem;color:#555;margin-bottom:0.4rem;">
             <span>🤖 IA Generativa</span>
@@ -68,18 +66,15 @@ document.addEventListener('DOMContentLoaded', function() {
           </div>
         </div>
 
-        <!-- Feromona LBH -->
         <div id="feromonaPanel" style="display:none;background:#0a0a0a;border:1px solid #222;border-radius:8px;padding:1rem;margin-top:1.5rem;width:100%;max-width:500px;text-align:left;">
           <div style="font-size:0.62rem;color:#555;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.5rem;">FEROMONA_EMITIDA:</div>
           <pre id="feromonaData" style="font-size:0.68rem;color:#aaa;font-family:'Space Mono',monospace;overflow-x:auto;white-space:pre-wrap;margin:0;"></pre>
         </div>
 
-        <!-- Metadatos del video -->
         <div id="metadatosPanel" style="display:none;width:100%;max-width:500px;margin-top:1rem;text-align:left;"></div>
 
       </div>
 
-      <!-- NOTA LEGAL -->
       <div style="margin-top:1.5rem;font-size:0.7rem;color:#333;text-align:center;line-height:1.8;">
         Este servicio gratuito es una capa externa de la Inteligencia Estructural de la Colonia HormigasAIS.<br>
         Ejecutada de manera descentralizada desde el Nodo A16, San Miguel, El Salvador.<br>
@@ -91,6 +86,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 async function analizarVideo() {
+  const API = 'https://hormigasaisa16.share.zrok.io/video/analizar';
   const url = document.getElementById('videoUrlInput').value.trim();
   if (!url || !url.startsWith('http')) {
     alert('Ingresa una URL válida de video');
@@ -113,6 +109,7 @@ async function analizarVideo() {
   status.style.color = '#f5c518';
   status.textContent = 'Nodo A16 analizando...';
   sub.textContent = 'Descargando y procesando estructura biológica del video. Esto puede tomar 30-60 segundos.';
+  score.style.with = '0%';
   score.style.display = 'none';
   feromona.style.display = 'none';
   meta.style.display = 'none';
@@ -135,10 +132,13 @@ async function analizarVideo() {
     }
 
     const esHumano = data.es_humano;
-    const score_val = data.score_biologico || 0;
+    const score_val = data.score_biologico !== undefined ? data.score_biologico : 0;
 
-    // Actualizar círculo
-    if (esHumano) {
+        // Actualizar interfaz según el veredicto unificado
+    // Si ia_generativa es false, entonces es Humano
+    const esHumanoVideo = !data.ia_generativa; 
+
+    if (esHumanoVideo) {
       circle.style.cssText = 'width:90px;height:90px;border-radius:50%;background:rgba(0,255,159,0.15);border:3px solid var(--verde);display:flex;align-items:center;justify-content:center;font-size:2rem;margin-bottom:1.2rem;box-shadow:0 0 20px rgba(0,255,159,0.3);';
       circle.textContent = '👤';
       status.style.color = '#00ff9f';
@@ -149,43 +149,45 @@ async function analizarVideo() {
       circle.textContent = '🤖';
       status.style.color = '#ff4444';
       status.textContent = 'POSIBLE IA GENERATIVA DETECTADA';
-      sub.textContent = 'Se detectaron patrones inconsistentes con captura óptica humana real.';
+      sub.textContent = 'Se detectaron patrones sintéticos inconsistentes con captura óptica humana real.';
     }
 
-    // Score bar
+    // Score bar animada
     score.style.display = 'block';
     document.getElementById('scoreText').textContent = score_val + '%';
     const bar = document.getElementById('scoreBar');
     bar.style.width = score_val + '%';
     bar.style.background = score_val >= 55 ? 'var(--verde)' : score_val >= 35 ? 'var(--amarillo)' : '#ff4444';
 
-    // Feromona
+    // Inyección de Feromona LBH limpia
     if (data.feromona) {
       feromona.style.display = 'block';
       document.getElementById('feromonaData').textContent = JSON.stringify(data.feromona, null, 2);
     }
 
-    // Metadatos
-    if (data.metadatos && data.metadatos.titulo) {
-      const m = data.metadatos;
+    // Renderizar metadatos y métricas de OpenCV reales
+    if (data.metricas) {
+      const m = data.metadatos || {};
       meta.style.display = 'block';
-      meta.innerHTML =
-        '<div style="font-size:0.62rem;color:#555;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.5rem;">METADATOS DEL VIDEO:</div>' +
-        '<div style="display:grid;gap:0.3rem;">' +
-        row('Título', m.titulo || '—') +
-        row('Plataforma', m.plataforma || '—') +
-        row('Duración', m.duracion ? Math.floor(m.duracion/60) + 'min ' + (m.duracion%60) + 's' : '—') +
-        row('Resolución', m.resolucion || '—') +
-        (data.metricas ? row('Frames analizados', data.metricas.frames_analizados + ' / ' + (data.metricas.frames_analizados)) : '') +
-        (data.metricas ? row('Fluctuación bordes', data.metricas.fluctuacion_bordes) : '') +
-        '</div>';
+      meta.innerHTML = `
+        <div style="font-size:0.62rem;color:#555;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.5rem;">METADATOS DEL VIDEO:</div>
+        <div style="display:grid;gap:0.3rem;">
+          ${row('Título', m.titulo || 'Archivo directo / Sin Título')}
+          ${row('Plataforma', m.plataforma || 'Capa perimetral (generic)')}
+          ${row('Duración', m.duracion ? Math.floor(m.duracion/60) + 'min ' + (m.duracion%60) + 's' : 'Temporal / Corto')}
+          ${row('Resolución', data.metricas.resolucion || '—')}
+          ${row('Frames analizados', data.metricas.frames_analizados || '—')}
+          ${row('Fluctuación bordes', data.metricas.fluctuacion_bordes || '—')}
+        </div>
+      `;
     }
 
   } catch(e) {
     circle.textContent = '⚠️';
     status.style.color = '#ff4444';
     status.textContent = 'Error de conexión';
-    sub.textContent = 'El nodo A16 no está disponible. Asegúrate de que el servidor local esté activo.';
+    sub.textContent = 'El nodo A16 no está disponible o el JSON es inválido. Revisa la consola.';
+    console.error(e);
   } finally {
     btn.textContent = 'ANALIZAR';
     btn.disabled = false;
@@ -206,3 +208,50 @@ videoStyle.textContent = `
 }
 `;
 document.head.appendChild(videoStyle);
+
+
+
+// ================================================================
+// 🧠 Estado interno del Cortex LBH
+// ================================================================
+
+async function checkVideoCortex() {
+
+  const txt = document.getElementById('videoCortexText');
+  const dot = document.getElementById('videoCortexDot');
+
+  if (!txt || !dot) return;
+
+  try {
+
+    const r = await fetch(API + '/health');
+    const data = await r.json();
+
+    if (data.status === 'ok') {
+
+      txt.textContent = '🟢 Nodo A16 Online';
+      txt.style.color = '#00ff9f';
+
+      dot.style.background = '#00ff9f';
+      dot.style.boxShadow = '0 0 18px #00ff9f';
+
+    } else {
+
+      txt.textContent = '⚠️ Nodo responde parcialmente';
+      txt.style.color = '#f5c518';
+
+      dot.style.background = '#f5c518';
+      dot.style.boxShadow = '0 0 18px #f5c518';
+    }
+
+  } catch(e) {
+
+    txt.textContent = '🔴 Nodo A16 desconectado';
+    txt.style.color = '#ff4444';
+
+    dot.style.background = '#ff4444';
+    dot.style.boxShadow = '0 0 18px #ff4444';
+  }
+}
+
+setTimeout(checkVideoCortex, 1200);
