@@ -7,7 +7,7 @@ async function ejecutarTestCortex() {
   try {
 
     const respuesta = await fetch(
-      'https://lemon-basics-worship-curriculum.trycloudflare.com/video/analizar',
+      'https://smile-defeat-wars-nuke.trycloudflare.com/video/analizar',
       {
         method: 'POST',
         headers: {
