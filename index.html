@@ -239,7 +239,6 @@
 </header>
 
 <nav>
-<div id="estadoHormigaWeb" style="text-align: center; margin: 10px 0;"></div>
   <button class="active" onclick="showSection('home',this)">Inicio</button>
   <button onclick="showSection('planes',this)">💎 Planes</button>
   <button onclick="showSection('sello',this)">🔏 Sellar</button>
@@ -562,7 +561,6 @@ async function checkStatus() {
   try {
     const r = await fetch(API + '/verify');
     const d = await r.json();
-    if (d.status === 'VALIDADO') document.getElementById('statusText').textContent = 'Nodo A16 · Online';
   } catch(e) { document.getElementById('statusText').textContent = 'Reconectando...'; }
 }
 
