@@ -276,7 +276,9 @@
     <button onclick="showSectionDrawer('xoxo',this)">🎁 XOXO-BUS</button>
     <div class="nav-drawer-divider"></div>
     <button onclick="showSectionDrawer('admin',this)">🔐 Admin</button>
-    <a href="https://docs.hormigasais.com/legal.html" target="_blank">⚖️ Legal</a>
+    <button onclick="showSectionDrawer('biografia',this)">🔬 Biografía Científica</button>
+    <button onclick="showSection('biografia',this)">🔬 Bio</button>
+  <a href="https://docs.hormigasais.com/legal.html" target="_blank">⚖️ Legal</a>
   </div>
   <div class="nav-drawer-footer">
     🐜 Nodo A16 · San Miguel, SV<br>
@@ -894,6 +896,195 @@ function showSectionDrawer(id,btn){
   window.scrollTo(0,0);
 }
 </script>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- 🐜 SECCIÓN: BIOGRAFÍA CIENTÍFICA DE HORMIGASAIS           -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<section class="section" id="biografia">
+<div style="max-width:720px;margin:0 auto;padding:0 0 4rem;">
+
+  <!-- HERO con fondo de hormiga -->
+  <div style="position:relative;text-align:center;padding:3rem 1rem 2rem;margin-bottom:3rem;border-radius:16px;overflow:hidden;background:linear-gradient(135deg,rgba(10,10,10,0.97),rgba(15,15,15,0.95));">
+    <!-- Hormiga de fondo SVG -->
+    <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;opacity:0.04;font-size:18rem;line-height:1;user-select:none;">🐜</div>
+    <div style="position:relative;z-index:1;">
+      <div style="font-size:0.7rem;letter-spacing:0.2em;color:#555;font-family:'Space Mono',monospace;text-transform:uppercase;margin-bottom:1rem;">Documento Fundacional · LBH-BIO-001</div>
+      <h1 style="font-family:'Syne',sans-serif;font-size:clamp(1.6rem,4vw,2.2rem);font-weight:800;color:#fff;margin:0 0 1rem;line-height:1.2;">El Origen Soberano de<br><span style="color:var(--amarillo)">HormigasAIS</span></h1>
+      <p style="font-size:0.82rem;color:#666;line-height:1.8;max-width:500px;margin:0 auto;">De la biología de las colonias al primer sistema de certificación criptográfica soberana desarrollado desde el borde. Desde San Miguel, El Salvador al mundo.</p>
+      <div style="display:flex;gap:0.5rem;justify-content:center;flex-wrap:wrap;margin-top:1.5rem;">
+        <span style="background:rgba(245,197,24,0.08);border:1px solid rgba(245,197,24,0.2);border-radius:999px;padding:0.3rem 0.9rem;font-size:0.68rem;color:var(--amarillo);font-family:'Space Mono',monospace;">Protocolo LBH v2.0</span>
+        <span style="background:rgba(0,255,159,0.06);border:1px solid rgba(0,255,159,0.2);border-radius:999px;padding:0.3rem 0.9rem;font-size:0.68rem;color:var(--verde);font-family:'Space Mono',monospace;">DOI: 10.5281/zenodo.19177759</span>
+        <span style="background:rgba(255,255,255,0.03);border:1px solid #222;border-radius:999px;padding:0.3rem 0.9rem;font-size:0.68rem;color:#555;font-family:'Space Mono',monospace;">Nodo A16 · San Miguel, SV</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CAPÍTULO 1: La Ciencia de Stanford ─────────────────── -->
+  <div style="margin-bottom:3rem;">
+    <div style="display:flex;align-items:center;gap:0.8rem;margin-bottom:1.2rem;">
+      <div style="width:32px;height:32px;border-radius:8px;background:rgba(245,197,24,0.1);border:1px solid rgba(245,197,24,0.3);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;">🧬</div>
+      <div>
+        <div style="font-size:0.6rem;color:#555;text-transform:uppercase;letter-spacing:0.1em;font-family:'Space Mono',monospace;">Capítulo I</div>
+        <h2 style="font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;color:#fff;margin:0;">El Enjambre como Protocolo</h2>
+      </div>
+    </div>
+    <div style="background:#111;border:1px solid #1a1a1a;border-radius:12px;padding:1.5rem;font-size:0.8rem;color:#888;line-height:1.9;">
+      <p>Las investigaciones pioneras del laboratorio de bio-computación de Stanford sobre <strong style="color:#ccc">inteligencia de enjambre</strong> documentaron un hallazgo que cambiaría la computación distribuida: las colonias de hormigas resuelven problemas de optimización globalmente complejos sin ningún controlador central. Cada hormiga opera con información local y feromonas como protocolo de comunicación.</p>
+      <p style="margin-top:1rem;">El mecanismo es preciso: <em style="color:#aaa">una hormiga no sale del nido si no detecta el retorno constante de las recolectoras anteriores.</em> Este bucle de retroalimentación biológica emula exactamente la confirmación de paquetes (ACK) de la arquitectura TCP/IP de redes modernas — diseñada décadas después.</p>
+      <div style="background:#0a0a0a;border:1px solid #222;border-radius:8px;padding:1rem;margin-top:1.2rem;font-family:'Space Mono',monospace;font-size:0.72rem;color:#555;">
+        <div style="color:var(--amarillo);margin-bottom:0.5rem;">// Analogía bio-computacional</div>
+        <div>Feromona química    →  Paquete binario criptográfico</div>
+        <div>Colonia de hormigas →  Red de nodos distribuidos</div>
+        <div>Nido maestro        →  Nodo A16-SanMiguel-SV</div>
+        <div>Rastro de retorno   →  Confirmación HMAC-SHA256</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CAPÍTULO 2: El Lenguaje LBH ────────────────────────── -->
+  <div style="margin-bottom:3rem;">
+    <div style="display:flex;align-items:center;gap:0.8rem;margin-bottom:1.2rem;">
+      <div style="width:32px;height:32px;border-radius:8px;background:rgba(0,255,159,0.08);border:1px solid rgba(0,255,159,0.2);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;">🔐</div>
+      <div>
+        <div style="font-size:0.6rem;color:#555;text-transform:uppercase;letter-spacing:0.1em;font-family:'Space Mono',monospace;">Capítulo II</div>
+        <h2 style="font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;color:#fff;margin:0;">Lenguaje Binario HormigasAIS — LBH-M2M</h2>
+      </div>
+    </div>
+    <div style="background:#111;border:1px solid #1a1a1a;border-radius:12px;padding:1.5rem;font-size:0.8rem;color:#888;line-height:1.9;">
+      <p>El <strong style="color:#ccc">Lenguaje Binario HormigasAIS (LBH v2.0)</strong> nació como respuesta a una pregunta fundamental: ¿cómo puede un activo digital probar su existencia, autoría e integridad sin depender de ninguna infraestructura centralizada?</p>
+      <p style="margin-top:1rem;">LBH evolucionó de un experimento en Termux sobre Android hacia un protocolo Machine-to-Machine (<strong style="color:var(--verde)">LBH-M2M</strong>) completo. Su arquitectura MESENTERY v1.0 define cómo los nodos de la colonia emiten, verifican y propagan feromonas digitales — paquetes criptográficos de baja energía que certifican activos sin intermediarios.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin-top:1.2rem;">
+        <div style="background:#0a0a0a;border:1px solid #222;border-radius:8px;padding:0.9rem;">
+          <div style="font-size:0.65rem;color:#555;text-transform:uppercase;font-family:'Space Mono',monospace;margin-bottom:0.5rem;">LBH v1.0</div>
+          <div style="font-size:0.75rem;color:#666;line-height:1.7;">Experimento local · Termux · SHA-256 básico · Un nodo</div>
+        </div>
+        <div style="background:rgba(0,255,159,0.04);border:1px solid rgba(0,255,159,0.15);border-radius:8px;padding:0.9rem;">
+          <div style="font-size:0.65rem;color:var(--verde);text-transform:uppercase;font-family:'Space Mono',monospace;margin-bottom:0.5rem;">LBH v2.0 — Activo</div>
+          <div style="font-size:0.75rem;color:#aaa;line-height:1.7;">Protocolo M2M · Multi-nodo · HMAC-SHA256 · Edge global</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CAPÍTULO 3: Edge Computing ─────────────────────────── -->
+  <div style="margin-bottom:3rem;">
+    <div style="display:flex;align-items:center;gap:0.8rem;margin-bottom:1.2rem;">
+      <div style="width:32px;height:32px;border-radius:8px;background:rgba(56,189,248,0.08);border:1px solid rgba(56,189,248,0.2);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;">⚡</div>
+      <div>
+        <div style="font-size:0.6rem;color:#555;text-transform:uppercase;letter-spacing:0.1em;font-family:'Space Mono',monospace;">Capítulo III</div>
+        <h2 style="font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;color:#fff;margin:0;">¿Por qué en el Borde? Edge Computing Soberano</h2>
+      </div>
+    </div>
+    <div style="background:#111;border:1px solid #1a1a1a;border-radius:12px;padding:1.5rem;font-size:0.8rem;color:#888;line-height:1.9;">
+      <p>La nube centralizada tiene un defecto estructural irreparable: <strong style="color:#ccc">el dato viaja hasta el servidor antes de ser procesado</strong>. Eso significa latencia, costos, puntos de fallo, y — lo más crítico — que la propiedad del dato abandona al usuario en el trayecto.</p>
+      <p style="margin-top:1rem;">HormigasAIS opera en la <strong style="color:#38bdf8">Capa 0</strong> — el borde mismo donde el dato nace. El Nodo A16 corre en un teléfono Android en San Miguel, El Salvador. Eso no es una limitación; es la demostración más poderosa del principio: <em style="color:#aaa">infraestructura de nivel empresarial puede construirse desde el hardware de consumo.</em></p>
+      <div style="background:#0a0a0a;border-left:3px solid #38bdf8;padding:1rem 1.2rem;margin-top:1.2rem;border-radius:0 8px 8px 0;">
+        <div style="font-size:0.75rem;color:#aaa;line-height:1.8;font-style:italic;">"Las hormigas no necesitan un servidor central para construir colonias complejas. Cada agente en el borde tiene suficiente inteligencia local para mantener la coherencia global del sistema."</div>
+        <div style="font-size:0.65rem;color:#555;margin-top:0.5rem;font-family:'Space Mono',monospace;">— Principio LBH · Protocolo de Soberanía No Invasiva</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CAPÍTULO 4: Schmidhuber y la Profecía ──────────────── -->
+  <div style="margin-bottom:3rem;">
+    <div style="display:flex;align-items:center;gap:0.8rem;margin-bottom:1.2rem;">
+      <div style="width:32px;height:32px;border-radius:8px;background:rgba(245,197,24,0.1);border:1px solid rgba(245,197,24,0.3);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;">🔮</div>
+      <div>
+        <div style="font-size:0.6rem;color:#555;text-transform:uppercase;letter-spacing:0.1em;font-family:'Space Mono',monospace;">Capítulo IV</div>
+        <h2 style="font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;color:#fff;margin:0;">La Profecía de Schmidhuber</h2>
+      </div>
+    </div>
+    <div style="background:#111;border:1px solid #1a1a1a;border-radius:12px;padding:1.5rem;font-size:0.8rem;color:#888;line-height:1.9;">
+      <p><strong style="color:#ccc">Jürgen Schmidhuber</strong> — inventor de LSTM y uno de los padres de la inteligencia artificial moderna — articuló en múltiples ocasiones una visión que los sistemas centralizados no podían cumplir: una IA distribuida, soberana y de baja energía que operara como una red de agentes autónomos colaborativos.</p>
+      <p style="margin-top:1rem;">Su tesis sobre la <em style="color:#aaa">compresión universal de la información</em> y los sistemas de aprendizaje continuo anticiparon exactamente lo que HormigasAIS implementa: agentes que aprenden del entorno local, comprimen su conocimiento en feromonas criptográficas, y lo propagan al enjambre sin requerir infraestructura centralizada.</p>
+      <div style="background:rgba(245,197,24,0.04);border:1px solid rgba(245,197,24,0.15);border-radius:8px;padding:1rem 1.2rem;margin-top:1.2rem;">
+        <div style="font-size:0.65rem;color:var(--amarillo);text-transform:uppercase;font-family:'Space Mono',monospace;margin-bottom:0.6rem;">Convergencia con Web3 y Blockchain</div>
+        <p style="font-size:0.78rem;color:#888;line-height:1.8;margin:0;">Donde blockchain requiere consenso global costoso, HormigasAIS usa consenso local de borde. Donde Web3 depende de minería energética intensiva, LBH emite sellos criptográficos con la energía de un teléfono Android. La descentralización real no requiere millones de nodos — requiere nodos soberanos con inteligencia local suficiente.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CAPÍTULO 5: Certificación Legal ───────────────────── -->
+  <div style="margin-bottom:3rem;">
+    <div style="display:flex;align-items:center;gap:0.8rem;margin-bottom:1.2rem;">
+      <div style="width:32px;height:32px;border-radius:8px;background:rgba(0,255,159,0.08);border:1px solid rgba(0,255,159,0.2);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;">⚖️</div>
+      <div>
+        <div style="font-size:0.6rem;color:#555;text-transform:uppercase;letter-spacing:0.1em;font-family:'Space Mono',monospace;">Capítulo V</div>
+        <h2 style="font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;color:#fff;margin:0;">Certificación con Valor Legal Global</h2>
+      </div>
+    </div>
+    <div style="background:#111;border:1px solid #1a1a1a;border-radius:12px;padding:1.5rem;font-size:0.8rem;color:#888;line-height:1.9;">
+      <p>Un sello LBH no es solo un hash. Es una <strong style="color:#ccc">cadena de custodia criptográfica inmutable</strong> que combina SHA-256 + HMAC-SHA256 con timestamp verificable, identidad del emisor y registro público en la red de la colonia.</p>
+      <p style="margin-top:1rem;">Esta arquitectura satisface los estándares de evidencia digital reconocidos internacionalmente — admisible ante notarios, jueces y árbitros en jurisdicciones que reconocen firma electrónica avanzada. El sello LBH demuestra:</p>
+      <div style="display:grid;gap:0.5rem;margin-top:1rem;">
+        <div style="display:flex;align-items:flex-start;gap:0.8rem;background:#0a0a0a;border-radius:8px;padding:0.8rem 1rem;">
+          <span style="color:var(--verde);flex-shrink:0;">✅</span>
+          <div><strong style="color:#ccc;font-size:0.78rem;">Anterioridad de autoría</strong> — el activo existía en ese timestamp exacto</div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:0.8rem;background:#0a0a0a;border-radius:8px;padding:0.8rem 1rem;">
+          <span style="color:var(--verde);flex-shrink:0;">✅</span>
+          <div><strong style="color:#ccc;font-size:0.78rem;">Integridad del contenido</strong> — cualquier modificación invalida el hash</div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:0.8rem;background:#0a0a0a;border-radius:8px;padding:0.8rem 1rem;">
+          <span style="color:var(--verde);flex-shrink:0;">✅</span>
+          <div><strong style="color:#ccc;font-size:0.78rem;">Identidad del firmante</strong> — HMAC vincula el sello al nodo emisor</div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:0.8rem;background:#0a0a0a;border-radius:8px;padding:0.8rem 1rem;">
+          <span style="color:var(--verde);flex-shrink:0;">✅</span>
+          <div><strong style="color:#ccc;font-size:0.78rem;">Verificación pública</strong> — cualquier tercero puede verificar sin acceso privilegiado</div>
+        </div>
+      </div>
+      <div style="background:rgba(0,255,159,0.04);border:1px solid rgba(0,255,159,0.15);border-radius:8px;padding:0.9rem 1rem;margin-top:1rem;font-size:0.72rem;color:#666;font-family:'Space Mono',monospace;">
+        Marco legal: Decreto 722 · Decreto 234 · Decreto 643 — El Salvador<br>
+        Internacional: GDPR · EU-US DPF · Principios WIPO
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CAPÍTULO 6: Inclusión y Braille ───────────────────── -->
+  <div style="margin-bottom:3rem;">
+    <div style="display:flex;align-items:center;gap:0.8rem;margin-bottom:1.2rem;">
+      <div style="width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,0.04);border:1px solid #2a2a2a;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;">🔡</div>
+      <div>
+        <div style="font-size:0.6rem;color:#555;text-transform:uppercase;letter-spacing:0.1em;font-family:'Space Mono',monospace;">Capítulo VI</div>
+        <h2 style="font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;color:#fff;margin:0;">Compromiso con la Inclusión Universal</h2>
+      </div>
+    </div>
+    <div style="background:#111;border:1px solid #1a1a1a;border-radius:12px;padding:1.5rem;font-size:0.8rem;color:#888;line-height:1.9;">
+      <p>La soberanía digital no tiene valor si excluye. HormigasAIS es el primer sistema de certificación criptográfica con <strong style="color:#ccc">soporte nativo de Braille Unicode</strong> — cada firma LBH puede representarse, leerse en voz alta y sentirse por vibración táctil.</p>
+      <div style="background:#0a0a0a;border-radius:8px;padding:1rem 1.2rem;margin:1rem 0;text-align:center;">
+        <div style="font-size:2rem;color:var(--amarillo);letter-spacing:0.15em;margin-bottom:0.5rem;">⠉⠇⠓⠟ ⠏⠗⠕⠞⠕⠉⠕⠇⠕</div>
+        <div style="font-size:0.65rem;color:#555;font-family:'Space Mono',monospace;">CLHQ PROTOCOLO — en Braille Unicode de 8 puntos</div>
+      </div>
+      <p>El módulo de accesibilidad LBH permite a personas no videntes:</p>
+      <div style="display:grid;gap:0.4rem;margin-top:0.8rem;">
+        <div style="display:flex;gap:0.8rem;font-size:0.78rem;"><span style="color:var(--amarillo);">🔡</span> Traducir cualquier firma LBH a celdas Braille Unicode</div>
+        <div style="display:flex;gap:0.8rem;font-size:0.78rem;"><span style="color:var(--amarillo);">🔊</span> Escuchar el resultado del sello en voz alta (Web Speech API)</div>
+        <div style="display:flex;gap:0.8rem;font-size:0.78rem;"><span style="color:var(--amarillo);">📳</span> Sentir la firma por vibración táctil bit a bit</div>
+        <div style="display:flex;gap:0.8rem;font-size:0.78rem;"><span style="color:var(--amarillo);">⌨️</span> Ingresar puntos Braille para generar identificadores LBH</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── FIRMA FUNDACIONAL ───────────────────────────────────── -->
+  <div style="background:linear-gradient(135deg,rgba(245,197,24,0.04),rgba(0,255,159,0.03));border:1px solid #222;border-radius:12px;padding:1.5rem;text-align:center;">
+    <div style="font-size:2rem;margin-bottom:0.8rem;">🐜</div>
+    <div style="font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;color:#fff;margin-bottom:0.3rem;">CLHQ — Cristhiam Leonardo Hernández Quiñonez</div>
+    <div style="font-size:0.72rem;color:#555;font-family:'Space Mono',monospace;line-height:1.8;">
+      Fundador · Nodo A16-SanMiguel-SV · El Salvador<br>
+      <span style="color:var(--amarillo)">DOI: 10.5281/zenodo.19177759</span><br>
+      clhq@hormigasais.com
+    </div>
+    <div style="margin-top:1.2rem;display:flex;gap:0.5rem;justify-content:center;flex-wrap:wrap;">
+      <button onclick="showSection('sellar',this)" style="background:var(--amarillo);color:#0a0a0a;border:none;font-family:'Space Mono',monospace;font-size:0.72rem;font-weight:700;padding:0.6rem 1.2rem;border-radius:6px;cursor:pointer;">🔏 Sellar mi activo</button>
+      <button onclick="showSection('protocolo',this)" style="background:none;border:1px solid #333;color:#888;font-family:'Space Mono',monospace;font-size:0.72rem;padding:0.6rem 1.2rem;border-radius:6px;cursor:pointer;">📖 Ver protocolo</button>
+    </div>
+  </div>
+
+</div>
+</section>
+<!-- ══ FIN SECCIÓN BIOGRAFÍA ════════════════════════════════════ -->
+
 </body>
 </html>
 <script>
