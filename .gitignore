@@ -2,3 +2,4 @@
 *.log
 *.bak
 .env
+js/estado_hormiga.json
