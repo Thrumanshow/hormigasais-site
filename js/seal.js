@@ -322,16 +322,17 @@ function copiarSello() {
   });
 }
 
-async function descargarManifest() {
+async function descargarManifest(firma) {
+  firma = firma || (window.LBH && window.LBH.selloActual);
   if (!window.LBH.selloActual) { alert('Primero genera un sello'); return; }
   const btn = document.getElementById('btnManifest');
   if (btn) btn.textContent = '⏳ Generando...';
   try {
-    const r = await fetch(API + '/manifest/' + window.LBH.selloActual);
+    const r = await fetch(API + '/manifest/' + firma);
     const blob = await r.blob();
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
-    a.download = 'manifest-' + window.LBH.selloActual + '.json';
+    a.download = 'manifest-' + firma + '.json';
     a.click();
     if (btn) { btn.textContent = '✅ Descargado'; setTimeout(() => btn.textContent = '📄 Descargar Manifest →', 3000); }
   } catch(e) { alert('Error de conexión'); if (btn) btn.textContent = '📄 Descargar Manifest →'; }
