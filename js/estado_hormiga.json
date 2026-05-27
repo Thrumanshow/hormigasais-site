@@ -1,7 +1,6 @@
 {
   "estado": "activo",
-  "ultima_feromona": "ANALISIS_TEMPORAL_ACTIVO",
+  "ultima_feromona": "HEARTBEAT_A16",
   "nodo": "A16-SanMiguel-SV",
-  "pm2_procesos": 3,
-  "timestamp": "2026-05-26T07:02:47Z"
+  "timestamp": "2026-05-27T18:05:06Z"
 }
