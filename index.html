@@ -277,8 +277,7 @@
     <div class="nav-drawer-divider"></div>
     <button onclick="showSectionDrawer('admin',this)">🔐 Admin</button>
     <button onclick="showSectionDrawer('biografia',this)">🔬 Biografía Científica</button>
-    <button onclick="showSection('biografia',this)">🔬 Bio</button>
-  <a href="https://docs.hormigasais.com/legal.html" target="_blank">⚖️ Legal</a>
+    <a href="https://docs.hormigasais.com/legal.html" target="_blank">⚖️ Legal</a>
   </div>
   <div class="nav-drawer-footer">
     🐜 Nodo A16 · San Miguel, SV<br>
@@ -1076,7 +1075,7 @@ function showSectionDrawer(id,btn){
       clhq@hormigasais.com
     </div>
     <div style="margin-top:1.2rem;display:flex;gap:0.5rem;justify-content:center;flex-wrap:wrap;">
-      <button onclick="showSection('sellar',this)" style="background:var(--amarillo);color:#0a0a0a;border:none;font-family:'Space Mono',monospace;font-size:0.72rem;font-weight:700;padding:0.6rem 1.2rem;border-radius:6px;cursor:pointer;">🔏 Sellar mi activo</button>
+      <button onclick="showSection('sellar',document.querySelector('[onclick*=\"sellar\"]'))" style="background:var(--amarillo);color:#0a0a0a;border:none;font-family:'Space Mono',monospace;font-size:0.72rem;font-weight:700;padding:0.6rem 1.2rem;border-radius:6px;cursor:pointer;">🔏 Sellar mi activo</button>
       <button onclick="showSection('protocolo',this)" style="background:none;border:1px solid #333;color:#888;font-family:'Space Mono',monospace;font-size:0.72rem;padding:0.6rem 1.2rem;border-radius:6px;cursor:pointer;">📖 Ver protocolo</button>
     </div>
   </div>
