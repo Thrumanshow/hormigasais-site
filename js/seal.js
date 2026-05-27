@@ -1,3 +1,309 @@
+
+// ================================================================
+// 🐜 HormigasAIS — Drag & Drop + Semáforo + Vibración
+// Experiencia de sellado visual e intuitiva
+// ================================================================
+
+// ── Inicializar zona Drag & Drop ─────────────────────────────
+function iniciarDragDrop() {
+  const zona = document.getElementById('dropZona');
+  if (!zona) return;
+
+  // Drag events
+  ['dragenter','dragover'].forEach(evt => {
+    zona.addEventListener(evt, (e) => {
+      e.preventDefault();
+      zona.classList.add('drag-over');
+    });
+  });
+
+  ['dragleave','dragend'].forEach(evt => {
+    zona.addEventListener(evt, () => {
+      zona.classList.remove('drag-over');
+    });
+  });
+
+  zona.addEventListener('drop', (e) => {
+    e.preventDefault();
+    zona.classList.remove('drag-over');
+    const file = e.dataTransfer.files[0];
+    if (file) procesarArchivo(file);
+  });
+
+  // Click para seleccionar archivo
+  zona.addEventListener('click', () => {
+    document.getElementById('fileInputOculto').click();
+  });
+
+  const fileInput = document.getElementById('fileInputOculto');
+  if (fileInput) {
+    fileInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) procesarArchivo(file);
+    });
+  }
+}
+
+// ── Procesar archivo seleccionado ────────────────────────────
+async function procesarArchivo(file) {
+  const zona = document.getElementById('dropZona');
+  const semaforo = document.getElementById('semaforoEstado');
+  const infoArchivo = document.getElementById('infoArchivo');
+  const btnSellar = document.getElementById('btnSellarArchivo');
+
+  // Mostrar info del archivo
+  if (infoArchivo) {
+    infoArchivo.style.display = 'block';
+    infoArchivo.innerHTML =
+      '<div style="font-size:0.65rem;color:#555;text-transform:uppercase;margin-bottom:0.3rem;">Archivo cargado</div>' +
+      '<div style="font-size:0.82rem;color:#fff;">' + file.name + '</div>' +
+      '<div style="font-size:0.7rem;color:#555;margin-top:0.2rem;">' + (file.size/1024).toFixed(1) + ' KB · ' + file.type + '</div>';
+  }
+
+  // Animación de hormigas procesando
+  if (zona) {
+    zona.classList.add('procesando');
+    zona.querySelector('.drop-icon').textContent = '🐜';
+    zona.querySelector('.drop-texto').textContent = 'Hormigas trabajando...';
+  }
+  setSemaforo('procesando');
+
+  // Calcular hash SHA-256
+  try {
+    const buffer = await file.arrayBuffer();
+    const hashBuffer = await crypto.subtle.digest('SHA-256', buffer);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray.map(b => b.toString(16).padStart(2,'0')).join('');
+
+    // Guardar hash en el campo oculto
+    const hashInput = document.getElementById('hashInput');
+    if (hashInput) hashInput.value = hashHex;
+
+    // Prellenar campo de activo con nombre del archivo
+    const assetInput = document.getElementById('assetInput');
+    if (assetInput && !assetInput.value) {
+      assetInput.value = file.name;
+    }
+
+    // Mostrar semáforo verde
+    setSemaforo('listo', hashHex);
+
+    if (zona) {
+      zona.classList.remove('procesando');
+      zona.querySelector('.drop-icon').textContent = '✅';
+      zona.querySelector('.drop-texto').textContent = 'Archivo listo para sellar';
+    }
+
+    // Mostrar botón de sellar
+    if (btnSellar) btnSellar.style.display = 'block';
+
+    // Vibración de confirmación
+    if (navigator.vibrate) navigator.vibrate([50, 30, 50]);
+
+    // Leer en voz alta
+    if (window.speechSynthesis) {
+      const msg = new SpeechSynthesisUtterance('Archivo verificado. Listo para sellar.');
+      msg.lang = 'es-SV';
+      msg.rate = 0.9;
+      window.speechSynthesis.speak(msg);
+    }
+
+  } catch(e) {
+    setSemaforo('error', null, 'Error calculando hash: ' + e.message);
+    if (zona) {
+      zona.classList.remove('procesando');
+      zona.querySelector('.drop-icon').textContent = '⚠️';
+      zona.querySelector('.drop-texto').textContent = 'Error procesando archivo';
+    }
+  }
+}
+
+// ── Semáforo de estado ────────────────────────────────────────
+function setSemaforo(estado, hash, mensaje) {
+  const sem = document.getElementById('semaforoEstado');
+  if (!sem) return;
+
+  const configs = {
+    idle: {
+      color: '#333',
+      bg: 'transparent',
+      border: '#222',
+      icono: '⬤',
+      texto: 'Esperando archivo...',
+      sub: ''
+    },
+    procesando: {
+      color: '#f5c518',
+      bg: 'rgba(245,197,24,0.06)',
+      border: 'rgba(245,197,24,0.3)',
+      icono: '🐜',
+      texto: 'Hormigas procesando...',
+      sub: 'Calculando firma criptográfica'
+    },
+    listo: {
+      color: '#00ff9f',
+      bg: 'rgba(0,255,159,0.06)',
+      border: 'rgba(0,255,159,0.3)',
+      icono: '🟢',
+      texto: 'ÍNTEGRO — Listo para sellar',
+      sub: hash ? 'SHA-256: ' + hash.substring(0,16) + '...' : ''
+    },
+    sellado: {
+      color: '#00ff9f',
+      bg: 'rgba(0,255,159,0.08)',
+      border: 'rgba(0,255,159,0.4)',
+      icono: '🔒',
+      texto: 'SELLADO — Activo certificado',
+      sub: 'Feromona LBH emitida por el Nodo A16'
+    },
+    verificando: {
+      color: '#38bdf8',
+      bg: 'rgba(56,189,248,0.06)',
+      border: 'rgba(56,189,248,0.3)',
+      icono: '🔍',
+      texto: 'Verificando en la red...',
+      sub: 'Consultando el enjambre'
+    },
+    integro: {
+      color: '#00ff9f',
+      bg: 'rgba(0,255,159,0.08)',
+      border: 'rgba(0,255,159,0.4)',
+      icono: '🟢',
+      texto: 'ÍNTEGRO — Archivo auténtico',
+      sub: mensaje || 'Hash verificado en la colonia'
+    },
+    comprometido: {
+      color: '#ff4444',
+      bg: 'rgba(255,68,68,0.06)',
+      border: 'rgba(255,68,68,0.3)',
+      icono: '🔴',
+      texto: 'COMPROMETIDO — Archivo modificado',
+      sub: mensaje || 'El hash no coincide con el sello original'
+    },
+    error: {
+      color: '#ff4444',
+      bg: 'rgba(255,68,68,0.06)',
+      border: 'rgba(255,68,68,0.3)',
+      icono: '⚠️',
+      texto: 'Error en el proceso',
+      sub: mensaje || 'Intenta de nuevo'
+    }
+  };
+
+  const cfg = configs[estado] || configs.idle;
+
+  sem.style.cssText = `
+    background: ${cfg.bg};
+    border: 1px solid ${cfg.border};
+    border-radius: 10px;
+    padding: 1rem 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    transition: all 0.3s;
+  `;
+
+  sem.innerHTML =
+    '<div style="font-size:1.5rem;flex-shrink:0;">' + cfg.icono + '</div>' +
+    '<div>' +
+    '<div style="font-family:Space Mono,monospace;font-size:0.78rem;font-weight:700;color:' + cfg.color + ';">' + cfg.texto + '</div>' +
+    (cfg.sub ? '<div style="font-size:0.65rem;color:#555;margin-top:0.2rem;font-family:Space Mono,monospace;">' + cfg.sub + '</div>' : '') +
+    '</div>';
+}
+
+// ── Inicializar cuando carga la sección Sellar ──────────────
+document.addEventListener('DOMContentLoaded', function() {
+  iniciarDragDrop();
+  setSemaforo('idle');
+});
+
+// Re-inicializar cuando se navega a la sección sellar
+const _origShowSection = window.showSection;
+if (typeof window.showSection === 'function') {
+  window.showSection = function(id, btn) {
+    _origShowSection(id, btn);
+    if (id === 'sellar') {
+      setTimeout(() => { iniciarDragDrop(); setSemaforo('idle'); }, 100);
+    }
+  };
+}
+
+
+// CSS inyectado
+const _sealStyle = document.createElement("style");
+_sealStyle.textContent = `
+/* ── 🐜 DRAG & DROP + SEMÁFORO ──────────────────────────────── */
+.drop-zona {
+  border: 2px dashed #2a2a2a;
+  border-radius: 12px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: #0a0a0a;
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+}
+.drop-zona:hover {
+  border-color: rgba(245,197,24,0.4);
+  background: rgba(245,197,24,0.02);
+}
+.drop-zona.drag-over {
+  border-color: var(--amarillo);
+  background: rgba(245,197,24,0.05);
+  transform: scale(1.01);
+}
+.drop-zona.procesando {
+  border-color: rgba(245,197,24,0.5);
+  animation: hormigas-procesando 1s infinite;
+}
+@keyframes hormigas-procesando {
+  0%  { border-color: rgba(245,197,24,0.3); }
+  50% { border-color: rgba(245,197,24,0.8); }
+  100%{ border-color: rgba(245,197,24,0.3); }
+}
+.drop-icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.8rem;
+  display: block;
+  transition: all 0.3s;
+}
+.drop-texto {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.78rem;
+  color: #555;
+  transition: color 0.3s;
+}
+.drop-sub {
+  font-size: 0.68rem;
+  color: #333;
+  margin-top: 0.4rem;
+}
+/* Rastro de hormigas animado */
+.drop-zona::after {
+  content: '🐜🐜🐜';
+  position: absolute;
+  bottom: 0.3rem;
+  left: -100%;
+  font-size: 0.6rem;
+  opacity: 0;
+  transition: none;
+}
+.drop-zona.procesando::after {
+  animation: rastro-hormigas 2s linear infinite;
+  opacity: 0.6;
+}
+@keyframes rastro-hormigas {
+  0%   { left: -10%; opacity: 0; }
+  20%  { opacity: 0.8; }
+  80%  { opacity: 0.8; }
+  100% { left: 110%; opacity: 0; }
+}
+/* ─────────────────────────────────────────────────────────── */
+`;
+document.head.appendChild(_sealStyle);
+
 // ================================================================
 // 🐜 HormigasAIS — seal.js
 // Sellar, Badge, Verificar firma y archivo
