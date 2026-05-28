@@ -35,9 +35,19 @@ document.addEventListener('DOMContentLoaded', function() {
           </button>
         </div>
         <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.8rem;">
-          ${['YouTube','TikTok','Instagram','Twitter/X','MP4 directo','Facebook'].map(p =>
+          ${['YouTube','Twitter/X','MP4 directo'].map(p =>
             `<span style="background:#111;border:1px solid #222;border-radius:4px;padding:0.2rem 0.6rem;font-size:0.65rem;color:#555;">✅ ${p}</span>`
           ).join('')}
+          <div style="margin-top:0.8rem;background:rgba(245,197,24,0.05);border:1px solid rgba(245,197,24,0.15);border-radius:6px;padding:0.6rem 0.8rem;font-size:0.68rem;color:#666;line-height:1.7;">
+            📱 <strong style="color:#aaa;">TikTok / Instagram / Facebook:</strong> Descarga el video a tu dispositivo primero y sube el archivo MP4 directamente usando el botón de abajo.
+          </div>
+          <div style="margin-top:0.5rem;">
+            <label style="display:inline-block;background:#1a1a1a;border:1px solid #333;color:#aaa;font-family:Space Mono,monospace;font-size:0.72rem;padding:0.5rem 1rem;border-radius:6px;cursor:pointer;">
+              📁 Subir MP4 desde dispositivo
+              <input type="file" id="videoFileInput" accept="video/mp4,video/*" style="display:none;">
+            </label>
+            <span id="videoFileName" style="font-size:0.68rem;color:#555;margin-left:0.5rem;"></span>
+          </div>
         </div>
       </div>
 
