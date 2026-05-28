@@ -247,3 +247,81 @@ videoStyle.textContent = `
 }
 `;
 document.head.appendChild(videoStyle);
+
+// ── Subida de archivo MP4 local ───────────────────────────────
+document.addEventListener('DOMContentLoaded', function() {
+  setTimeout(function() {
+    var fi = document.getElementById('videoFileInput');
+    if (!fi) return;
+    fi.addEventListener('change', async function(e) {
+      var file = e.target.files[0];
+      if (!file) return;
+      var nameEl = document.getElementById('videoFileName');
+      if (nameEl) nameEl.textContent = file.name + ' (' + (file.size/1024/1024).toFixed(1) + 'MB)';
+      if (file.size > 80*1024*1024) { alert('Máximo 80MB'); return; }
+
+      var circle = document.getElementById('oraculoCircle');
+      var status = document.getElementById('oraculoStatus');
+      var sub    = document.getElementById('oraculoSub');
+      var btn    = document.getElementById('btnAnalizar');
+
+      if (circle) { circle.textContent = '📡'; circle.style.cssText = 'width:90px;height:90px;border-radius:50%;background:rgba(245,197,24,0.1);border:3px solid var(--amarillo);display:flex;align-items:center;justify-content:center;font-size:2rem;margin-bottom:1.2rem;animation:pulsoVideo 1.5s infinite;'; }
+      if (status) { status.style.color = '#f5c518'; status.textContent = 'Leyendo archivo...'; }
+      if (sub)    sub.textContent = 'Convirtiendo a base64 y enviando al Nodo A16...';
+      if (btn)    { btn.textContent = '⏳'; btn.disabled = true; }
+
+      try {
+        var base64 = await new Promise(function(res, rej) {
+          var rd = new FileReader();
+          rd.onload = function(ev) { res(ev.target.result.split(',')[1]); };
+          rd.onerror = rej;
+          rd.readAsDataURL(file);
+        });
+
+        if (status) status.textContent = 'Enviando al Nodo A16...';
+
+        var r = await fetch(API + '/video/upload', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ base64: base64, nombre: file.name })
+        });
+        var data = await r.json();
+
+        var score = data.score_biologico || 0;
+        var cls   = data.clasificacion || 'INDETERMINADO';
+        var colores = {
+          'HUMANO_CONFIRMADO':    ['rgba(0,255,159,0.2)','#00ff9f','👤'],
+          'PROBABLEMENTE_HUMANO': ['rgba(0,255,159,0.1)','#00ff9f','👤'],
+          'INDETERMINADO':        ['rgba(245,197,24,0.1)','#f5c518','🔍'],
+          'PROBABLEMENTE_IA':     ['rgba(255,68,68,0.1)', '#ff4444','🤖'],
+          'IA_DETECTADA':         ['rgba(255,68,68,0.2)', '#ff4444','🤖'],
+        };
+        var cfg = colores[cls] || colores['INDETERMINADO'];
+
+        if (circle) { circle.style.cssText = 'width:90px;height:90px;border-radius:50%;background:'+cfg[0]+';border:3px solid '+cfg[1]+';display:flex;align-items:center;justify-content:center;font-size:2rem;margin-bottom:1.2rem;box-shadow:0 0 20px '+cfg[0]+';'; circle.textContent = cfg[2]; }
+        if (status) { status.style.color = cfg[1]; status.textContent = cls.replace(/_/g,' '); }
+        if (sub)    sub.textContent = 'Archivo: ' + file.name + ' | Score: ' + score + '/100';
+
+        var sc = document.getElementById('scoreContainer');
+        if (sc) {
+          sc.style.display = 'block';
+          document.getElementById('scoreText').textContent = score + '%';
+          var bar = document.getElementById('scoreBar');
+          bar.style.width = score + '%';
+          bar.style.background = score >= 65 ? 'var(--verde)' : score >= 45 ? 'var(--amarillo)' : '#ff4444';
+        }
+        var fp = document.getElementById('feromonaPanel');
+        if (fp && data.feromona) { fp.style.display='block'; document.getElementById('feromonaData').textContent = JSON.stringify(data.feromona,null,2); }
+
+        if (navigator.vibrate) navigator.vibrate([100,50,100]);
+
+      } catch(err) {
+        if (status) { status.style.color='#ff4444'; status.textContent='Error de conexión'; }
+        if (sub)    sub.textContent = 'No se pudo conectar con el Nodo A16: ' + err.message;
+      } finally {
+        if (btn) { btn.textContent='ANALIZAR'; btn.disabled=false; }
+      }
+    });
+  }, 1500);
+});
+// ─────────────────────────────────────────────────────────────
