@@ -15,12 +15,6 @@
       "purpose": "any"
     },
     {
-      "src": "js/icon-maskable-192.png",
-      "type": "image/png",
-      "sizes": "192x192",
-      "purpose": "maskable"
-    },
-    {
       "src": "js/icon-maskable-512.png",
       "type": "image/png",
       "sizes": "512x512",
@@ -33,3 +27,4 @@
   "display": "standalone",
   "orientation": "portrait"
 }
+
