@@ -4,20 +4,20 @@
   "icons": [
     {
       "src": "js/icon-192.png",
-      "type": "image/png",
       "sizes": "192x192",
-      "purpose": "any"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
       "src": "js/icon-512.png",
-      "type": "image/png",
       "sizes": "512x512",
-      "purpose": "any"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
       "src": "js/icon-maskable-512.png",
-      "type": "image/png",
       "sizes": "512x512",
+      "type": "image/png",
       "purpose": "maskable"
     }
   ],
@@ -27,4 +27,3 @@
   "display": "standalone",
   "orientation": "portrait"
 }
-
