@@ -2,3 +2,10 @@
 *.log
 *.bak
 .env
+clhq-soberano.keystore
+
+# Contenedores Nativo de la Fase 2 (Capacitor)
+android-build/
+android/
+www/
+*.keystore

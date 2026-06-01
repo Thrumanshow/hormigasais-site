@@ -1,0 +1,177 @@
+/* ==========================================================================
+   VARIABLES DE DISEÑO LBH (Tema Oscuro / Soberano)
+   ========================================================================== */
+:root {
+    --bg-principal: #0a0a0a;
+    --bg-tarjeta: #141414;
+    --bg-input: #1f1f1f;
+    --color-institucional: #ff4500; /* Naranja Hormiga/Fuego */
+    --color-institucional-hover: #e03d00;
+    --color-secundario: #0080ff; /* Azul Criptográfico */
+    --texto-primario: #ffffff;
+    --texto-secundario: #a0a0a0;
+    --borde-sutil: #2d2d2d;
+    --fuente-sistema: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* ==========================================================================
+   RESET DE COMPORTAMIENTO NATIVO (Previene la experiencia web tradicional)
+   ========================================================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent; /* Elimina el flash azul al tocar en móviles */
+    user-select: none; /* Evita selección accidental de la interfaz */
+}
+
+body, html {
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* Evita el rebote de scroll elástico de los navegadores móviles */
+    background-color: var(--bg-principal);
+    color: var(--texto-primario);
+    font-family: var(--fuente-sistema);
+}
+
+/* Permitir selección de texto solo en elementos de datos e inputs */
+input, textarea, .hash-output {
+    user-select: text;
+}
+
+/* ==========================================================================
+   ESTRUCTURA DE CONTENEDOR APP (Pantalla Completa)
+   ========================================================================== */
+.app-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+/* Barra Superior (Header) */
+.app-header {
+    height: 60px;
+    background-color: var(--bg-tarjeta);
+    border-bottom: 1px solid var(--borde-sutil);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    flex-shrink: 0;
+}
+
+.app-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+.nodo-badge {
+    background-color: var(--borde-sutil);
+    color: var(--color-institucional);
+    font-size: 0.75rem;
+    padding: 3px 8px;
+    border-radius: 20px;
+    font-family: monospace;
+}
+
+/* Área Principal de Contenido (Scrolleable internamente si es necesario) */
+.app-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    -webkit-overflow-scrolling: touch; /* Scroll suave en iOS */
+}
+
+/* ==========================================================================
+   COMPONENTES VISUALES (Tarjetas, Botones e Inputs)
+   ========================================================================== */
+.tarjeta-lbh {
+    background-color: var(--bg-tarjeta);
+    border: 1px solid var(--borde-sutil);
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.tarjeta-lbh h2 {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    color: var(--texto-primario);
+}
+
+.tarjeta-lbh p {
+    font-size: 0.9rem;
+    color: var(--texto-secundario);
+    line-height: 1.4;
+    margin-bottom: 15px;
+}
+
+/* Zona de Carga Droppable / File Input */
+.upload-zone {
+    border: 2px dashed var(--borde-sutil);
+    border-radius: 8px;
+    padding: 30px 15px;
+    text-align: center;
+    background-color: var(--bg-input);
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+
+.upload-zone input[type="file"] {
+    display: none; /* Escondemos el input nativo del sistema */
+}
+
+/* Botones Nativos */
+.btn-principal {
+    width: 100%;
+    background-color: var(--color-institucional);
+    color: var(--texto-primario);
+    border: none;
+    border-radius: 8px;
+    padding: 14px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-principal:active {
+    background-color: var(--color-institucional-hover);
+}
+
+.btn-instalacion {
+    background-color: var(--bg-input);
+    border: 1px solid var(--color-secundario);
+    color: var(--color-secundario);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* Terminal / Consola de salida de Hashes */
+.hash-output {
+    background-color: #000;
+    border: 1px solid var(--borde-sutil);
+    border-radius: 6px;
+    padding: 12px;
+    font-family: monospace;
+    font-size: 0.8rem;
+    color: #00ff00; /* Estilo matriz/terminal */
+    word-break: break-all;
+    margin-top: 10px;
+    white-space: pre-wrap;
+}
+

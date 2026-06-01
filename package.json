@@ -1,0 +1,20 @@
+{
+  "name": "hormigasais-site",
+  "version": "2.0.0",
+  "description": "Capa web y agente PWA en el borde para el ecosistema simbiótico HormigasAIS",
+  "main": "sw.js",
+  "scripts": {
+    "PWA-consolidar": "cp index.html manifest.json sw.js www/ 2>/dev/null || true && cp -r css js www/ 2>/dev/null || true",
+    "capacitor-init": "npm install @capacitor/core @capacitor/cli @capacitor/android",
+    "android-add": "npx cap add android",
+    "android-sync": "npm run PWA-consolidar && npx cap sync android",
+    "android-build": "cd android && ./gradlew assembleRelease"
+  },
+  "author": "Cristhiam Leonardo Hernandez Quinonez (CLHQ)",
+  "license": "MIT",
+  "dependencies": {
+    "@capacitor/android": "^7.0.0",
+    "@capacitor/cli": "^7.0.0",
+    "@capacitor/core": "^7.0.0"
+  }
+}

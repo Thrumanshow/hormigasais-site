@@ -1,0 +1,10 @@
+{
+  "appId": "com.hormigasais.app.lbh",
+  "appName": "HormigasAIS",
+  "webDir": "www",
+  "bundledWebRuntime": false,
+  "server": {
+    "url": "https://hormigasais.com",
+    "allowNavigation": ["hormigasais.com"]
+  }
+}
