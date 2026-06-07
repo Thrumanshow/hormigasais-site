@@ -1284,19 +1284,28 @@ async function descargarManifest() {
   const btn = document.getElementById('btnManifest');
   btn.textContent = '⏳ Generando...';
   try {
-    const r = await fetch('https://api.hormigasais.com/manifest/' + currentSig);
-    if (!r.ok) { alert('Error al generar manifest'); return; }
-    const blob = await r.blob();
+    const url = 'https://api.hormigasais.com/manifest/' + currentSig;
+    const r = await fetch(url);
+    if (!r.ok) { alert('Error al generar manifest'); btn.textContent = '📄 Descargar Manifest'; return; }
+    const data = await r.json();
+    const json = JSON.stringify(data, null, 2);
+    const blob = new Blob([json], {type: 'application/octet-stream'});
+    const blobUrl = URL.createObjectURL(blob);
     const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
+    a.href = blobUrl;
     a.download = 'manifest-' + currentSig + '.json';
+    a.style.display = 'none';
+    document.body.appendChild(a);
     a.click();
+    document.body.removeChild(a);
+    setTimeout(() => { URL.revokeObjectURL(blobUrl); }, 2000);
     btn.textContent = '✅ Descargado';
     setTimeout(() => btn.textContent = '📄 Descargar Manifest →', 3000);
   } catch(e) {
-    alert('Error de conexión');
+    alert('Error: ' + e.message);
     btn.textContent = '📄 Descargar Manifest →';
   }
+}
 }
 
 // Agregar botón de manifest en verificación también
