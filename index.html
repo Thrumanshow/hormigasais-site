@@ -1286,25 +1286,33 @@ async function descargarManifest() {
   try {
     const url = 'https://api.hormigasais.com/manifest/' + currentSig;
     const r = await fetch(url);
-    if (!r.ok) { alert('Error al generar manifest'); btn.textContent = '📄 Descargar Manifest'; return; }
+    if (!r.ok) { alert('Error al generar manifest'); btn.textContent = '📄 Descargar Manifest →'; return; }
     const data = await r.json();
     const json = JSON.stringify(data, null, 2);
-    const blob = new Blob([json], {type: 'application/octet-stream'});
-    const blobUrl = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = blobUrl;
-    a.download = 'manifest-' + currentSig + '.json';
-    a.style.display = 'none';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    setTimeout(() => { URL.revokeObjectURL(blobUrl); }, 2000);
-    btn.textContent = '✅ Descargado';
+    // Mostrar modal con el JSON y boton de copiar
+    let modal = document.getElementById('manifestModal');
+    if (!modal) {
+      modal = document.createElement('div');
+      modal.id = 'manifestModal';
+      modal.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.92);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1rem;box-sizing:border-box;';
+      document.body.appendChild(modal);
+    }
+    modal.innerHTML = '<div style="width:100%;max-width:600px;background:#111;border:1px solid #333;border-radius:12px;padding:1.2rem;box-sizing:border-box;">'
+      + '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.8rem;">'
+      + '<span style="font-family:Space Mono,monospace;font-size:0.8rem;color:#f5c518;">📄 Manifest — ' + currentSig + '</span>'
+      + '<button onclick="document.getElementById(\"manifestModal\").style.display=\"none\"" style="background:none;border:1px solid #333;color:#aaa;padding:0.3rem 0.7rem;border-radius:4px;cursor:pointer;font-size:0.8rem;">✕ Cerrar</button>'
+      + '</div>'
+      + '<textarea id="manifestJson" readonly style="width:100%;height:260px;background:#0a0a0a;border:1px solid #222;border-radius:6px;color:#e8e8e8;font-family:Space Mono,monospace;font-size:0.68rem;padding:0.8rem;box-sizing:border-box;resize:none;">' + json + '</textarea>'
+      + '<button onclick="navigator.clipboard.writeText(document.getElementById(\"manifestJson\").value).then(()=>{this.textContent=\"\u2705 Copiado\";setTimeout(()=>this.textContent=\"\U0001F4CB Copiar JSON\",2000)})" style="margin-top:0.8rem;width:100%;background:#f5c518;color:#0a0a0a;border:none;font-family:Space Mono,monospace;font-size:0.8rem;font-weight:700;padding:0.8rem;border-radius:6px;cursor:pointer;">📋 Copiar JSON</button>'
+      + '</div>';
+    modal.style.display = 'flex';
+    btn.textContent = '✅ Manifest listo';
     setTimeout(() => btn.textContent = '📄 Descargar Manifest →', 3000);
   } catch(e) {
     alert('Error: ' + e.message);
     btn.textContent = '📄 Descargar Manifest →';
   }
+}
 }
 }
 
