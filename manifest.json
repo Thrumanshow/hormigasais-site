@@ -1,18 +1,32 @@
 {
-  "short_name": "Hormigas AIS",
-  "name": "Hormigas AIS App",
+  "name": "HormigasAIS",
+  "short_name": "HormigasAIS",
+  "description": "Plataforma soberana de certificacion distribuida con IA",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#f5a623",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "es",
   "icons": [
     {
       "src": "js/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "js/icon-maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
     },
     {
       "src": "js/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
       "src": "js/icon-maskable-512.png",
@@ -20,10 +34,5 @@
       "type": "image/png",
       "purpose": "maskable"
     }
-  ],
-  "start_url": "/",
-  "background_color": "#0a0a0a",
-  "theme_color": "#0a0a0a",
-  "display": "standalone",
-  "orientation": "portrait"
+  ]
 }
