@@ -667,13 +667,13 @@
 <script>
   // LBH-Sovereign-Pulse: trust_level: 1.0
   // Signed-by: CLHQ-Q5PTRLA0
-const API = 'https://api.hormigasais.com';
+if(typeof API === 'undefined') { window.API = 'https://api.hormigasais.com'; }
 let currentSig = '';
 let selloCount = parseInt(localStorage.getItem('lbh_sello_count') || '0');
 const FREE_LIMIT = 3;
 
 // Colores por plan
-const PLAN_COLORS = {
+var PLAN_COLORS = typeof PLAN_COLORS !== 'undefined' ? PLAN_COLORS : {
   free:       { bg: '#1a1a1a', accent: '#f5c518', label: 'Free',        icon: '🐜' },
   premium:    { bg: '#1a1220', accent: '#a855f7', label: 'Premium ⭐',  icon: '🐜' },
   enterprise: { bg: '#0a1a1a', accent: '#00ff9f', label: 'Enterprise 🏢', icon: '🐜' }
