@@ -339,7 +339,7 @@ async function descargarManifest(firma) {
 }
 
 // Badge generator
-const PLAN_COLORS = {
+window.PLAN_COLORS = window.PLAN_COLORS || {
   free:       { bg: '#1a1a1a', accent: '#f5c518', label: 'Free' },
   premium:    { bg: '#1a1220', accent: '#a855f7', label: 'Premium ⭐' },
   enterprise: { bg: '#0a1a1a', accent: '#00ff9f', label: 'Enterprise 🏢' }
