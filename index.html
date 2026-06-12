@@ -1279,39 +1279,48 @@ async function cargarStats() {
 <script>
   // LBH-Sovereign-Pulse: trust_level: 1.0
   // Signed-by: CLHQ-Q5PTRLA0
-async function descargarManifest() {
-  if (!currentSig) { alert('Primero genera un sello'); return; }
-  const btn = document.getElementById('btnManifest');
-  btn.textContent = '⏳ Descargando...';
-  const url = 'https://api.hormigasais.com/manifest/' + currentSig;
-  const a = document.createElement('a');
-  a.href = url;
-  a.target = '_blank';
-  a.rel = 'noopener';
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  btn.textContent = '✅ Descargado';
-  setTimeout(function() { btn.textContent = '📄 Descargar Manifest →'; }, 3000);
-}
-}
-    modal.innerHTML = '<div style="width:100%;max-width:600px;background:#111;border:1px solid #333;border-radius:12px;padding:1.2rem;box-sizing:border-box;">'
-      + '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.8rem;">'
-      + '<span style="font-family:Space Mono,monospace;font-size:0.8rem;color:#f5c518;">📄 Manifest — ' + currentSig + '</span>'
-      + '<button onclick="document.getElementById(\"manifestModal\").style.display=\"none\"" style="background:none;border:1px solid #333;color:#aaa;padding:0.3rem 0.7rem;border-radius:4px;cursor:pointer;font-size:0.8rem;">✕ Cerrar</button>'
-      + '</div>'
-      + '<textarea id="manifestJson" readonly style="width:100%;height:260px;background:#0a0a0a;border:1px solid #222;border-radius:6px;color:#e8e8e8;font-family:Space Mono,monospace;font-size:0.68rem;padding:0.8rem;box-sizing:border-box;resize:none;">' + json + '</textarea>'
-      + '<button onclick="navigator.clipboard.writeText(document.getElementById(\"manifestJson\").value).then(()=>{this.textContent=\"\u2705 Copiado\";setTimeout(()=>this.textContent=\"\U0001F4CB Copiar JSON\",2000)})" style="margin-top:0.8rem;width:100%;background:#f5c518;color:#0a0a0a;border:none;font-family:Space Mono,monospace;font-size:0.8rem;font-weight:700;padding:0.8rem;border-radius:6px;cursor:pointer;">📋 Copiar JSON</button>'
-      + '</div>';
-    modal.style.display = 'flex';
-    btn.textContent = '✅ Manifest listo';
-    setTimeout(() => btn.textContent = '📄 Descargar Manifest →', 3000);
+async function descargarManifest(firmaParam) {
+  const sig = firmaParam || (typeof currentSig !== 'undefined' ? currentSig : null);
+  if (!sig) { alert('\u26a0\ufe0f No hay sello activo para descargar'); return; }
+
+  // Buscar botón — puede ser btnManifest u otro con onclick=descargarManifest
+  const btn = document.getElementById('btnManifest') ||
+              document.querySelector('[onclick*="descargarManifest"]');
+  const textoOriginal = btn ? btn.textContent : '';
+  if (btn) btn.textContent = '\u23f3 Generando manifest...';
+
+  try {
+    const url = 'https://api.hormigasais.com/manifest/' + sig;
+    const resp = await fetch(url, { method: 'GET', headers: { 'Accept': 'application/json' } });
+
+    if (!resp.ok) {
+      let msg = 'Error ' + resp.status;
+      try { const e = await resp.json(); msg = e.error || msg; } catch(x) {}
+      throw new Error(msg);
+    }
+
+    const data = await resp.json();
+
+    // Descarga como archivo .json
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'manifest-' + sig + '.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+
+    if (btn) {
+      btn.textContent = '\u2705 Manifest descargado';
+      setTimeout(() => { btn.textContent = textoOriginal || '\ud83d\udcc4 Descargar Manifest \u2192'; }, 3000);
+    }
+
   } catch(e) {
-    alert('Error: ' + e.message);
-    btn.textContent = '📄 Descargar Manifest →';
+    console.error('[HormigasAIS] descargarManifest error:', e);
+    alert('\u274c No se pudo descargar el manifest\n\nSello: ' + sig + '\nError: ' + e.message);
+    if (btn) btn.textContent = textoOriginal || '\ud83d\udcc4 Descargar Manifest \u2192';
   }
-}
-}
 }
 
 // Agregar botón de manifest en verificación también
