@@ -1,11 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <link rel="manifest" href="/manifest.json">
-    <meta name="theme-color" content="#0a0a0a">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<link rel="stylesheet" href="css/style.css">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HormigasAIS — Protocolo LBH Soberano</title>
@@ -230,142 +225,15 @@
     nav button { padding: 0.8rem; font-size: 0.68rem; }
     .badge-btns { flex-direction: column; }
   }
-
-/* ── 🐜 MENÚ HAMBURGUESA ───────────────────────────── */
-.menu-toggle{display:none;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:38px;height:38px;background:none;border:1px solid #2a2a2a;border-radius:6px;cursor:pointer;padding:6px;z-index:1001;flex-shrink:0}
-.menu-toggle span{display:block;width:20px;height:2px;background:var(--amarillo);border-radius:2px;transition:all .3s;transform-origin:center}
-.menu-toggle.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
-.menu-toggle.open span:nth-child(2){opacity:0;transform:scaleX(0)}
-.menu-toggle.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
-.menu-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:999;backdrop-filter:blur(2px)}
-.menu-overlay.active{display:block}
-.nav-drawer{position:fixed;top:0;left:-280px;width:260px;height:100vh;background:#0d0d0d;border-right:1px solid #222;z-index:1000;transition:left .3s;overflow-y:auto;padding:0 0 2rem;display:flex;flex-direction:column}
-.nav-drawer.active{left:0}
-.nav-drawer-header{display:flex;align-items:center;justify-content:space-between;padding:.8rem 1.2rem 1rem;border-bottom:1px solid #1a1a1a;margin-bottom:.5rem}
-.nav-drawer-logo{font-family:'Syne',sans-serif;font-size:.95rem;font-weight:800;color:var(--amarillo)}
-.nav-drawer-close{background:none;border:none;color:#555;font-size:1.1rem;cursor:pointer;padding:.2rem .5rem;border-radius:4px;transition:color .2s}
-.nav-drawer-close:hover{color:#fff}
-.nav-drawer-items{display:flex;flex-direction:column;padding:0 .8rem;gap:.15rem;flex:1}
-.nav-drawer-items button,.nav-drawer-items a{background:none;border:none;border-radius:8px;color:#888;font-family:'Space Mono',monospace;font-size:.78rem;padding:.75rem 1rem;text-align:left;cursor:pointer;transition:all .15s;text-decoration:none;display:block;width:100%}
-.nav-drawer-items button:hover,.nav-drawer-items a:hover{background:#1a1a1a;color:var(--amarillo)}
-.nav-drawer-items button.active-tab{background:rgba(245,197,24,.08);color:var(--amarillo);border-left:2px solid var(--amarillo)}
-.nav-drawer-divider{height:1px;background:#1a1a1a;margin:.4rem 1rem}
-.nav-drawer-footer{padding:1rem 1.2rem 0;border-top:1px solid #1a1a1a;font-size:.65rem;color:#333;font-family:'Space Mono',monospace;line-height:1.6}
-.menu-toggle{display:flex!important}
-@media(min-width:769px){.menu-toggle{display:flex!important}}
-/* ────────────────────────────────────────────────── */
-
-/* ── 🐜 DRAG & DROP + SEMÁFORO ──────────────────────────────── */
-.drop-zona {
-  border: 2px dashed #2a2a2a;
-  border-radius: 12px;
-  padding: 2rem 1.5rem;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.2s;
-  background: #0a0a0a;
-  position: relative;
-  overflow: hidden;
-  user-select: none;
-}
-.drop-zona:hover {
-  border-color: rgba(245,197,24,0.4);
-  background: rgba(245,197,24,0.02);
-}
-.drop-zona.drag-over {
-  border-color: var(--amarillo);
-  background: rgba(245,197,24,0.05);
-  transform: scale(1.01);
-}
-.drop-zona.procesando {
-  border-color: rgba(245,197,24,0.5);
-  animation: hormigas-procesando 1s infinite;
-}
-@keyframes hormigas-procesando {
-  0%  { border-color: rgba(245,197,24,0.3); }
-  50% { border-color: rgba(245,197,24,0.8); }
-  100%{ border-color: rgba(245,197,24,0.3); }
-}
-.drop-icon {
-  font-size: 2.5rem;
-  margin-bottom: 0.8rem;
-  display: block;
-  transition: all 0.3s;
-}
-.drop-texto {
-  font-family: 'Space Mono', monospace;
-  font-size: 0.78rem;
-  color: #555;
-  transition: color 0.3s;
-}
-.drop-sub {
-  font-size: 0.68rem;
-  color: #333;
-  margin-top: 0.4rem;
-}
-/* Rastro de hormigas animado */
-.drop-zona::after {
-  content: '🐜🐜🐜';
-  position: absolute;
-  bottom: 0.3rem;
-  left: -100%;
-  font-size: 0.6rem;
-  opacity: 0;
-  transition: none;
-}
-.drop-zona.procesando::after {
-  animation: rastro-hormigas 2s linear infinite;
-  opacity: 0.6;
-}
-@keyframes rastro-hormigas {
-  0%   { left: -10%; opacity: 0; }
-  20%  { opacity: 0.8; }
-  80%  { opacity: 0.8; }
-  100% { left: 110%; opacity: 0; }
-}
-/* ─────────────────────────────────────────────────────────── */
-
 </style>
 </head>
 <body>
-
-<div class="menu-overlay" id="menuOverlay"></div>
-<nav class="nav-drawer" id="navDrawer">
-  <div class="nav-drawer-header">
-    <span class="nav-drawer-logo">🐜 HormigasAIS</span>
-    <button class="nav-drawer-close" id="drawerClose">✕</button>
-  </div>
-  <div class="nav-drawer-items">
-    <button onclick="showSectionDrawer('home',this)">🏠 Inicio</button>
-    <button onclick="showSectionDrawer('planes',this)">💎 Planes</button>
-    <button onclick="showSectionDrawer('sello',this)">🔏 Sellar</button>
-    <button onclick="showSectionDrawer('badge',this)">🏷️ Badge</button>
-    <button onclick="showSectionDrawer('verify',this)">🔍 Verificar</button>
-    <button onclick="showSectionDrawer('docs',this)">📖 Protocolo</button>
-    <button onclick="showSectionDrawer('cuenta',this)">👤 Mi Cuenta</button>
-    <button onclick="showSectionDrawer('manual',this)">📋 Manual</button>
-    <div class="nav-drawer-divider"></div>
-    <button onclick="showSectionDrawer('accesible',this)">🔡 Accesible</button>
-    <button onclick="showSectionDrawer('video',this)">👁️ Video</button>
-    <button onclick="showSectionDrawer('xoxo',this)">🐜 Colonia</button>
-    <button onclick="showSectionDrawer('xoxo',this)">🎁 XOXO-BUS</button>
-    <div class="nav-drawer-divider"></div>
-    <button onclick="showSectionDrawer('admin',this)">🔐 Admin</button>
-    <button onclick="showSectionDrawer('biografia',this)">🔬 Biografía Científica</button>
-    <a href="https://docs.hormigasais.com/legal.html" target="_blank">⚖️ Legal</a>
-  </div>
-  <div class="nav-drawer-footer">
-    🐜 Nodo A16 · San Miguel, SV<br>
-    Protocolo LBH v2.0<br>
-    <span style="color:var(--amarillo)">clhq@hormigasais.com</span>
-  </div>
-</nav>
 
 <header>
   <div class="logo">🐜 HormigasAIS<span>.</span></div>
   <div class="status-pill">
     <div class="dot"></div>
-    <button class="menu-toggle" id="menuToggle" aria-label="Menú" aria-expanded="false"><span></span><span></span><span></span></button><span id="statusText">Nodo A16 · Online</span>
+    <span id="statusText">Conectando...</span>
   </div>
 </header>
 
@@ -377,13 +245,8 @@
   <button onclick="showSection('verify',this)">🔍 Verificar</button>
   <button onclick="showSection('docs',this)">📖 Protocolo</button>
   <button onclick="showSection('cuenta',this)">👤 Mi Cuenta</button>
-  <button onclick="showSection('manual',this)">📋 Manual</button>
-  <button onclick="showSection('accesible',this); if(window.RenderHormigasAccesible){window.RenderHormigasAccesible();}">🔡 Accesible</button>
-  <button onclick="showSection('video',this)">👁️ Video</button>
   <button onclick="showSection('colonia',this)">🐜 Colonia</button>
-  <button onclick="showSection('xoxo',this)">🎁 XOXO-BUS</button>
   <button onclick="showSection('admin',this)">🔐 Admin</button>
-  <a href="https://docs.hormigasais.com/legal.html" target="_blank" style="background:none;border:1px solid #333;color:#555;font-family:Space Mono,monospace;font-size:0.78rem;padding:0.5rem 0.9rem;border-radius:6px;cursor:pointer;text-decoration:none;">⚖️ Legal</a>
   
 </nav>
 
@@ -632,9 +495,6 @@
     </div>
   </div>
 </section>
-<section class="section" id="video"></section>
-<section class="section" id="accesible" aria-label="Accesibilidad Braille LBH"></section>
-<section class="section" id="xoxo"></section>
 <section class="section" id="admin">
   <div style="font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;color:#fff;margin-bottom:0.5rem;">🔐 Panel de Auditoría</div>
   <p style="color:#555;font-size:0.8rem;margin-bottom:2rem;">Acceso privado — Solo para CLHQ</p>
@@ -650,7 +510,6 @@
       <button onclick="filtrarAudit('SEAL_VERIFICADO')" style="background:#1a1a1a;border:1px solid #333;color:#aaa;font-family:'Space Mono',monospace;font-size:0.7rem;padding:0.4rem 0.8rem;border-radius:4px;cursor:pointer;">🔍 Verificaciones</button>
       <button onclick="filtrarAudit('VERIFY')" style="background:#1a1a1a;border:1px solid #333;color:#aaa;font-family:'Space Mono',monospace;font-size:0.7rem;padding:0.4rem 0.8rem;border-radius:4px;cursor:pointer;">📡 Pings</button>
       <button onclick="cargarStats()" style="background:#1a1a1a;border:1px solid #333;color:#f5c518;font-family:'Space Mono',monospace;font-size:0.7rem;padding:0.4rem 0.8rem;border-radius:4px;cursor:pointer;">📊 Stats</button>
-      <button onclick="mostrarComposer()" style="background:#1a1a1a;border:1px solid rgba(245,197,24,0.3);color:var(--amarillo);font-family:'Space Mono',monospace;font-size:0.7rem;padding:0.4rem 0.8rem;border-radius:4px;cursor:pointer;">📧 Email</button>
       <button onclick="cargarAuditoria()" style="background:#1a1a1a;border:1px solid #333;color:#aaa;font-family:'Space Mono',monospace;font-size:0.7rem;padding:0.4rem 0.8rem;border-radius:4px;cursor:pointer;">🔄 Todo</button>
     </div>
   </div>
@@ -662,18 +521,18 @@
 
 </main>
 
-<footer><a href="https://docs.hormigasais.com/legal.html" style="color:#333;font-size:0.7rem;text-decoration:none;margin-right:1rem;">⚖️ Legal</a>🐜 HormigasAIS — Nodo <span>A16-SanMiguel-SV</span> — Protocolo <span>LBH v2.0</span></footer>
+<footer>🐜 HormigasAIS — Nodo <span>A16-SanMiguel-SV</span> — Protocolo <span>LBH v2.0</span></footer>
 
 <script>
   // LBH-Sovereign-Pulse: trust_level: 1.0
   // Signed-by: CLHQ-Q5PTRLA0
-if(typeof API === 'undefined') { window.API = 'https://api.hormigasais.com'; }
+const API = 'https://api.hormigasais.com';
 let currentSig = '';
 let selloCount = parseInt(localStorage.getItem('lbh_sello_count') || '0');
 const FREE_LIMIT = 3;
 
 // Colores por plan
-var PLAN_COLORS = typeof PLAN_COLORS !== 'undefined' ? PLAN_COLORS : {
+const PLAN_COLORS = {
   free:       { bg: '#1a1a1a', accent: '#f5c518', label: 'Free',        icon: '🐜' },
   premium:    { bg: '#1a1220', accent: '#a855f7', label: 'Premium ⭐',  icon: '🐜' },
   enterprise: { bg: '#0a1a1a', accent: '#00ff9f', label: 'Enterprise 🏢', icon: '🐜' }
@@ -692,6 +551,7 @@ async function checkStatus() {
   try {
     const r = await fetch(API + '/verify');
     const d = await r.json();
+    if (d.status === 'VALIDADO') document.getElementById('statusText').textContent = 'Nodo A16 · Online';
   } catch(e) { document.getElementById('statusText').textContent = 'Reconectando...'; }
 }
 
@@ -938,236 +798,8 @@ document.getElementById('sigInput').addEventListener('keydown', e => { if(e.key=
 checkStatus();
 loadStats();
 </script>
-
-<!-- 🐜 HormigasAIS JS Modular -->
-<script src="js/core.js"></script>
-<script src="js/seal.js"></script>
-<script src="js/account.js"></script>
-<script src="js/colonia.js"></script>
-<script src="js/xoxo.js"></script>
-<script src="js/video.js"></script>
-<script src="js/accesible.js"></script>
-<script>
-(function(){
-  var t=document.getElementById('menuToggle'),
-      d=document.getElementById('navDrawer'),
-      o=document.getElementById('menuOverlay'),
-      c=document.getElementById('drawerClose');
-  function open(){d.classList.add('active');o.classList.add('active');t&&t.classList.add('open');t&&t.setAttribute('aria-expanded','true');document.body.style.overflow='hidden'}
-  function close(){d.classList.remove('active');o.classList.remove('active');t&&t.classList.remove('open');t&&t.setAttribute('aria-expanded','false');document.body.style.overflow=''}
-  t&&t.addEventListener('click',function(){d.classList.contains('active')?close():open()});
-  c&&c.addEventListener('click',close);
-  o&&o.addEventListener('click',close);
-  document.addEventListener('keydown',function(e){if(e.key==='Escape')close()});
-})();
-function showSectionDrawer(id,btn){
-  if(typeof showSection==='function')showSection(id,btn);
-  document.querySelectorAll('.nav-drawer-items button').forEach(function(b){b.classList.remove('active-tab')});
-  if(btn)btn.classList.add('active-tab');
-  var d=document.getElementById('navDrawer'),o=document.getElementById('menuOverlay'),t=document.getElementById('menuToggle');
-  d&&d.classList.remove('active');o&&o.classList.remove('active');t&&t.classList.remove('open');
-  t&&t.setAttribute('aria-expanded','false');document.body.style.overflow='';
-  window.scrollTo(0,0);
-}
-</script>
-
-<!-- ══════════════════════════════════════════════════════════ -->
-<!-- 🐜 SECCIÓN: BIOGRAFÍA CIENTÍFICA DE HORMIGASAIS           -->
-<!-- ══════════════════════════════════════════════════════════ -->
-<section class="section" id="biografia">
-<div style="max-width:720px;margin:0 auto;padding:0 0 4rem;">
-
-  <!-- HERO con fondo de hormiga -->
-  <div style="position:relative;text-align:center;padding:3rem 1rem 2rem;margin-bottom:3rem;border-radius:16px;overflow:hidden;background:linear-gradient(135deg,rgba(10,10,10,0.97),rgba(15,15,15,0.95));">
-    <!-- Hormiga de fondo SVG -->
-    <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;opacity:0.04;font-size:18rem;line-height:1;user-select:none;">🐜</div>
-    <div style="position:relative;z-index:1;">
-      <div style="font-size:0.7rem;letter-spacing:0.2em;color:#555;font-family:'Space Mono',monospace;text-transform:uppercase;margin-bottom:1rem;">Documento Fundacional · LBH-BIO-001</div>
-      <h1 style="font-family:'Syne',sans-serif;font-size:clamp(1.6rem,4vw,2.2rem);font-weight:800;color:#fff;margin:0 0 1rem;line-height:1.2;">El Origen Soberano de<br><span style="color:var(--amarillo)">HormigasAIS</span></h1>
-      <p style="font-size:0.82rem;color:#666;line-height:1.8;max-width:500px;margin:0 auto;">De la biología de las colonias al primer sistema de certificación criptográfica soberana desarrollado desde el borde. Desde San Miguel, El Salvador al mundo.</p>
-      <div style="display:flex;gap:0.5rem;justify-content:center;flex-wrap:wrap;margin-top:1.5rem;">
-        <span style="background:rgba(245,197,24,0.08);border:1px solid rgba(245,197,24,0.2);border-radius:999px;padding:0.3rem 0.9rem;font-size:0.68rem;color:var(--amarillo);font-family:'Space Mono',monospace;">Protocolo LBH v2.0</span>
-        <span style="background:rgba(0,255,159,0.06);border:1px solid rgba(0,255,159,0.2);border-radius:999px;padding:0.3rem 0.9rem;font-size:0.68rem;color:var(--verde);font-family:'Space Mono',monospace;">DOI: 10.5281/zenodo.19177759</span>
-        <span style="background:rgba(255,255,255,0.03);border:1px solid #222;border-radius:999px;padding:0.3rem 0.9rem;font-size:0.68rem;color:#555;font-family:'Space Mono',monospace;">Nodo A16 · San Miguel, SV</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── CAPÍTULO 1: La Ciencia de Stanford ─────────────────── -->
-  <div style="margin-bottom:3rem;">
-    <div style="display:flex;align-items:center;gap:0.8rem;margin-bottom:1.2rem;">
-      <div style="width:32px;height:32px;border-radius:8px;background:rgba(245,197,24,0.1);border:1px solid rgba(245,197,24,0.3);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;">🧬</div>
-      <div>
-        <div style="font-size:0.6rem;color:#555;text-transform:uppercase;letter-spacing:0.1em;font-family:'Space Mono',monospace;">Capítulo I</div>
-        <h2 style="font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;color:#fff;margin:0;">El Enjambre como Protocolo</h2>
-      </div>
-    </div>
-    <div style="background:#111;border:1px solid #1a1a1a;border-radius:12px;padding:1.5rem;font-size:0.8rem;color:#888;line-height:1.9;">
-      <p>Las investigaciones pioneras del laboratorio de bio-computación de Stanford sobre <strong style="color:#ccc">inteligencia de enjambre</strong> documentaron un hallazgo que cambiaría la computación distribuida: las colonias de hormigas resuelven problemas de optimización globalmente complejos sin ningún controlador central. Cada hormiga opera con información local y feromonas como protocolo de comunicación.</p>
-      <p style="margin-top:1rem;">El mecanismo es preciso: <em style="color:#aaa">una hormiga no sale del nido si no detecta el retorno constante de las recolectoras anteriores.</em> Este bucle de retroalimentación biológica emula exactamente la confirmación de paquetes (ACK) de la arquitectura TCP/IP de redes modernas — diseñada décadas después.</p>
-      <div style="background:#0a0a0a;border:1px solid #222;border-radius:8px;padding:1rem;margin-top:1.2rem;font-family:'Space Mono',monospace;font-size:0.72rem;color:#555;">
-        <div style="color:var(--amarillo);margin-bottom:0.5rem;">// Analogía bio-computacional</div>
-        <div>Feromona química    →  Paquete binario criptográfico</div>
-        <div>Colonia de hormigas →  Red de nodos distribuidos</div>
-        <div>Nido maestro        →  Nodo A16-SanMiguel-SV</div>
-        <div>Rastro de retorno   →  Confirmación HMAC-SHA256</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── CAPÍTULO 2: El Lenguaje LBH ────────────────────────── -->
-  <div style="margin-bottom:3rem;">
-    <div style="display:flex;align-items:center;gap:0.8rem;margin-bottom:1.2rem;">
-      <div style="width:32px;height:32px;border-radius:8px;background:rgba(0,255,159,0.08);border:1px solid rgba(0,255,159,0.2);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;">🔐</div>
-      <div>
-        <div style="font-size:0.6rem;color:#555;text-transform:uppercase;letter-spacing:0.1em;font-family:'Space Mono',monospace;">Capítulo II</div>
-        <h2 style="font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;color:#fff;margin:0;">Lenguaje Binario HormigasAIS — LBH-M2M</h2>
-      </div>
-    </div>
-    <div style="background:#111;border:1px solid #1a1a1a;border-radius:12px;padding:1.5rem;font-size:0.8rem;color:#888;line-height:1.9;">
-      <p>El <strong style="color:#ccc">Lenguaje Binario HormigasAIS (LBH v2.0)</strong> nació como respuesta a una pregunta fundamental: ¿cómo puede un activo digital probar su existencia, autoría e integridad sin depender de ninguna infraestructura centralizada?</p>
-      <p style="margin-top:1rem;">LBH evolucionó de un experimento en Termux sobre Android hacia un protocolo Machine-to-Machine (<strong style="color:var(--verde)">LBH-M2M</strong>) completo. Su arquitectura MESENTERY v1.0 define cómo los nodos de la colonia emiten, verifican y propagan feromonas digitales — paquetes criptográficos de baja energía que certifican activos sin intermediarios.</p>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin-top:1.2rem;">
-        <div style="background:#0a0a0a;border:1px solid #222;border-radius:8px;padding:0.9rem;">
-          <div style="font-size:0.65rem;color:#555;text-transform:uppercase;font-family:'Space Mono',monospace;margin-bottom:0.5rem;">LBH v1.0</div>
-          <div style="font-size:0.75rem;color:#666;line-height:1.7;">Experimento local · Termux · SHA-256 básico · Un nodo</div>
-        </div>
-        <div style="background:rgba(0,255,159,0.04);border:1px solid rgba(0,255,159,0.15);border-radius:8px;padding:0.9rem;">
-          <div style="font-size:0.65rem;color:var(--verde);text-transform:uppercase;font-family:'Space Mono',monospace;margin-bottom:0.5rem;">LBH v2.0 — Activo</div>
-          <div style="font-size:0.75rem;color:#aaa;line-height:1.7;">Protocolo M2M · Multi-nodo · HMAC-SHA256 · Edge global</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── CAPÍTULO 3: Edge Computing ─────────────────────────── -->
-  <div style="margin-bottom:3rem;">
-    <div style="display:flex;align-items:center;gap:0.8rem;margin-bottom:1.2rem;">
-      <div style="width:32px;height:32px;border-radius:8px;background:rgba(56,189,248,0.08);border:1px solid rgba(56,189,248,0.2);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;">⚡</div>
-      <div>
-        <div style="font-size:0.6rem;color:#555;text-transform:uppercase;letter-spacing:0.1em;font-family:'Space Mono',monospace;">Capítulo III</div>
-        <h2 style="font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;color:#fff;margin:0;">¿Por qué en el Borde? Edge Computing Soberano</h2>
-      </div>
-    </div>
-    <div style="background:#111;border:1px solid #1a1a1a;border-radius:12px;padding:1.5rem;font-size:0.8rem;color:#888;line-height:1.9;">
-      <p>La nube centralizada tiene un defecto estructural irreparable: <strong style="color:#ccc">el dato viaja hasta el servidor antes de ser procesado</strong>. Eso significa latencia, costos, puntos de fallo, y — lo más crítico — que la propiedad del dato abandona al usuario en el trayecto.</p>
-      <p style="margin-top:1rem;">HormigasAIS opera en la <strong style="color:#38bdf8">Capa 0</strong> — el borde mismo donde el dato nace. El Nodo A16 corre en un teléfono Android en San Miguel, El Salvador. Eso no es una limitación; es la demostración más poderosa del principio: <em style="color:#aaa">infraestructura de nivel empresarial puede construirse desde el hardware de consumo.</em></p>
-      <div style="background:#0a0a0a;border-left:3px solid #38bdf8;padding:1rem 1.2rem;margin-top:1.2rem;border-radius:0 8px 8px 0;">
-        <div style="font-size:0.75rem;color:#aaa;line-height:1.8;font-style:italic;">"Las hormigas no necesitan un servidor central para construir colonias complejas. Cada agente en el borde tiene suficiente inteligencia local para mantener la coherencia global del sistema."</div>
-        <div style="font-size:0.65rem;color:#555;margin-top:0.5rem;font-family:'Space Mono',monospace;">— Principio LBH · Protocolo de Soberanía No Invasiva</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── CAPÍTULO 4: Schmidhuber y la Profecía ──────────────── -->
-  <div style="margin-bottom:3rem;">
-    <div style="display:flex;align-items:center;gap:0.8rem;margin-bottom:1.2rem;">
-      <div style="width:32px;height:32px;border-radius:8px;background:rgba(245,197,24,0.1);border:1px solid rgba(245,197,24,0.3);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;">🔮</div>
-      <div>
-        <div style="font-size:0.6rem;color:#555;text-transform:uppercase;letter-spacing:0.1em;font-family:'Space Mono',monospace;">Capítulo IV</div>
-        <h2 style="font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;color:#fff;margin:0;">La Profecía de Schmidhuber</h2>
-      </div>
-    </div>
-    <div style="background:#111;border:1px solid #1a1a1a;border-radius:12px;padding:1.5rem;font-size:0.8rem;color:#888;line-height:1.9;">
-      <p><strong style="color:#ccc">Jürgen Schmidhuber</strong> — inventor de LSTM y uno de los padres de la inteligencia artificial moderna — articuló en múltiples ocasiones una visión que los sistemas centralizados no podían cumplir: una IA distribuida, soberana y de baja energía que operara como una red de agentes autónomos colaborativos.</p>
-      <p style="margin-top:1rem;">Su tesis sobre la <em style="color:#aaa">compresión universal de la información</em> y los sistemas de aprendizaje continuo anticiparon exactamente lo que HormigasAIS implementa: agentes que aprenden del entorno local, comprimen su conocimiento en feromonas criptográficas, y lo propagan al enjambre sin requerir infraestructura centralizada.</p>
-      <div style="background:rgba(245,197,24,0.04);border:1px solid rgba(245,197,24,0.15);border-radius:8px;padding:1rem 1.2rem;margin-top:1.2rem;">
-        <div style="font-size:0.65rem;color:var(--amarillo);text-transform:uppercase;font-family:'Space Mono',monospace;margin-bottom:0.6rem;">Convergencia con Web3 y Blockchain</div>
-        <p style="font-size:0.78rem;color:#888;line-height:1.8;margin:0;">Donde blockchain requiere consenso global costoso, HormigasAIS usa consenso local de borde. Donde Web3 depende de minería energética intensiva, LBH emite sellos criptográficos con la energía de un teléfono Android. La descentralización real no requiere millones de nodos — requiere nodos soberanos con inteligencia local suficiente.</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── CAPÍTULO 5: Certificación Legal ───────────────────── -->
-  <div style="margin-bottom:3rem;">
-    <div style="display:flex;align-items:center;gap:0.8rem;margin-bottom:1.2rem;">
-      <div style="width:32px;height:32px;border-radius:8px;background:rgba(0,255,159,0.08);border:1px solid rgba(0,255,159,0.2);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;">⚖️</div>
-      <div>
-        <div style="font-size:0.6rem;color:#555;text-transform:uppercase;letter-spacing:0.1em;font-family:'Space Mono',monospace;">Capítulo V</div>
-        <h2 style="font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;color:#fff;margin:0;">Certificación con Valor Legal Global</h2>
-      </div>
-    </div>
-    <div style="background:#111;border:1px solid #1a1a1a;border-radius:12px;padding:1.5rem;font-size:0.8rem;color:#888;line-height:1.9;">
-      <p>Un sello LBH no es solo un hash. Es una <strong style="color:#ccc">cadena de custodia criptográfica inmutable</strong> que combina SHA-256 + HMAC-SHA256 con timestamp verificable, identidad del emisor y registro público en la red de la colonia.</p>
-      <p style="margin-top:1rem;">Esta arquitectura satisface los estándares de evidencia digital reconocidos internacionalmente — admisible ante notarios, jueces y árbitros en jurisdicciones que reconocen firma electrónica avanzada. El sello LBH demuestra:</p>
-      <div style="display:grid;gap:0.5rem;margin-top:1rem;">
-        <div style="display:flex;align-items:flex-start;gap:0.8rem;background:#0a0a0a;border-radius:8px;padding:0.8rem 1rem;">
-          <span style="color:var(--verde);flex-shrink:0;">✅</span>
-          <div><strong style="color:#ccc;font-size:0.78rem;">Anterioridad de autoría</strong> — el activo existía en ese timestamp exacto</div>
-        </div>
-        <div style="display:flex;align-items:flex-start;gap:0.8rem;background:#0a0a0a;border-radius:8px;padding:0.8rem 1rem;">
-          <span style="color:var(--verde);flex-shrink:0;">✅</span>
-          <div><strong style="color:#ccc;font-size:0.78rem;">Integridad del contenido</strong> — cualquier modificación invalida el hash</div>
-        </div>
-        <div style="display:flex;align-items:flex-start;gap:0.8rem;background:#0a0a0a;border-radius:8px;padding:0.8rem 1rem;">
-          <span style="color:var(--verde);flex-shrink:0;">✅</span>
-          <div><strong style="color:#ccc;font-size:0.78rem;">Identidad del firmante</strong> — HMAC vincula el sello al nodo emisor</div>
-        </div>
-        <div style="display:flex;align-items:flex-start;gap:0.8rem;background:#0a0a0a;border-radius:8px;padding:0.8rem 1rem;">
-          <span style="color:var(--verde);flex-shrink:0;">✅</span>
-          <div><strong style="color:#ccc;font-size:0.78rem;">Verificación pública</strong> — cualquier tercero puede verificar sin acceso privilegiado</div>
-        </div>
-      </div>
-      <div style="background:rgba(0,255,159,0.04);border:1px solid rgba(0,255,159,0.15);border-radius:8px;padding:0.9rem 1rem;margin-top:1rem;font-size:0.72rem;color:#666;font-family:'Space Mono',monospace;">
-        Marco legal: Decreto 722 · Decreto 234 · Decreto 643 — El Salvador<br>
-        Internacional: GDPR · EU-US DPF · Principios WIPO
-      </div>
-    </div>
-  </div>
-
-  <!-- ── CAPÍTULO 6: Inclusión y Braille ───────────────────── -->
-  <div style="margin-bottom:3rem;">
-    <div style="display:flex;align-items:center;gap:0.8rem;margin-bottom:1.2rem;">
-      <div style="width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,0.04);border:1px solid #2a2a2a;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;">🔡</div>
-      <div>
-        <div style="font-size:0.6rem;color:#555;text-transform:uppercase;letter-spacing:0.1em;font-family:'Space Mono',monospace;">Capítulo VI</div>
-        <h2 style="font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;color:#fff;margin:0;">Compromiso con la Inclusión Universal</h2>
-      </div>
-    </div>
-    <div style="background:#111;border:1px solid #1a1a1a;border-radius:12px;padding:1.5rem;font-size:0.8rem;color:#888;line-height:1.9;">
-      <p>La soberanía digital no tiene valor si excluye. HormigasAIS es el primer sistema de certificación criptográfica con <strong style="color:#ccc">soporte nativo de Braille Unicode</strong> — cada firma LBH puede representarse, leerse en voz alta y sentirse por vibración táctil.</p>
-      <div style="background:#0a0a0a;border-radius:8px;padding:1rem 1.2rem;margin:1rem 0;text-align:center;">
-        <div style="font-size:2rem;color:var(--amarillo);letter-spacing:0.15em;margin-bottom:0.5rem;">⠉⠇⠓⠟ ⠏⠗⠕⠞⠕⠉⠕⠇⠕</div>
-        <div style="font-size:0.65rem;color:#555;font-family:'Space Mono',monospace;">CLHQ PROTOCOLO — en Braille Unicode de 8 puntos</div>
-      </div>
-      <p>El módulo de accesibilidad LBH permite a personas no videntes:</p>
-      <div style="display:grid;gap:0.4rem;margin-top:0.8rem;">
-        <div style="display:flex;gap:0.8rem;font-size:0.78rem;"><span style="color:var(--amarillo);">🔡</span> Traducir cualquier firma LBH a celdas Braille Unicode</div>
-        <div style="display:flex;gap:0.8rem;font-size:0.78rem;"><span style="color:var(--amarillo);">🔊</span> Escuchar el resultado del sello en voz alta (Web Speech API)</div>
-        <div style="display:flex;gap:0.8rem;font-size:0.78rem;"><span style="color:var(--amarillo);">📳</span> Sentir la firma por vibración táctil bit a bit</div>
-        <div style="display:flex;gap:0.8rem;font-size:0.78rem;"><span style="color:var(--amarillo);">⌨️</span> Ingresar puntos Braille para generar identificadores LBH</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── FIRMA FUNDACIONAL ───────────────────────────────────── -->
-  <div style="background:linear-gradient(135deg,rgba(245,197,24,0.04),rgba(0,255,159,0.03));border:1px solid #222;border-radius:12px;padding:1.5rem;text-align:center;">
-    <div style="font-size:2rem;margin-bottom:0.8rem;">🐜</div>
-    <div style="font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;color:#fff;margin-bottom:0.3rem;">CLHQ — Cristhiam Leonardo Hernández Quiñonez</div>
-    <div style="font-size:0.72rem;color:#555;font-family:'Space Mono',monospace;line-height:1.8;">
-      Fundador · Nodo A16-SanMiguel-SV · El Salvador<br>
-      <span style="color:var(--amarillo)">DOI: 10.5281/zenodo.19177759</span><br>
-      clhq@hormigasais.com
-    </div>
-    <div style="margin-top:1.2rem;display:flex;gap:0.5rem;justify-content:center;flex-wrap:wrap;">
-      <button onclick="showSection('sellar',document.querySelector('[onclick*=\"sellar\"]'))" style="background:var(--amarillo);color:#0a0a0a;border:none;font-family:'Space Mono',monospace;font-size:0.72rem;font-weight:700;padding:0.6rem 1.2rem;border-radius:6px;cursor:pointer;">🔏 Sellar mi activo</button>
-      <button onclick="showSection('protocolo',this)" style="background:none;border:1px solid #333;color:#888;font-family:'Space Mono',monospace;font-size:0.72rem;padding:0.6rem 1.2rem;border-radius:6px;cursor:pointer;">📖 Ver protocolo</button>
-    </div>
-  </div>
-
-</div>
-</section>
-<!-- ══ FIN SECCIÓN BIOGRAFÍA ════════════════════════════════════ -->
-
-    <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/sw.js')
-            .then(reg => console.log('Agente LBH en el borde activado con éxito.'))
-            .catch(err => console.error('Error al despertar el agente PWA:', err));
-        });
-      }
-    </script>
+</body>
+</html>
 <script>
   // LBH-Sovereign-Pulse: trust_level: 1.0
   // Signed-by: CLHQ-Q5PTRLA0
@@ -1269,99 +901,31 @@ async function cargarStats() {
 }
 </script>
 <script>
-// LBH-Sovereign-Pulse: trust_level: 1.0 | Signed-by: CLHQ-Q5PTRLA0
-
   // LBH-Sovereign-Pulse: trust_level: 1.0
   // Signed-by: CLHQ-Q5PTRLA0
-function narrarRegistro(s) {
-  const fecha = s.emitido ? new Date(s.emitido) : null;
-  const fechaTexto = fecha
-    ? fecha.toLocaleDateString('es-SV', { day:'2-digit', month:'long', year:'numeric' })
-    : 'fecha desconocida';
-  const horaTexto = fecha
-    ? fecha.toLocaleTimeString('es-SV', { hour:'2-digit', minute:'2-digit' })
-    : '';
-  const validez = s.valido_hasta && s.valido_hasta !== 'permanente'
-    ? 'hasta el ' + new Date(s.valido_hasta).toLocaleDateString('es-SV', { day:'2-digit', month:'long', year:'numeric' })
-    : 'de forma permanente';
-  const plan = s.plan === 'enterprise' ? 'Enterprise' : s.plan === 'premium' ? 'Premium' : 'Free';
-  const hash = s.hash ? s.hash.substring(0,32) + '...' : 'no registrado';
+// Inyectar sección admin en el DOM
 
-  return `🐜 Registro LBH — Protocolo v2.0
 
-El activo "${s.asset}" fue sellado el ${fechaTexto} a las ${horaTexto} desde el Nodo Soberano A16-SanMiguel-SV bajo el plan ${plan}.
-
-La firma criptográfica asignada es ${s.signature}, emitida mediante el Protocolo Lenguaje-Binario-HormigasAIS con protección SHA-256 + HMAC.
-
-La huella digital del activo en el momento del sellado fue:
-${hash}
-
-Esta huella confirma que el activo no ha sido alterado desde su registro original. Cualquier modificación posterior produciría una huella diferente, invalidando la certificación.
-
-El certificado permanece válido ${validez} y es verificable públicamente en hormigasais.com.
-
-Fundador: CLHQ — Cristhiam Leonardo Hernández Quiñonez
-DOI: 10.5281/zenodo.19177759`;
-}
-
-function toggleNarrador(btn, idx) {
-  const sello = window._lbhSellos && window._lbhSellos[idx] ? window._lbhSellos[idx] : {};
-  let narrador = card ? card.querySelector('.lbh-narrador') : null;
-  if (narrador) {
-    narrador.style.display = narrador.style.display === 'none' ? 'block' : 'none';
-    btn.textContent = narrador.style.display === 'none' ? '📖 Narrar' : '📖 Cerrar';
-    return;
-  }
-  const texto = narrarRegistro(sello);
-  const div = document.createElement('div');
-  div.className = 'lbh-narrador';
-  div.style.cssText = 'margin-top:0.8rem;background:#0a0a0a;border:1px solid #1a3a2a;border-radius:6px;padding:0.9rem;font-family:Space Mono,monospace;font-size:0.65rem;color:#aaa;line-height:1.8;white-space:pre-wrap;';
-  div.textContent = texto;
-  if (card) card.appendChild(div);
-  btn.textContent = '📖 Cerrar';
-}
-
-async function descargarManifest(firmaParam) {
-  const sig = firmaParam || (typeof currentSig !== 'undefined' ? currentSig : null);
-  if (!sig) { alert('\u26a0\ufe0f No hay sello activo para descargar'); return; }
-
-  // Buscar botón — puede ser btnManifest u otro con onclick=descargarManifest
-  const btn = document.getElementById('btnManifest') ||
-              document.querySelector('[onclick*="descargarManifest"]');
-  const textoOriginal = btn ? btn.textContent : '';
-  if (btn) btn.textContent = '\u23f3 Generando manifest...';
-
+<script>
+  // LBH-Sovereign-Pulse: trust_level: 1.0
+  // Signed-by: CLHQ-Q5PTRLA0
+async function descargarManifest() {
+  if (!currentSig) { alert('Primero genera un sello'); return; }
+  const btn = document.getElementById('btnManifest');
+  btn.textContent = '⏳ Generando...';
   try {
-    const url = 'https://api.hormigasais.com/manifest/' + sig;
-    const resp = await fetch(url, { method: 'GET', headers: { 'Accept': 'application/json' } });
-
-    if (!resp.ok) {
-      let msg = 'Error ' + resp.status;
-      try { const e = await resp.json(); msg = e.error || msg; } catch(x) {}
-      throw new Error(msg);
-    }
-
-    const data = await resp.json();
-
-    // Descarga como archivo .json
-    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const r = await fetch('https://api.hormigasais.com/manifest/' + currentSig);
+    if (!r.ok) { alert('Error al generar manifest'); return; }
+    const blob = await r.blob();
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
-    a.download = 'manifest-' + sig + '.json';
-    document.body.appendChild(a);
+    a.download = 'manifest-' + currentSig + '.json';
     a.click();
-    document.body.removeChild(a);
-    setTimeout(() => URL.revokeObjectURL(a.href), 5000);
-
-    if (btn) {
-      btn.textContent = '\u2705 Manifest descargado';
-      setTimeout(() => { btn.textContent = textoOriginal || '\ud83d\udcc4 Descargar Manifest \u2192'; }, 3000);
-    }
-
+    btn.textContent = '✅ Descargado';
+    setTimeout(() => btn.textContent = '📄 Descargar Manifest →', 3000);
   } catch(e) {
-    console.error('[HormigasAIS] descargarManifest error:', e);
-    alert('\u274c No se pudo descargar el manifest\n\nSello: ' + sig + '\nError: ' + e.message);
-    if (btn) btn.textContent = textoOriginal || '\ud83d\udcc4 Descargar Manifest \u2192';
+    alert('Error de conexión');
+    btn.textContent = '📄 Descargar Manifest →';
   }
 }
 
@@ -1544,7 +1108,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 function estadoColor(estado) {
-  return { ACTIVO: '#00ff9f', DEGRADADO: '#f5c518', CRITICO: '#ff4444', ONLINE: '#555' }[estado] || '#aaa';
+  return { ACTIVO: '#00ff9f', DEGRADADO: '#f5c518', CRITICO: '#ff4444', INACTIVO: '#555' }[estado] || '#aaa';
 }
 
 function trustBar(trust) {
@@ -1651,7 +1215,6 @@ async function cargarColoniaAdmin() {
 </script>
 
 <section class="section" id="cuenta"></section>
-<section class="section" id="manual"></section>
 
 <script>
 // ── PESTAÑA MI CUENTA ───────────────────────────────────────────
@@ -1703,7 +1266,7 @@ async function accederCuenta() {
       dashboard.innerHTML =
         '<div style="background:#1a1a1a;border:1px solid rgba(255,68,68,0.3);border-radius:8px;padding:1.5rem;text-align:center;">' +
         '<div style="color:#ff4444;font-size:0.85rem;margin-bottom:0.5rem;">❌ ' + data.error + '</div>' +
-        '<div style="font-size:0.75rem;color:#555;">Verifica tu API Key o contacta a clhq@hormigasais.com</div>' +
+        '<div style="font-size:0.75rem;color:#555;">Verifica tu API Key o contacta a chrisquionez354@gmail.com</div>' +
         '</div>';
       return;
     }
@@ -1732,67 +1295,16 @@ async function accederCuenta() {
     const sellos = data.mis_sellos || [];
     if (sellos.length > 0) {
       html += '<div style="font-family:Syne,sans-serif;font-size:0.9rem;font-weight:700;color:#fff;margin-bottom:0.8rem;">🔏 Mis sellos</div>';
-      window._lbhSellos = sellos;
-      sellos.forEach((s, idx) => {
-        const fecha = s.emitido ? new Date(s.emitido) : null;
-        const fechaFormato = fecha ? fecha.toLocaleDateString('es-SV', { day:'2-digit', month:'long', year:'numeric' }) : '—';
-        const horaFormato = fecha ? fecha.toLocaleTimeString('es-SV', { hour:'2-digit', minute:'2-digit' }) : '';
-        const validez = s.valido_hasta && s.valido_hasta !== 'permanente'
-          ? new Date(s.valido_hasta).toLocaleDateString('es-SV', { day:'2-digit', month:'long', year:'numeric' })
-          : 'Permanente';
-        const planColor = s.plan === 'enterprise' ? '#00ff9f' : s.plan === 'premium' ? '#a855f7' : '#f5c518';
-        const planLabel = s.plan === 'enterprise' ? 'Enterprise 🏢' : s.plan === 'premium' ? 'Premium ⭐' : 'Free';
-        const hashCorto = s.hash ? s.hash.substring(0,16) + '...' : 'sin hash';
-
-        html += '<div style="background:#111;border:1px solid #2a2a2a;border-radius:10px;padding:1rem;margin-bottom:0.8rem;transition:border 0.2s;" onmouseover="this.style.borderColor='#333'" onmouseout="this.style.borderColor='#2a2a2a'">' +
-
-          // Cabecera: fecha + plan
-          '<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.7rem;">' +
-          '<div>' +
-          '<div style="font-size:0.65rem;color:#555;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.2rem;">Emitido</div>' +
-          '<div style="font-family:Space Mono,monospace;font-size:0.78rem;color:#fff;">' + fechaFormato + '</div>' +
-          '<div style="font-size:0.65rem;color:#444;margin-top:0.1rem;">' + horaFormato + ' — Nodo A16-SanMiguel-SV</div>' +
-          '</div>' +
-          '<span style="font-size:0.65rem;color:' + planColor + ';border:1px solid ' + planColor + '33;padding:0.2rem 0.6rem;border-radius:20px;">' + planLabel + '</span>' +
-          '</div>' +
-
-          // Activo + firma
-          '<div style="background:#0a0a0a;border-radius:6px;padding:0.7rem;margin-bottom:0.7rem;">' +
-          '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;">' +
-          '<span style="font-size:0.65rem;color:#555;text-transform:uppercase;">Activo protegido</span>' +
-          '<span style="font-size:0.75rem;color:#fff;font-weight:700;">' + s.asset + '</span>' +
-          '</div>' +
-          '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;">' +
-          '<span style="font-size:0.65rem;color:#555;text-transform:uppercase;">Firma LBH</span>' +
-          '<span style="font-family:Space Mono,monospace;font-size:0.7rem;color:#00ff9f;">' + s.signature + '</span>' +
-          '</div>' +
-          '<div style="display:flex;justify-content:space-between;align-items:center;">' +
-          '<span style="font-size:0.65rem;color:#555;text-transform:uppercase;">Hash SHA-256</span>' +
-          '<span style="font-family:Space Mono,monospace;font-size:0.65rem;color:#444;">' + hashCorto + '</span>' +
-          '</div>' +
-          '</div>' +
-
-          // Validez + estado
-          '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.8rem;">' +
-          '<div>' +
-          '<div style="font-size:0.65rem;color:#555;text-transform:uppercase;margin-bottom:0.2rem;">Válido hasta</div>' +
-          '<div style="font-size:0.72rem;color:#aaa;">' + validez + '</div>' +
-          '</div>' +
-          '<div style="display:flex;align-items:center;gap:0.3rem;">' +
-          '<div style="width:6px;height:6px;border-radius:50%;background:#00ff9f;"></div>' +
-          '<span style="font-size:0.65rem;color:#00ff9f;">Verificado</span>' +
-          '</div>' +
-          '</div>' +
-
-          // Acciones
-          '<div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;">' +
-          '<button onclick="descargarManifest(\'' + s.signature + '\')" style="background:#1a1a1a;border:1px solid rgba(245,197,24,0.3);border-radius:6px;padding:0.5rem;cursor:pointer;font-family:Space Mono,monospace;font-size:0.65rem;color:#f5c518;transition:border 0.2s;" onmouseover="this.style.borderColor=\'#f5c518\'" onmouseout="this.style.borderColor=\'rgba(245,197,24,0.3)\'">📄 Descargar Manifest</button>' +
-          '<a href="https://hormigasais.com#verificar?sig=' + s.signature + '" target="_blank" style="background:#1a1a1a;border:1px solid rgba(0,255,159,0.2);border-radius:6px;padding:0.5rem;text-align:center;text-decoration:none;font-family:Space Mono,monospace;font-size:0.65rem;color:#00ff9f;transition:border 0.2s;" onmouseover="this.style.borderColor=\'#00ff9f\'" onmouseout="this.style.borderColor=\'rgba(0,255,159,0.2)\'">🔍 Verificar</a>' +
-          '</div>' +
-          '<button onclick="toggleNarrador(this,' + idx + ')" style="margin-top:0.5rem;width:100%;background:transparent;border:1px solid #1a3a2a;border-radius:6px;padding:0.5rem;cursor:pointer;font-family:Space Mono,monospace;font-size:0.65rem;color:#555;transition:all 0.2s;" onmouseover="this.style.color=\'#00ff9f\';this.style.borderColor=\'#00ff9f\'" onmouseout="this.style.color=\'#555\';this.style.borderColor=\'#1a3a2a\'">📖 Narrar</button>' +
-
+      html += '<div style="background:#1a1a1a;border:1px solid #2a2a2a;border-radius:8px;overflow:hidden;">';
+      html += '<div style="display:grid;grid-template-columns:1fr 1fr 80px;gap:0.5rem;padding:0.6rem 1rem;background:#111;font-size:0.65rem;color:#444;text-transform:uppercase;letter-spacing:0.06em;"><span>Firma</span><span>Activo</span><span>Acciones</span></div>';
+      sellos.forEach(s => {
+        html += '<div style="display:grid;grid-template-columns:1fr 1fr 80px;gap:0.5rem;padding:0.7rem 1rem;border-top:1px solid #222;align-items:center;">' +
+          '<span style="font-size:0.72rem;color:#00ff9f;">' + s.signature + '</span>' +
+          '<span style="font-size:0.72rem;color:#aaa;">' + s.asset + '</span>' +
+          '<a href="https://api.hormigasais.com/manifest/' + s.signature + '" target="_blank" style="font-size:0.65rem;color:#f5c518;text-decoration:none;border:1px solid rgba(245,197,24,0.3);padding:0.2rem 0.5rem;border-radius:4px;">📄 Manifest</a>' +
           '</div>';
       });
+      html += '</div>';
     } else {
       html += '<div style="background:#1a1a1a;border:1px solid #2a2a2a;border-radius:8px;padding:1.5rem;text-align:center;">' +
         '<div style="color:#555;font-size:0.8rem;">Aún no tienes sellos — <a href="#" onclick="showSection(\'sello\',document.querySelectorAll(\'nav button\')[3]);return false;" style="color:var(--amarillo)">Sellar ahora →</a></div>' +
@@ -1828,368 +1340,4 @@ function cerrarSesion() {
   document.getElementById('loginForm').style.display = 'block';
 }
 </script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  const manualSection = document.getElementById('manual');
-  if (!manualSection) return;
 
-  manualSection.innerHTML = `
-    <div style="max-width:680px;margin:0 auto;">
-
-      <!-- BIENVENIDA -->
-      <div style="background:linear-gradient(135deg,rgba(245,197,24,0.08),rgba(0,255,159,0.05));border:1px solid rgba(245,197,24,0.2);border-radius:16px;padding:2rem;margin-bottom:2rem;text-align:center;">
-        <div style="font-size:2rem;margin-bottom:0.8rem;">🐜</div>
-        <div style="font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;color:#fff;margin-bottom:0.8rem;">¡Bienvenido a la Colonia, Arquitecto de Contenido!</div>
-        <p style="font-size:0.82rem;color:#888;line-height:1.8;margin-bottom:1rem;">
-          Ya sea que estés en el plan Free o Enterprise, has dado el paso más importante: <strong style="color:var(--amarillo)">reclamar tu soberanía digital.</strong>
-        </p>
-        <p style="font-size:0.82rem;color:#888;line-height:1.8;">
-          ¿Crees que la certificación de propiedad intelectual es difícil? Es más simple de lo que parece. Aquí tienes tu hoja de ruta:
-        </p>
-      </div>
-
-      <!-- ÍNDICE -->
-      <div style="font-family:'Syne',sans-serif;font-size:0.75rem;font-weight:700;color:#444;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:1rem;">
-        📍 Índice de Sincronización Soberana
-      </div>
-
-      <!-- PASO 1 -->
-      <div style="background:#1a1a1a;border:1px solid #2a2a2a;border-radius:12px;padding:1.5rem;margin-bottom:1rem;cursor:pointer;transition:border 0.2s;" onmouseover="this.style.borderColor='rgba(245,197,24,0.3)'" onmouseout="this.style.borderColor='#2a2a2a'">
-        <div style="display:flex;align-items:flex-start;gap:1rem;">
-          <div style="background:rgba(245,197,24,0.1);border:1px solid rgba(245,197,24,0.3);border-radius:8px;padding:0.6rem 0.9rem;font-family:'Syne',sans-serif;font-size:1rem;font-weight:800;color:var(--amarillo);flex-shrink:0;">1</div>
-          <div style="flex:1;">
-            <div style="font-family:'Syne',sans-serif;font-size:0.95rem;font-weight:700;color:#fff;margin-bottom:0.3rem;">¿Qué es el Protocolo LBH? 🐜</div>
-            <div style="font-size:0.75rem;color:#666;margin-bottom:0.8rem;line-height:1.6;">Entiende el lenguaje binario que protege tu ADN digital. El Protocolo LBH es el sistema que hace que tu sello sea único, verificable y soberano.</div>
-            <div style="font-size:0.75rem;color:#888;line-height:1.7;margin-bottom:0.8rem;">
-              Cuando sellas un activo, el nodo A16 en San Miguel, El Salvador genera una firma criptográfica única: <span style="color:var(--verde);font-family:'Space Mono',monospace;">CLHQ-XXXXXXXX</span>. Esta firma es irrepetible y queda registrada en la red HormigasAIS para siempre.
-            </div>
-            <button onclick="showSection('docs',document.querySelectorAll('nav button')[7])" style="background:rgba(245,197,24,0.1);border:1px solid rgba(245,197,24,0.3);color:var(--amarillo);font-family:'Space Mono',monospace;font-size:0.7rem;padding:0.4rem 0.9rem;border-radius:4px;cursor:pointer;">
-              Ver Protocolo técnico →
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- PASO 2 -->
-      <div style="background:#1a1a1a;border:1px solid #2a2a2a;border-radius:12px;padding:1.5rem;margin-bottom:1rem;transition:border 0.2s;" onmouseover="this.style.borderColor='rgba(0,255,159,0.3)'" onmouseout="this.style.borderColor='#2a2a2a'">
-        <div style="display:flex;align-items:flex-start;gap:1rem;">
-          <div style="background:rgba(0,255,159,0.1);border:1px solid rgba(0,255,159,0.3);border-radius:8px;padding:0.6rem 0.9rem;font-family:'Syne',sans-serif;font-size:1rem;font-weight:800;color:var(--verde);flex-shrink:0;">2</div>
-          <div style="flex:1;">
-            <div style="font-family:'Syne',sans-serif;font-size:0.95rem;font-weight:700;color:#fff;margin-bottom:0.3rem;">Tu Escritura de Propiedad — El Manifest 📄</div>
-            <div style="font-size:0.75rem;color:#666;margin-bottom:0.8rem;line-height:1.6;">Después de sellar, descarga tu manifest desde la pestaña Mi Cuenta. Es tu certificado criptográfico portátil.</div>
-
-            <!-- ADVERTENCIA SOBERANA -->
-            <div style="background:rgba(255,68,68,0.06);border:1px solid rgba(255,68,68,0.2);border-radius:8px;padding:1rem;margin-bottom:0.8rem;">
-              <div style="font-size:0.72rem;font-weight:700;color:#ff4444;margin-bottom:0.5rem;">⚠️ ADVERTENCIA SOBERANA</div>
-              <div style="font-size:0.72rem;color:#aaa;line-height:1.7;">
-                El archivo <span style="font-family:'Space Mono',monospace;color:#f5c518;">manifest-CLHQ-XXXXXXXX.json</span> es tu escritura privada de propiedad. Guárdalo en un lugar seguro y <strong style="color:#ff4444">no lo compartas públicamente</strong> — contiene tu firma HMAC que prueba la autenticidad del sello.<br><br>
-                Para que otros verifiquen tu propiedad, comparte solo tu firma pública: <span style="font-family:'Space Mono',monospace;color:var(--verde);">CLHQ-XXXXXXXX</span>
-              </div>
-            </div>
-
-            <button onclick="showSection('cuenta',document.querySelectorAll('nav button')[1])" style="background:rgba(0,255,159,0.1);border:1px solid rgba(0,255,159,0.3);color:var(--verde);font-family:'Space Mono',monospace;font-size:0.7rem;padding:0.4rem 0.9rem;border-radius:4px;cursor:pointer;">
-              Ir a Mi Cuenta →
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- PASO 3 -->
-      <div style="background:#1a1a1a;border:1px solid #2a2a2a;border-radius:12px;padding:1.5rem;margin-bottom:1rem;transition:border 0.2s;" onmouseover="this.style.borderColor='rgba(168,85,247,0.3)'" onmouseout="this.style.borderColor='#2a2a2a'">
-        <div style="display:flex;align-items:flex-start;gap:1rem;">
-          <div style="background:rgba(168,85,247,0.1);border:1px solid rgba(168,85,247,0.3);border-radius:8px;padding:0.6rem 0.9rem;font-family:'Syne',sans-serif;font-size:1rem;font-weight:800;color:#a855f7;flex-shrink:0;">3</div>
-          <div style="flex:1;">
-            <div style="font-family:'Syne',sans-serif;font-size:0.95rem;font-weight:700;color:#fff;margin-bottom:0.3rem;">Tu Firma y Traducción Digital 🔏</div>
-            <div style="font-size:0.75rem;color:#666;margin-bottom:0.8rem;line-height:1.6;">Tu firma <span style="font-family:'Space Mono',monospace;color:var(--amarillo);">CLHQ-XXXXXXXX</span> es la traducción humana de tu manifest. Es lo que compartes con el mundo.</div>
-            <div style="font-size:0.75rem;color:#888;line-height:1.7;margin-bottom:0.8rem;">
-              Con tu firma puedes:<br>
-              • Generar tu <strong style="color:#fff;">badge PNG</strong> para pegar en tu sitio o redes<br>
-              • Compartir el link de verificación pública<br>
-              • Incluirla en contratos y documentos legales<br>
-              • Registrarla en LinkedIn como certificación profesional
-            </div>
-            <button onclick="showSection('badge',document.querySelectorAll('nav button')[4])" style="background:rgba(168,85,247,0.1);border:1px solid rgba(168,85,247,0.3);color:#a855f7;font-family:'Space Mono',monospace;font-size:0.7rem;padding:0.4rem 0.9rem;border-radius:4px;cursor:pointer;">
-              Generar mi Badge →
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- PASO 4 -->
-      <div style="background:#1a1a1a;border:1px solid #2a2a2a;border-radius:12px;padding:1.5rem;margin-bottom:2rem;transition:border 0.2s;" onmouseover="this.style.borderColor='rgba(74,158,255,0.3)'" onmouseout="this.style.borderColor='#2a2a2a'">
-        <div style="display:flex;align-items:flex-start;gap:1rem;">
-          <div style="background:rgba(74,158,255,0.1);border:1px solid rgba(74,158,255,0.3);border-radius:8px;padding:0.6rem 0.9rem;font-family:'Syne',sans-serif;font-size:1rem;font-weight:800;color:#4a9eff;flex-shrink:0;">4</div>
-          <div style="flex:1;">
-            <div style="font-family:'Syne',sans-serif;font-size:0.95rem;font-weight:700;color:#fff;margin-bottom:0.3rem;">Manual de Implementación Completo 📖</div>
-            <div style="font-size:0.75rem;color:#666;margin-bottom:0.8rem;line-height:1.6;">¿Quieres ver exactamente cómo pegar tu sello en GitHub, Instagram, contratos legales o tu sitio web? La documentación completa está en:</div>
-            <div style="background:#0a0a0a;border:1px solid #222;border-radius:6px;padding:0.8rem;font-family:'Space Mono',monospace;font-size:0.75rem;color:var(--amarillo);margin-bottom:0.8rem;">
-              docs.hormigasais.com/manual.html
-            </div>
-            <div style="font-size:0.72rem;color:#888;line-height:1.7;margin-bottom:0.8rem;">
-              El manual está disponible en <strong style="color:#fff;">Español e Inglés</strong> y cubre:<br>
-              🌐 Sitio web (con o sin experiencia previa)<br>
-              🐙 GitHub README y repositorios<br>
-              📱 Instagram, LinkedIn, Twitter/X, Facebook<br>
-              📄 Contratos digitales y PDF profesionales
-            </div>
-            <a href="https://docs.hormigasais.com/manual.html" target="_blank" style="display:inline-block;background:rgba(74,158,255,0.1);border:1px solid rgba(74,158,255,0.3);color:#4a9eff;font-family:'Space Mono',monospace;font-size:0.7rem;padding:0.4rem 0.9rem;border-radius:4px;text-decoration:none;">
-              Abrir manual completo →
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- SOPORTE -->
-      <div style="background:rgba(245,197,24,0.04);border:1px solid rgba(245,197,24,0.15);border-radius:8px;padding:1.2rem;text-align:center;font-size:0.75rem;color:#666;">
-        ¿Tienes dudas? Escríbenos a <strong style="color:var(--amarillo);">clhq@hormigasais.com</strong><br>
-        <span style="font-size:0.7rem;color:#444;margin-top:0.3rem;display:block;">🐜 HormigasAIS — Nodo A16-SanMiguel-SV — Protocolo LBH v2.0</span>
-      </div>
-
-    </div>
-  `;
-});
-</script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  const xoxoSection = document.getElementById('xoxo');
-  if (!xoxoSection) return;
-
-  xoxoSection.innerHTML = `
-    <div style="max-width:680px;margin:0 auto;">
-
-      <div style="font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;color:#fff;margin-bottom:0.3rem;">🎁 XOXO-BUS</div>
-      <p style="color:#555;font-size:0.78rem;margin-bottom:1.5rem;">Canal Master CLHQ — Tarjetas de regalo soberanas</p>
-
-      <!-- LOGIN MASTER -->
-      <div id="xoxoLoginForm" style="background:#1a1a1a;border:1px solid #2a2a2a;border-radius:12px;padding:1.5rem;margin-bottom:1.5rem;">
-        <div style="font-size:0.82rem;color:#666;margin-bottom:1rem;">🔐 Acceso exclusivo Master CLHQ</div>
-        <div style="display:flex;gap:0.8rem;">
-          <input type="password" id="xoxoMasterKey" placeholder="Clave Master CLHQ"
-            style="flex:1;background:#0a0a0a;border:1px solid #333;border-radius:6px;color:#e8e8e8;font-family:'Space Mono',monospace;font-size:0.8rem;padding:0.7rem 0.9rem;outline:none;"
-            onkeydown="if(event.key==='Enter') accederXOXO()">
-          <button onclick="accederXOXO()"
-            style="background:#f5c518;color:#0a0a0a;border:none;font-family:'Space Mono',monospace;font-size:0.78rem;font-weight:700;padding:0.7rem 1.2rem;border-radius:6px;cursor:pointer;">
-            Entrar
-          </button>
-        </div>
-      </div>
-
-      <!-- PANEL XOXO (oculto hasta autenticar) -->
-      <div id="xoxoPanel" style="display:none;">
-
-        <!-- GENERAR REGALO -->
-        <div style="background:#1a1a1a;border:1px solid rgba(245,197,24,0.2);border-radius:12px;padding:1.5rem;margin-bottom:1.5rem;">
-          <div style="font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;color:#fff;margin-bottom:1.2rem;">🎁 Generar tarjeta de regalo</div>
-
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;">
-            <div>
-              <label style="font-size:0.7rem;color:#555;text-transform:uppercase;letter-spacing:0.06em;display:block;margin-bottom:0.4rem;">Plan</label>
-              <select id="giftPlan" style="width:100%;background:#0a0a0a;border:1px solid #333;border-radius:6px;color:#e8e8e8;font-family:'Space Mono',monospace;font-size:0.8rem;padding:0.7rem 0.9rem;outline:none;">
-                <option value="premium">Premium — $10/mes</option>
-                <option value="enterprise">Enterprise — $49/mes</option>
-                <option value="free">Free — 30 días</option>
-              </select>
-            </div>
-            <div>
-              <label style="font-size:0.7rem;color:#555;text-transform:uppercase;letter-spacing:0.06em;display:block;margin-bottom:0.4rem;">Destinatario</label>
-              <input type="text" id="giftDest" placeholder="Nombre del destinatario"
-                style="width:100%;background:#0a0a0a;border:1px solid #333;border-radius:6px;color:#e8e8e8;font-family:'Space Mono',monospace;font-size:0.8rem;padding:0.7rem 0.9rem;outline:none;">
-            </div>
-          </div>
-
-          <div style="margin-bottom:1rem;">
-            <label style="font-size:0.7rem;color:#555;text-transform:uppercase;letter-spacing:0.06em;display:block;margin-bottom:0.4rem;">Email (opcional)</label>
-            <input type="email" id="giftEmail" placeholder="email@destinatario.com"
-              style="width:100%;background:#0a0a0a;border:1px solid #333;border-radius:6px;color:#e8e8e8;font-family:'Space Mono',monospace;font-size:0.8rem;padding:0.7rem 0.9rem;outline:none;">
-          </div>
-
-          <div style="margin-bottom:1rem;">
-            <label style="font-size:0.7rem;color:#555;text-transform:uppercase;letter-spacing:0.06em;display:block;margin-bottom:0.4rem;">Mensaje personalizado</label>
-            <input type="text" id="giftMsg" placeholder="🎁 Bienvenido a la Colonia HormigasAIS"
-              style="width:100%;background:#0a0a0a;border:1px solid #333;border-radius:6px;color:#e8e8e8;font-family:'Space Mono',monospace;font-size:0.8rem;padding:0.7rem 0.9rem;outline:none;">
-          </div>
-
-          <button onclick="generarRegalo()"
-            style="width:100%;background:var(--amarillo);color:#0a0a0a;border:none;font-family:'Space Mono',monospace;font-size:0.85rem;font-weight:700;padding:0.9rem;border-radius:8px;cursor:pointer;">
-            🎁 Generar Código de Regalo
-          </button>
-        </div>
-
-        <!-- RESULTADO REGALO -->
-        <div id="giftResult" style="display:none;background:rgba(0,255,159,0.04);border:1px solid rgba(0,255,159,0.2);border-radius:8px;padding:1.5rem;margin-bottom:1.5rem;">
-          <div style="color:var(--verde);font-size:0.85rem;font-weight:700;margin-bottom:1rem;">✅ Tarjeta de regalo generada</div>
-          <div id="giftData"></div>
-          <button onclick="copiarEmail()" style="margin-top:1rem;background:rgba(245,197,24,0.1);border:1px solid rgba(245,197,24,0.3);color:var(--amarillo);font-family:'Space Mono',monospace;font-size:0.72rem;padding:0.4rem 0.9rem;border-radius:4px;cursor:pointer;">
-            📋 Copiar email para enviar
-          </button>
-        </div>
-
-        <!-- LISTA DE REGALOS -->
-        <div style="background:#1a1a1a;border:1px solid #2a2a2a;border-radius:12px;padding:1.5rem;">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
-            <div style="font-family:'Syne',sans-serif;font-size:0.9rem;font-weight:700;color:#fff;">📋 Historial de regalos</div>
-            <button onclick="cargarRegalos()" style="background:#1a1a1a;border:1px solid #333;color:#aaa;font-family:'Space Mono',monospace;font-size:0.7rem;padding:0.3rem 0.8rem;border-radius:4px;cursor:pointer;">🔄 Actualizar</button>
-          </div>
-          <div id="giftsList" style="color:#555;font-size:0.78rem;text-align:center;padding:1rem;">Haz clic en Actualizar para ver los regalos</div>
-        </div>
-
-      </div>
-
-      <!-- CANJEAR REGALO (público) -->
-      <div style="background:#1a1a1a;border:1px solid #2a2a2a;border-radius:12px;padding:1.5rem;margin-top:1.5rem;">
-        <div style="font-family:'Syne',sans-serif;font-size:0.9rem;font-weight:700;color:#fff;margin-bottom:0.5rem;">🎁 ¿Tienes un código de regalo?</div>
-        <div style="font-size:0.75rem;color:#666;margin-bottom:1rem;">Ingresa tu código REGALO-CLHQ-XXXXXXXX para activar tu plan</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin-bottom:0.8rem;">
-          <input type="text" id="redeemCode" placeholder="REGALO-CLHQ-XXXXXXXX"
-            style="background:#0a0a0a;border:1px solid #333;border-radius:6px;color:#e8e8e8;font-family:'Space Mono',monospace;font-size:0.78rem;padding:0.7rem 0.9rem;outline:none;">
-          <input type="text" id="redeemOwner" placeholder="Tu nombre"
-            style="background:#0a0a0a;border:1px solid #333;border-radius:6px;color:#e8e8e8;font-family:'Space Mono',monospace;font-size:0.78rem;padding:0.7rem 0.9rem;outline:none;">
-        </div>
-        <input type="email" id="redeemEmail" placeholder="Tu email (opcional)"
-          style="width:100%;background:#0a0a0a;border:1px solid #333;border-radius:6px;color:#e8e8e8;font-family:'Space Mono',monospace;font-size:0.78rem;padding:0.7rem 0.9rem;outline:none;margin-bottom:0.8rem;">
-        <button onclick="canjearRegalo()"
-          style="width:100%;background:#1a1a1a;border:1px solid var(--amarillo);color:var(--amarillo);font-family:'Space Mono',monospace;font-size:0.8rem;padding:0.8rem;border-radius:6px;cursor:pointer;">
-          🎁 Canjear código
-        </button>
-        <div id="redeemResult" style="margin-top:1rem;"></div>
-      </div>
-
-    </div>
-  `;
-
-  cargarRegalos();
-});
-
-const XOXO_API = 'https://api.hormigasais.com';
-let xoxoKey = '';
-let emailParaCopiar = '';
-
-function accederXOXO() {
-  xoxoKey = document.getElementById('xoxoMasterKey').value.trim();
-  if (!xoxoKey) { alert('Ingresa tu clave Master'); return; }
-  document.getElementById('xoxoLoginForm').style.display = 'none';
-  document.getElementById('xoxoPanel').style.display = 'block';
-  cargarRegalos();
-}
-
-async function generarRegalo() {
-  const plan = document.getElementById('giftPlan').value;
-  const dest = document.getElementById('giftDest').value.trim();
-  const email = document.getElementById('giftEmail').value.trim();
-  const msg = document.getElementById('giftMsg').value.trim() || '🎁 Bienvenido a la Colonia HormigasAIS';
-
-  const result = document.getElementById('giftResult');
-  const data = document.getElementById('giftData');
-
-  try {
-    const r = await fetch(XOXO_API + '/xoxo/gift?key=' + encodeURIComponent(xoxoKey), {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ plan, destinatario: dest, email, mensaje: msg })
-    });
-    const d = await r.json();
-
-    if (d.error) { alert('Error: ' + d.error); return; }
-
-    const g = d.gift;
-    emailParaCopiar = d.instrucciones_email.asunto + '\n\n' + d.instrucciones_email.cuerpo;
-
-    data.innerHTML =
-      '<div style="display:grid;gap:0.5rem;">' +
-      row('Código', '<span style="font-family:Space Mono,monospace;color:#f5c518;font-size:0.9rem;">' + g.codigo + '</span>') +
-      row('Plan', g.plan.toUpperCase()) +
-      row('Destinatario', g.destinatario || '—') +
-      row('Mensaje', g.mensaje) +
-      row('Válido hasta', new Date(g.expiry_gift).toLocaleDateString()) +
-      '</div>';
-
-    result.style.display = 'block';
-    cargarRegalos();
-  } catch(e) {
-    alert('Error de conexión');
-  }
-}
-
-function row(k, v) {
-  return '<div style="display:flex;justify-content:space-between;padding:0.4rem 0;border-bottom:1px solid #1a1a1a;font-size:0.75rem;"><span style="color:#555;text-transform:uppercase;letter-spacing:0.06em;">' + k + '</span><span style="color:#aaa;">' + v + '</span></div>';
-}
-
-function copiarEmail() {
-  navigator.clipboard.writeText(emailParaCopiar).then(() => {
-    const btn = document.querySelector('#giftResult button');
-    btn.textContent = '✅ Copiado';
-    setTimeout(() => btn.textContent = '📋 Copiar email para enviar', 2000);
-  });
-}
-
-async function cargarRegalos() {
-  if (!xoxoKey) return;
-  const lista = document.getElementById('giftsList');
-  try {
-    const r = await fetch(XOXO_API + '/xoxo/lista?key=' + encodeURIComponent(xoxoKey));
-    const d = await r.json();
-    if (d.error) { lista.innerHTML = '<div style="color:#ff4444;font-size:0.75rem;">' + d.error + '</div>'; return; }
-
-    if (d.total === 0) { lista.innerHTML = '<div style="color:#555;font-size:0.78rem;text-align:center;">Sin regalos emitidos aún</div>'; return; }
-
-    let html = '<div style="font-size:0.72rem;color:#555;margin-bottom:0.8rem;">Total: ' + d.total + ' | Canjeados: ' + d.canjeados + ' | Pendientes: ' + d.pendientes + '</div>';
-    html += '<div style="display:grid;gap:0.5rem;">';
-    (d.regalos || []).forEach(g => {
-      const color = g.canjeado ? '#555' : '#f5c518';
-      html += '<div style="background:#0a0a0a;border:1px solid #222;border-radius:6px;padding:0.8rem;">' +
-        '<div style="display:flex;justify-content:space-between;margin-bottom:0.3rem;">' +
-        '<span style="font-family:Space Mono,monospace;font-size:0.75rem;color:' + color + '">' + g.codigo + '</span>' +
-        '<span style="font-size:0.65rem;background:' + (g.canjeado ? '#1a1a1a' : 'rgba(245,197,24,0.1)') + ';color:' + color + ';padding:0.2rem 0.5rem;border-radius:4px;">' + (g.canjeado ? '✅ Canjeado' : '⏳ Pendiente') + '</span>' +
-        '</div>' +
-        '<div style="font-size:0.68rem;color:#555;">' + g.plan.toUpperCase() + ' · ' + (g.destinatario || 'Sin destinatario') + '</div>' +
-        '</div>';
-    });
-    html += '</div>';
-    lista.innerHTML = html;
-  } catch(e) {
-    lista.innerHTML = '<div style="color:#ff4444;font-size:0.75rem;">Error de conexión</div>';
-  }
-}
-
-async function canjearRegalo() {
-  const codigo = document.getElementById('redeemCode').value.trim().toUpperCase();
-  const owner = document.getElementById('redeemOwner').value.trim();
-  const email = document.getElementById('redeemEmail').value.trim();
-  const result = document.getElementById('redeemResult');
-
-  if (!codigo) { alert('Ingresa tu código de regalo'); return; }
-
-  result.innerHTML = '<div style="color:#555;font-size:0.78rem;">📡 Verificando con el nodo A16...</div>';
-
-  try {
-    const r = await fetch(XOXO_API + '/xoxo/redeem', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ codigo, owner, email })
-    });
-    const d = await r.json();
-
-    if (d.error) {
-      result.innerHTML = '<div style="background:rgba(255,68,68,0.06);border:1px solid rgba(255,68,68,0.2);border-radius:8px;padding:1rem;color:#ff4444;font-size:0.78rem;">❌ ' + d.error + '</div>';
-      return;
-    }
-
-    result.innerHTML =
-      '<div style="background:rgba(0,255,159,0.04);border:1px solid rgba(0,255,159,0.2);border-radius:8px;padding:1.2rem;">' +
-      '<div style="color:var(--verde);font-weight:700;font-size:0.85rem;margin-bottom:0.8rem;">✅ ¡Regalo canjeado exitosamente!</div>' +
-      '<div style="font-size:0.75rem;color:#aaa;margin-bottom:0.5rem;">' + d.mensaje + '</div>' +
-      '<div style="background:#0a0a0a;border:1px solid #222;border-radius:6px;padding:0.8rem;margin:0.8rem 0;">' +
-      '<div style="font-size:0.7rem;color:#555;margin-bottom:0.3rem;">TU API KEY</div>' +
-      '<div style="font-family:Space Mono,monospace;font-size:0.9rem;color:#f5c518;">' + d.api_key + '</div>' +
-      '</div>' +
-      '<div style="font-size:0.72rem;color:#666;">Plan: <strong style="color:#fff">' + d.cliente.plan + '</strong> · Válido: <strong style="color:#fff">' + d.cliente.expiry + '</strong></div>' +
-      '<div style="font-size:0.7rem;color:#555;margin-top:0.5rem;">Guarda tu API Key y úsala en la pestaña 👤 Mi Cuenta</div>' +
-      '</div>';
-  } catch(e) {
-    result.innerHTML = '<div style="color:#ff4444;font-size:0.78rem;">⚠️ Error de conexión</div>';
-  }
-}
-</script>
-
-</body>
-</html>
