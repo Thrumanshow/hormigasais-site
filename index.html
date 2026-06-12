@@ -1275,6 +1275,54 @@ async function cargarStats() {
 
   // LBH-Sovereign-Pulse: trust_level: 1.0
   // Signed-by: CLHQ-Q5PTRLA0
+function narrarRegistro(s) {
+  const fecha = s.emitido ? new Date(s.emitido) : null;
+  const fechaTexto = fecha
+    ? fecha.toLocaleDateString('es-SV', { day:'2-digit', month:'long', year:'numeric' })
+    : 'fecha desconocida';
+  const horaTexto = fecha
+    ? fecha.toLocaleTimeString('es-SV', { hour:'2-digit', minute:'2-digit' })
+    : '';
+  const validez = s.valido_hasta && s.valido_hasta !== 'permanente'
+    ? 'hasta el ' + new Date(s.valido_hasta).toLocaleDateString('es-SV', { day:'2-digit', month:'long', year:'numeric' })
+    : 'de forma permanente';
+  const plan = s.plan === 'enterprise' ? 'Enterprise' : s.plan === 'premium' ? 'Premium' : 'Free';
+  const hash = s.hash ? s.hash.substring(0,32) + '...' : 'no registrado';
+
+  return `🐜 Registro LBH — Protocolo v2.0
+
+El activo "${s.asset}" fue sellado el ${fechaTexto} a las ${horaTexto} desde el Nodo Soberano A16-SanMiguel-SV bajo el plan ${plan}.
+
+La firma criptográfica asignada es ${s.signature}, emitida mediante el Protocolo Lenguaje-Binario-HormigasAIS con protección SHA-256 + HMAC.
+
+La huella digital del activo en el momento del sellado fue:
+${hash}
+
+Esta huella confirma que el activo no ha sido alterado desde su registro original. Cualquier modificación posterior produciría una huella diferente, invalidando la certificación.
+
+El certificado permanece válido ${validez} y es verificable públicamente en hormigasais.com.
+
+Fundador: CLHQ — Cristhiam Leonardo Hernández Quiñonez
+DOI: 10.5281/zenodo.19177759`;
+}
+
+function toggleNarrador(btn, sig, sello) {
+  const card = btn.closest('[data-sig]');
+  let narrador = card ? card.querySelector('.lbh-narrador') : null;
+  if (narrador) {
+    narrador.style.display = narrador.style.display === 'none' ? 'block' : 'none';
+    btn.textContent = narrador.style.display === 'none' ? '📖 Narrar' : '📖 Cerrar';
+    return;
+  }
+  const texto = narrarRegistro(sello);
+  const div = document.createElement('div');
+  div.className = 'lbh-narrador';
+  div.style.cssText = 'margin-top:0.8rem;background:#0a0a0a;border:1px solid #1a3a2a;border-radius:6px;padding:0.9rem;font-family:Space Mono,monospace;font-size:0.65rem;color:#aaa;line-height:1.8;white-space:pre-wrap;';
+  div.textContent = texto;
+  if (card) card.appendChild(div);
+  btn.textContent = '📖 Cerrar';
+}
+
 async function descargarManifest(firmaParam) {
   const sig = firmaParam || (typeof currentSig !== 'undefined' ? currentSig : null);
   if (!sig) { alert('\u26a0\ufe0f No hay sello activo para descargar'); return; }
@@ -1739,9 +1787,10 @@ async function accederCuenta() {
 
           // Acciones
           '<div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;">' +
-          '<button onclick="descargarManifest('' + s.signature + '')" style="background:#1a1a1a;border:1px solid rgba(245,197,24,0.3);border-radius:6px;padding:0.5rem;cursor:pointer;font-family:Space Mono,monospace;font-size:0.65rem;color:#f5c518;transition:border 0.2s;" onmouseover="this.style.borderColor='#f5c518'" onmouseout="this.style.borderColor='rgba(245,197,24,0.3)'">📄 Descargar Manifest</button>' +
-          '<a href="https://hormigasais.com#verificar?sig=' + s.signature + '" target="_blank" style="background:#1a1a1a;border:1px solid rgba(0,255,159,0.2);border-radius:6px;padding:0.5rem;text-align:center;text-decoration:none;font-family:Space Mono,monospace;font-size:0.65rem;color:#00ff9f;transition:border 0.2s;" onmouseover="this.style.borderColor='#00ff9f'" onmouseout="this.style.borderColor='rgba(0,255,159,0.2)'">🔍 Verificar</a>' +
+          '<button onclick="descargarManifest(\'' + s.signature + '\')" style="background:#1a1a1a;border:1px solid rgba(245,197,24,0.3);border-radius:6px;padding:0.5rem;cursor:pointer;font-family:Space Mono,monospace;font-size:0.65rem;color:#f5c518;transition:border 0.2s;" onmouseover="this.style.borderColor=\'#f5c518\'" onmouseout="this.style.borderColor=\'rgba(245,197,24,0.3)\'">📄 Descargar Manifest</button>' +
+          '<a href="https://hormigasais.com#verificar?sig=' + s.signature + '" target="_blank" style="background:#1a1a1a;border:1px solid rgba(0,255,159,0.2);border-radius:6px;padding:0.5rem;text-align:center;text-decoration:none;font-family:Space Mono,monospace;font-size:0.65rem;color:#00ff9f;transition:border 0.2s;" onmouseover="this.style.borderColor=\'#00ff9f\'" onmouseout="this.style.borderColor=\'rgba(0,255,159,0.2)\'">🔍 Verificar</a>' +
           '</div>' +
+          '<button onclick="toggleNarrador(this,\'' + s.signature + '\',' + JSON.stringify({asset:s.asset,emitido:s.emitido,valido_hasta:s.valido_hasta,plan:s.plan,hash:s.hash,signature:s.signature}) + ')" style="margin-top:0.5rem;width:100%;background:transparent;border:1px solid #1a3a2a;border-radius:6px;padding:0.5rem;cursor:pointer;font-family:Space Mono,monospace;font-size:0.65rem;color:#555;transition:all 0.2s;" onmouseover="this.style.color=\'#00ff9f\';this.style.borderColor=\'#00ff9f\'" onmouseout="this.style.color=\'#555\';this.style.borderColor=\'#1a3a2a\'">📖 Narrar</button>' +
 
           '</div>';
       });
