@@ -1306,8 +1306,8 @@ Fundador: CLHQ — Cristhiam Leonardo Hernández Quiñonez
 DOI: 10.5281/zenodo.19177759`;
 }
 
-function toggleNarrador(btn, selloData) {
-  const sello = typeof selloData === "string" ? JSON.parse(selloData.replace(/&quot;/g,'"')) : selloData;
+function toggleNarrador(btn, idx) {
+  const sello = window._lbhSellos && window._lbhSellos[idx] ? window._lbhSellos[idx] : {};
   let narrador = card ? card.querySelector('.lbh-narrador') : null;
   if (narrador) {
     narrador.style.display = narrador.style.display === 'none' ? 'block' : 'none';
@@ -1734,7 +1734,8 @@ async function accederCuenta() {
     const sellos = data.mis_sellos || [];
     if (sellos.length > 0) {
       html += '<div style="font-family:Syne,sans-serif;font-size:0.9rem;font-weight:700;color:#fff;margin-bottom:0.8rem;">🔏 Mis sellos</div>';
-      sellos.forEach(s => {
+      window._lbhSellos = sellos;
+      sellos.forEach((s, idx) => {
         const fecha = s.emitido ? new Date(s.emitido) : null;
         const fechaFormato = fecha ? fecha.toLocaleDateString('es-SV', { day:'2-digit', month:'long', year:'numeric' }) : '—';
         const horaFormato = fecha ? fecha.toLocaleTimeString('es-SV', { hour:'2-digit', minute:'2-digit' }) : '';
@@ -1790,7 +1791,7 @@ async function accederCuenta() {
           '<button onclick="descargarManifest(\'' + s.signature + '\')" style="background:#1a1a1a;border:1px solid rgba(245,197,24,0.3);border-radius:6px;padding:0.5rem;cursor:pointer;font-family:Space Mono,monospace;font-size:0.65rem;color:#f5c518;transition:border 0.2s;" onmouseover="this.style.borderColor=\'#f5c518\'" onmouseout="this.style.borderColor=\'rgba(245,197,24,0.3)\'">📄 Descargar Manifest</button>' +
           '<a href="https://hormigasais.com#verificar?sig=' + s.signature + '" target="_blank" style="background:#1a1a1a;border:1px solid rgba(0,255,159,0.2);border-radius:6px;padding:0.5rem;text-align:center;text-decoration:none;font-family:Space Mono,monospace;font-size:0.65rem;color:#00ff9f;transition:border 0.2s;" onmouseover="this.style.borderColor=\'#00ff9f\'" onmouseout="this.style.borderColor=\'rgba(0,255,159,0.2)\'">🔍 Verificar</a>' +
           '</div>' +
-          '<button onclick="toggleNarrador(this,' + JSON.stringify(s).replace(/"/g,'&quot;') + ')" style="margin-top:0.5rem;width:100%;background:transparent;border:1px solid #1a3a2a;border-radius:6px;padding:0.5rem;cursor:pointer;font-family:Space Mono,monospace;font-size:0.65rem;color:#555;transition:all 0.2s;" onmouseover="this.style.color=\'#00ff9f\';this.style.borderColor=\'#00ff9f\'" onmouseout="this.style.color=\'#555\';this.style.borderColor=\'#1a3a2a\'">📖 Narrar</button>' +
+          '<button onclick="toggleNarrador(this,' + idx + ')" style="margin-top:0.5rem;width:100%;background:transparent;border:1px solid #1a3a2a;border-radius:6px;padding:0.5rem;cursor:pointer;font-family:Space Mono,monospace;font-size:0.65rem;color:#555;transition:all 0.2s;" onmouseover="this.style.color=\'#00ff9f\';this.style.borderColor=\'#00ff9f\'" onmouseout="this.style.color=\'#555\';this.style.borderColor=\'#1a3a2a\'">📖 Narrar</button>' +
 
           '</div>';
       });
