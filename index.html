@@ -1686,16 +1686,65 @@ async function accederCuenta() {
     const sellos = data.mis_sellos || [];
     if (sellos.length > 0) {
       html += '<div style="font-family:Syne,sans-serif;font-size:0.9rem;font-weight:700;color:#fff;margin-bottom:0.8rem;">🔏 Mis sellos</div>';
-      html += '<div style="background:#1a1a1a;border:1px solid #2a2a2a;border-radius:8px;overflow:hidden;">';
-      html += '<div style="display:grid;grid-template-columns:1fr 1fr 80px;gap:0.5rem;padding:0.6rem 1rem;background:#111;font-size:0.65rem;color:#444;text-transform:uppercase;letter-spacing:0.06em;"><span>Firma</span><span>Activo</span><span>Acciones</span></div>';
       sellos.forEach(s => {
-        html += '<div style="display:grid;grid-template-columns:1fr 1fr 80px;gap:0.5rem;padding:0.7rem 1rem;border-top:1px solid #222;align-items:center;">' +
-          '<span style="font-size:0.72rem;color:#00ff9f;">' + s.signature + '</span>' +
-          '<span style="font-size:0.72rem;color:#aaa;">' + s.asset + '</span>' +
-          '<a href="https://api.hormigasais.com/manifest/' + s.signature + '" target="_blank" style="font-size:0.65rem;color:#f5c518;text-decoration:none;border:1px solid rgba(245,197,24,0.3);padding:0.2rem 0.5rem;border-radius:4px;">📄 Manifest</a>' +
+        const fecha = s.emitido ? new Date(s.emitido) : null;
+        const fechaFormato = fecha ? fecha.toLocaleDateString('es-SV', { day:'2-digit', month:'long', year:'numeric' }) : '—';
+        const horaFormato = fecha ? fecha.toLocaleTimeString('es-SV', { hour:'2-digit', minute:'2-digit' }) : '';
+        const validez = s.valido_hasta && s.valido_hasta !== 'permanente'
+          ? new Date(s.valido_hasta).toLocaleDateString('es-SV', { day:'2-digit', month:'long', year:'numeric' })
+          : 'Permanente';
+        const planColor = s.plan === 'enterprise' ? '#00ff9f' : s.plan === 'premium' ? '#a855f7' : '#f5c518';
+        const planLabel = s.plan === 'enterprise' ? 'Enterprise 🏢' : s.plan === 'premium' ? 'Premium ⭐' : 'Free';
+        const hashCorto = s.hash ? s.hash.substring(0,16) + '...' : 'sin hash';
+
+        html += '<div style="background:#111;border:1px solid #2a2a2a;border-radius:10px;padding:1rem;margin-bottom:0.8rem;transition:border 0.2s;" onmouseover="this.style.borderColor='#333'" onmouseout="this.style.borderColor='#2a2a2a'">' +
+
+          // Cabecera: fecha + plan
+          '<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.7rem;">' +
+          '<div>' +
+          '<div style="font-size:0.65rem;color:#555;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.2rem;">Emitido</div>' +
+          '<div style="font-family:Space Mono,monospace;font-size:0.78rem;color:#fff;">' + fechaFormato + '</div>' +
+          '<div style="font-size:0.65rem;color:#444;margin-top:0.1rem;">' + horaFormato + ' — Nodo A16-SanMiguel-SV</div>' +
+          '</div>' +
+          '<span style="font-size:0.65rem;color:' + planColor + ';border:1px solid ' + planColor + '33;padding:0.2rem 0.6rem;border-radius:20px;">' + planLabel + '</span>' +
+          '</div>' +
+
+          // Activo + firma
+          '<div style="background:#0a0a0a;border-radius:6px;padding:0.7rem;margin-bottom:0.7rem;">' +
+          '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;">' +
+          '<span style="font-size:0.65rem;color:#555;text-transform:uppercase;">Activo protegido</span>' +
+          '<span style="font-size:0.75rem;color:#fff;font-weight:700;">' + s.asset + '</span>' +
+          '</div>' +
+          '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;">' +
+          '<span style="font-size:0.65rem;color:#555;text-transform:uppercase;">Firma LBH</span>' +
+          '<span style="font-family:Space Mono,monospace;font-size:0.7rem;color:#00ff9f;">' + s.signature + '</span>' +
+          '</div>' +
+          '<div style="display:flex;justify-content:space-between;align-items:center;">' +
+          '<span style="font-size:0.65rem;color:#555;text-transform:uppercase;">Hash SHA-256</span>' +
+          '<span style="font-family:Space Mono,monospace;font-size:0.65rem;color:#444;">' + hashCorto + '</span>' +
+          '</div>' +
+          '</div>' +
+
+          // Validez + estado
+          '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.8rem;">' +
+          '<div>' +
+          '<div style="font-size:0.65rem;color:#555;text-transform:uppercase;margin-bottom:0.2rem;">Válido hasta</div>' +
+          '<div style="font-size:0.72rem;color:#aaa;">' + validez + '</div>' +
+          '</div>' +
+          '<div style="display:flex;align-items:center;gap:0.3rem;">' +
+          '<div style="width:6px;height:6px;border-radius:50%;background:#00ff9f;"></div>' +
+          '<span style="font-size:0.65rem;color:#00ff9f;">Verificado</span>' +
+          '</div>' +
+          '</div>' +
+
+          // Acciones
+          '<div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;">' +
+          '<button onclick="descargarManifest('' + s.signature + '')" style="background:#1a1a1a;border:1px solid rgba(245,197,24,0.3);border-radius:6px;padding:0.5rem;cursor:pointer;font-family:Space Mono,monospace;font-size:0.65rem;color:#f5c518;transition:border 0.2s;" onmouseover="this.style.borderColor='#f5c518'" onmouseout="this.style.borderColor='rgba(245,197,24,0.3)'">📄 Descargar Manifest</button>' +
+          '<a href="https://hormigasais.com#verificar?sig=' + s.signature + '" target="_blank" style="background:#1a1a1a;border:1px solid rgba(0,255,159,0.2);border-radius:6px;padding:0.5rem;text-align:center;text-decoration:none;font-family:Space Mono,monospace;font-size:0.65rem;color:#00ff9f;transition:border 0.2s;" onmouseover="this.style.borderColor='#00ff9f'" onmouseout="this.style.borderColor='rgba(0,255,159,0.2)'">🔍 Verificar</a>' +
+          '</div>' +
+
           '</div>';
       });
-      html += '</div>';
     } else {
       html += '<div style="background:#1a1a1a;border:1px solid #2a2a2a;border-radius:8px;padding:1.5rem;text-align:center;">' +
         '<div style="color:#555;font-size:0.8rem;">Aún no tienes sellos — <a href="#" onclick="showSection(\'sello\',document.querySelectorAll(\'nav button\')[3]);return false;" style="color:var(--amarillo)">Sellar ahora →</a></div>' +
