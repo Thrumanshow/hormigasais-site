@@ -336,18 +336,18 @@
     <button class="nav-drawer-close" id="drawerClose">✕</button>
   </div>
   <div class="nav-drawer-items">
-    <button onclick="showSectionDrawer('inicio',this)">🏠 Inicio</button>
+    <button onclick="showSectionDrawer('home',this)">🏠 Inicio</button>
     <button onclick="showSectionDrawer('planes',this)">💎 Planes</button>
-    <button onclick="showSectionDrawer('sellar',this)">🔏 Sellar</button>
+    <button onclick="showSectionDrawer('sello',this)">🔏 Sellar</button>
     <button onclick="showSectionDrawer('badge',this)">🏷️ Badge</button>
-    <button onclick="showSectionDrawer('verificar',this)">🔍 Verificar</button>
-    <button onclick="showSectionDrawer('protocolo',this)">📖 Protocolo</button>
-    <button onclick="showSectionDrawer('account',this)">👤 Mi Cuenta</button>
+    <button onclick="showSectionDrawer('verify',this)">🔍 Verificar</button>
+    <button onclick="showSectionDrawer('docs',this)">📖 Protocolo</button>
+    <button onclick="showSectionDrawer('cuenta',this)">👤 Mi Cuenta</button>
     <button onclick="showSectionDrawer('manual',this)">📋 Manual</button>
     <div class="nav-drawer-divider"></div>
     <button onclick="showSectionDrawer('accesible',this)">🔡 Accesible</button>
     <button onclick="showSectionDrawer('video',this)">👁️ Video</button>
-    <button onclick="showSectionDrawer('colonia',this)">🐜 Colonia</button>
+    <button onclick="showSectionDrawer('xoxo',this)">🐜 Colonia</button>
     <button onclick="showSectionDrawer('xoxo',this)">🎁 XOXO-BUS</button>
     <div class="nav-drawer-divider"></div>
     <button onclick="showSectionDrawer('admin',this)">🔐 Admin</button>
@@ -634,6 +634,207 @@
 </section>
 <section class="section" id="video"></section>
 <section class="section" id="accesible" aria-label="Accesibilidad Braille LBH"></section>
+<section class="section" id="xoxo"></section>
+<section class="section" id="admin">
+  <div style="font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;color:#fff;margin-bottom:0.5rem;">🔐 Panel de Auditoría</div>
+  <p style="color:#555;font-size:0.8rem;margin-bottom:2rem;">Acceso privado — Solo para CLHQ</p>
+  <div style="background:#1a1a1a;border:1px solid #2a2a2a;border-radius:12px;padding:2rem;margin-bottom:1.5rem;">
+    <div style="font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;color:#fff;margin-bottom:1rem;">Clave de acceso</div>
+    <div style="display:flex;gap:0.8rem;margin-bottom:1rem;">
+      <input type="password" id="auditKey" placeholder="CLHQ-AUDIT-XXXX"
+        style="flex:1;background:#0a0a0a;border:1px solid #333;border-radius:6px;color:#e8e8e8;font-family:'Space Mono',monospace;font-size:0.82rem;padding:0.8rem 1rem;outline:none;">
+      <button onclick="cargarAuditoria()" style="background:#f5c518;color:#0a0a0a;border:none;font-family:'Space Mono',monospace;font-size:0.8rem;font-weight:700;padding:0.8rem 1.2rem;border-radius:6px;cursor:pointer;">Acceder</button>
+    </div>
+    <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+      <button onclick="filtrarAudit('SEAL_EMITIDO')" style="background:#1a1a1a;border:1px solid #333;color:#aaa;font-family:'Space Mono',monospace;font-size:0.7rem;padding:0.4rem 0.8rem;border-radius:4px;cursor:pointer;">🔏 Sellos</button>
+      <button onclick="filtrarAudit('SEAL_VERIFICADO')" style="background:#1a1a1a;border:1px solid #333;color:#aaa;font-family:'Space Mono',monospace;font-size:0.7rem;padding:0.4rem 0.8rem;border-radius:4px;cursor:pointer;">🔍 Verificaciones</button>
+      <button onclick="filtrarAudit('VERIFY')" style="background:#1a1a1a;border:1px solid #333;color:#aaa;font-family:'Space Mono',monospace;font-size:0.7rem;padding:0.4rem 0.8rem;border-radius:4px;cursor:pointer;">📡 Pings</button>
+      <button onclick="cargarStats()" style="background:#1a1a1a;border:1px solid #333;color:#f5c518;font-family:'Space Mono',monospace;font-size:0.7rem;padding:0.4rem 0.8rem;border-radius:4px;cursor:pointer;">📊 Stats</button>
+      <button onclick="mostrarComposer()" style="background:#1a1a1a;border:1px solid rgba(245,197,24,0.3);color:var(--amarillo);font-family:'Space Mono',monospace;font-size:0.7rem;padding:0.4rem 0.8rem;border-radius:4px;cursor:pointer;">📧 Email</button>
+      <button onclick="cargarAuditoria()" style="background:#1a1a1a;border:1px solid #333;color:#aaa;font-family:'Space Mono',monospace;font-size:0.7rem;padding:0.4rem 0.8rem;border-radius:4px;cursor:pointer;">🔄 Todo</button>
+    </div>
+  </div>
+  <div id="statsPanel" style="display:none;background:#1a1a1a;border:1px solid rgba(0,255,159,0.2);border-radius:8px;padding:1.5rem;margin-bottom:1.5rem;"></div>
+  <div id="auditPanel" style="background:#1a1a1a;border:1px solid #2a2a2a;border-radius:8px;padding:1.5rem;">
+    <div style="color:#555;font-size:0.8rem;text-align:center;">Ingresa tu clave para ver los logs</div>
+  </div>
+</section>
+
+</main>
+
+<footer><a href="https://docs.hormigasais.com/legal.html" style="color:#333;font-size:0.7rem;text-decoration:none;margin-right:1rem;">⚖️ Legal</a>🐜 HormigasAIS — Nodo <span>A16-SanMiguel-SV</span> — Protocolo <span>LBH v2.0</span></footer>
+
+<script>
+  // LBH-Sovereign-Pulse: trust_level: 1.0
+  // Signed-by: CLHQ-Q5PTRLA0
+if(typeof API === 'undefined') { window.API = 'https://api.hormigasais.com'; }
+let currentSig = '';
+let selloCount = parseInt(localStorage.getItem('lbh_sello_count') || '0');
+const FREE_LIMIT = 3;
+
+// Colores por plan
+var PLAN_COLORS = typeof PLAN_COLORS !== 'undefined' ? PLAN_COLORS : {
+  free:       { bg: '#1a1a1a', accent: '#f5c518', label: 'Free',        icon: '🐜' },
+  premium:    { bg: '#1a1220', accent: '#a855f7', label: 'Premium ⭐',  icon: '🐜' },
+  enterprise: { bg: '#0a1a1a', accent: '#00ff9f', label: 'Enterprise 🏢', icon: '🐜' }
+};
+
+// Expiración por plan
+function calcExpiry(plan) {
+  const d = new Date();
+  if (plan === 'free')       d.setDate(d.getDate() + 30);
+  else if (plan === 'premium') d.setFullYear(d.getFullYear() + 1);
+  else return 'Permanente';
+  return d.toLocaleDateString('es', { month: 'short', year: 'numeric' });
+}
+
+async function checkStatus() {
+  try {
+    const r = await fetch(API + '/verify');
+    const d = await r.json();
+  } catch(e) { document.getElementById('statusText').textContent = 'Reconectando...'; }
+}
+
+async function loadStats() {
+  try {
+    const r = await fetch(API + '/all');
+    const d = await r.json();
+    document.getElementById('statSellos').textContent = Array.isArray(d) ? d.length : '—';
+  } catch(e) {}
+}
+
+function showSection(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+  const target = document.getElementById(id);
+  if (target) target.classList.add('active');
+  if (btn) btn.classList.add('active');
+  if (id === 'colonia') cargarColoniaPublica();
+}
+
+// Drag & drop
+const zone = document.getElementById('uploadZone');
+zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('dragover'); });
+zone.addEventListener('dragleave', () => zone.classList.remove('dragover'));
+zone.addEventListener('drop', e => { e.preventDefault(); zone.classList.remove('dragover'); const f = e.dataTransfer.files[0]; if(f) handleFile(f); });
+document.getElementById('fileInput').addEventListener('change', e => { if(e.target.files[0]) handleFile(e.target.files[0]); });
+
+function handleFile(file) {
+  zone.querySelector('p').innerHTML = '<strong>' + file.name + '</strong> (' + (file.size/1024).toFixed(1) + ' KB)';
+  zone.style.borderColor = 'var(--amarillo)';
+  if (!document.getElementById('assetInput').value) document.getElementById('assetInput').value = file.name;
+}
+
+async function sha256(file) {
+  const buf = await file.arrayBuffer();
+  const h = await crypto.subtle.digest('SHA-256', buf);
+  return Array.from(new Uint8Array(h)).map(b => b.toString(16).padStart(2,'0')).join('');
+}
+
+async function sellarActivo() {
+  const plan = document.getElementById('planSelect').value;
+  if (plan === 'free' && selloCount >= FREE_LIMIT) {
+    alert('Has alcanzado el límite de 3 sellos del plan Free. Actualiza a Premium para continuar.');
+    showSection('planes', document.querySelectorAll('nav button')[1]);
+    return;
+  }
+  const file = document.getElementById('fileInput').files[0];
+  const owner = document.getElementById('ownerInput').value.trim() || 'Anónimo';
+  const asset = document.getElementById('assetInput').value.trim() || 'activo-digital';
+  const btn = document.getElementById('btnSeal');
+  const loading = document.getElementById('loadingSello');
+  const result = document.getElementById('selloResult');
+  result.classList.remove('visible');
+  loading.classList.add('visible');
+  btn.disabled = true;
+  try {
+    let hash = '';
+    if (file) hash = await sha256(file);
+    const res = await fetch(API + '/seal', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ owner, asset, hash, plan })
+    });
+    const data = await res.json();
+    if (data.status === 'SELLADO' && data.sello) {
+      const s = data.sello;
+      currentSig = s.signature;
+      if (plan === 'free') {
+        selloCount++;
+        localStorage.setItem('lbh_sello_count', selloCount);
+      }
+      const expiry = calcExpiry(plan);
+      const rows = [
+        ['Estado', '✅ SELLADO'],
+        ['Firma', s.signature],
+        ['Propietario', s.owner],
+        ['Activo', s.asset],
+        ['Plan', plan.toUpperCase()],
+        ['Válido hasta', expiry],
+        ['Protocolo', s.protocol],
+        ['Nodo', s.nodo],
+        ['Timestamp', new Date(s.timestamp).toLocaleString()],
+      ];
+      if (hash) rows.push(['SHA-256', hash.substring(0,32) + '...']);
+      document.getElementById('selloData').innerHTML = rows.map(([k,v]) =>
+        '<div class="sello-row"><span class="sello-key">' + k + '</span><span class="sello-val">' + v + '</span></div>'
+      ).join('');
+      if (plan === 'free') {
+        document.getElementById('planLimit').innerHTML =
+          '🐜 Sellos usados: ' + selloCount + '/' + FREE_LIMIT + ' — <a href="#" onclick="showSection(\'planes\',document.querySelectorAll(\'nav button\')[1]);return false;" style="color:var(--amarillo)">Actualiza a Premium →</a>';
+        document.getElementById('planLimit').style.display = 'block';
+      } else {
+        document.getElementById('planLimit').style.display = 'none';
+      }
+      // Pre-llenar badge
+      document.getElementById('badgeSig').value = s.signature;
+      document.getElementById('badgeOwner').value = s.owner;
+      document.getElementById('badgeExpiry').value = expiry;
+      document.getElementById('badgePlan').value = plan;
+      result.classList.add('visible');
+    }
+  } catch(e) { alert('Error conectando con el nodo A16.'); }
+  loading.classList.remove('visible');
+  btn.disabled = false;
+}
+
+function copiarSello() {
+  navigator.clipboard.writeText(currentSig).then(() => {
+    const btns = document.querySelectorAll('.btn-dl');
+    btns[0].textContent = '✅ Copiado';
+    setTimeout(() => btns[0].textContent = '📋 Copiar firma', 2000);
+  });
+}
+
+// BADGE GENERATOR
+function generarBadge() {
+  const sig    = document.getElementById('badgeSig').value.trim() || 'CLHQ-XXXXXXXX';
+  const plan   = document.getElementById('badgePlan').value;
+  const owner  = document.getElementById('badgeOwner').value.trim() || 'Propietario';
+  const expiry = document.getElementById('badgeExpiry').value.trim() || calcExpiry(plan);
+  const c = document.getElementById('badgeCanvas');
+  const ctx = c.getContext('2d');
+  const cfg = PLAN_COLORS[plan];
+
+  // Fondo
+  ctx.fillStyle = cfg.bg;
+  ctx.beginPath();
+  ctx.roundRect(0, 0, 400, 120, 10);
+  ctx.fill();
+
+  // Borde
+  ctx.strokeStyle = cfg.accent;
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.roundRect(1, 1, 398, 118, 10);
+  ctx.stroke();
+
+  // Barra izquierda
+  ctx.fillStyle = cfg.accent;
+  ctx.fillRect(0, 0, 4, 120);
+
+  // Icono hormiga
+  ctx.font = 'bold 28px serif';
+  ctx.fillText('🐜', 18, 52);
 
   // Título
   ctx.fillStyle = cfg.accent;
@@ -967,7 +1168,6 @@ function showSectionDrawer(id,btn){
         });
       }
     </script>
-<section class="section" id="xoxo"></section>
 </body>
 </html>
 <script>
@@ -1071,31 +1271,99 @@ async function cargarStats() {
 }
 </script>
 <script>
+// LBH-Sovereign-Pulse: trust_level: 1.0 | Signed-by: CLHQ-Q5PTRLA0
+
   // LBH-Sovereign-Pulse: trust_level: 1.0
   // Signed-by: CLHQ-Q5PTRLA0
-// Inyectar sección admin en el DOM
+function narrarRegistro(s) {
+  const fecha = s.emitido ? new Date(s.emitido) : null;
+  const fechaTexto = fecha
+    ? fecha.toLocaleDateString('es-SV', { day:'2-digit', month:'long', year:'numeric' })
+    : 'fecha desconocida';
+  const horaTexto = fecha
+    ? fecha.toLocaleTimeString('es-SV', { hour:'2-digit', minute:'2-digit' })
+    : '';
+  const validez = s.valido_hasta && s.valido_hasta !== 'permanente'
+    ? 'hasta el ' + new Date(s.valido_hasta).toLocaleDateString('es-SV', { day:'2-digit', month:'long', year:'numeric' })
+    : 'de forma permanente';
+  const plan = s.plan === 'enterprise' ? 'Enterprise' : s.plan === 'premium' ? 'Premium' : 'Free';
+  const hash = s.hash ? s.hash.substring(0,32) + '...' : 'no registrado';
 
+  return `🐜 Registro LBH — Protocolo v2.0
 
-<script>
-  // LBH-Sovereign-Pulse: trust_level: 1.0
-  // Signed-by: CLHQ-Q5PTRLA0
-async function descargarManifest() {
-  if (!currentSig) { alert('Primero genera un sello'); return; }
-  const btn = document.getElementById('btnManifest');
-  btn.textContent = '⏳ Generando...';
+El activo "${s.asset}" fue sellado el ${fechaTexto} a las ${horaTexto} desde el Nodo Soberano A16-SanMiguel-SV bajo el plan ${plan}.
+
+La firma criptográfica asignada es ${s.signature}, emitida mediante el Protocolo Lenguaje-Binario-HormigasAIS con protección SHA-256 + HMAC.
+
+La huella digital del activo en el momento del sellado fue:
+${hash}
+
+Esta huella confirma que el activo no ha sido alterado desde su registro original. Cualquier modificación posterior produciría una huella diferente, invalidando la certificación.
+
+El certificado permanece válido ${validez} y es verificable públicamente en hormigasais.com.
+
+Fundador: CLHQ — Cristhiam Leonardo Hernández Quiñonez
+DOI: 10.5281/zenodo.19177759`;
+}
+
+function toggleNarrador(btn, idx) {
+  const sello = window._lbhSellos && window._lbhSellos[idx] ? window._lbhSellos[idx] : {};
+  let narrador = card ? card.querySelector('.lbh-narrador') : null;
+  if (narrador) {
+    narrador.style.display = narrador.style.display === 'none' ? 'block' : 'none';
+    btn.textContent = narrador.style.display === 'none' ? '📖 Narrar' : '📖 Cerrar';
+    return;
+  }
+  const texto = narrarRegistro(sello);
+  const div = document.createElement('div');
+  div.className = 'lbh-narrador';
+  div.style.cssText = 'margin-top:0.8rem;background:#0a0a0a;border:1px solid #1a3a2a;border-radius:6px;padding:0.9rem;font-family:Space Mono,monospace;font-size:0.65rem;color:#aaa;line-height:1.8;white-space:pre-wrap;';
+  div.textContent = texto;
+  if (card) card.appendChild(div);
+  btn.textContent = '📖 Cerrar';
+}
+
+async function descargarManifest(firmaParam) {
+  const sig = firmaParam || (typeof currentSig !== 'undefined' ? currentSig : null);
+  if (!sig) { alert('\u26a0\ufe0f No hay sello activo para descargar'); return; }
+
+  // Buscar botón — puede ser btnManifest u otro con onclick=descargarManifest
+  const btn = document.getElementById('btnManifest') ||
+              document.querySelector('[onclick*="descargarManifest"]');
+  const textoOriginal = btn ? btn.textContent : '';
+  if (btn) btn.textContent = '\u23f3 Generando manifest...';
+
   try {
-    const r = await fetch('https://api.hormigasais.com/manifest/' + currentSig);
-    if (!r.ok) { alert('Error al generar manifest'); return; }
-    const blob = await r.blob();
+    const url = 'https://api.hormigasais.com/manifest/' + sig;
+    const resp = await fetch(url, { method: 'GET', headers: { 'Accept': 'application/json' } });
+
+    if (!resp.ok) {
+      let msg = 'Error ' + resp.status;
+      try { const e = await resp.json(); msg = e.error || msg; } catch(x) {}
+      throw new Error(msg);
+    }
+
+    const data = await resp.json();
+
+    // Descarga como archivo .json
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
-    a.download = 'manifest-' + currentSig + '.json';
+    a.download = 'manifest-' + sig + '.json';
+    document.body.appendChild(a);
     a.click();
-    btn.textContent = '✅ Descargado';
-    setTimeout(() => btn.textContent = '📄 Descargar Manifest →', 3000);
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+
+    if (btn) {
+      btn.textContent = '\u2705 Manifest descargado';
+      setTimeout(() => { btn.textContent = textoOriginal || '\ud83d\udcc4 Descargar Manifest \u2192'; }, 3000);
+    }
+
   } catch(e) {
-    alert('Error de conexión');
-    btn.textContent = '📄 Descargar Manifest →';
+    console.error('[HormigasAIS] descargarManifest error:', e);
+    alert('\u274c No se pudo descargar el manifest\n\nSello: ' + sig + '\nError: ' + e.message);
+    if (btn) btn.textContent = textoOriginal || '\ud83d\udcc4 Descargar Manifest \u2192';
   }
 }
 
@@ -1466,16 +1734,67 @@ async function accederCuenta() {
     const sellos = data.mis_sellos || [];
     if (sellos.length > 0) {
       html += '<div style="font-family:Syne,sans-serif;font-size:0.9rem;font-weight:700;color:#fff;margin-bottom:0.8rem;">🔏 Mis sellos</div>';
-      html += '<div style="background:#1a1a1a;border:1px solid #2a2a2a;border-radius:8px;overflow:hidden;">';
-      html += '<div style="display:grid;grid-template-columns:1fr 1fr 80px;gap:0.5rem;padding:0.6rem 1rem;background:#111;font-size:0.65rem;color:#444;text-transform:uppercase;letter-spacing:0.06em;"><span>Firma</span><span>Activo</span><span>Acciones</span></div>';
-      sellos.forEach(s => {
-        html += '<div style="display:grid;grid-template-columns:1fr 1fr 80px;gap:0.5rem;padding:0.7rem 1rem;border-top:1px solid #222;align-items:center;">' +
-          '<span style="font-size:0.72rem;color:#00ff9f;">' + s.signature + '</span>' +
-          '<span style="font-size:0.72rem;color:#aaa;">' + s.asset + '</span>' +
-          '<a href="https://api.hormigasais.com/manifest/' + s.signature + '" target="_blank" style="font-size:0.65rem;color:#f5c518;text-decoration:none;border:1px solid rgba(245,197,24,0.3);padding:0.2rem 0.5rem;border-radius:4px;">📄 Manifest</a>' +
+      window._lbhSellos = sellos;
+      sellos.forEach((s, idx) => {
+        const fecha = s.emitido ? new Date(s.emitido) : null;
+        const fechaFormato = fecha ? fecha.toLocaleDateString('es-SV', { day:'2-digit', month:'long', year:'numeric' }) : '—';
+        const horaFormato = fecha ? fecha.toLocaleTimeString('es-SV', { hour:'2-digit', minute:'2-digit' }) : '';
+        const validez = s.valido_hasta && s.valido_hasta !== 'permanente'
+          ? new Date(s.valido_hasta).toLocaleDateString('es-SV', { day:'2-digit', month:'long', year:'numeric' })
+          : 'Permanente';
+        const planColor = s.plan === 'enterprise' ? '#00ff9f' : s.plan === 'premium' ? '#a855f7' : '#f5c518';
+        const planLabel = s.plan === 'enterprise' ? 'Enterprise 🏢' : s.plan === 'premium' ? 'Premium ⭐' : 'Free';
+        const hashCorto = s.hash ? s.hash.substring(0,16) + '...' : 'sin hash';
+
+        html += '<div style="background:#111;border:1px solid #2a2a2a;border-radius:10px;padding:1rem;margin-bottom:0.8rem;transition:border 0.2s;" onmouseover="this.style.borderColor='#333'" onmouseout="this.style.borderColor='#2a2a2a'">' +
+
+          // Cabecera: fecha + plan
+          '<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.7rem;">' +
+          '<div>' +
+          '<div style="font-size:0.65rem;color:#555;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.2rem;">Emitido</div>' +
+          '<div style="font-family:Space Mono,monospace;font-size:0.78rem;color:#fff;">' + fechaFormato + '</div>' +
+          '<div style="font-size:0.65rem;color:#444;margin-top:0.1rem;">' + horaFormato + ' — Nodo A16-SanMiguel-SV</div>' +
+          '</div>' +
+          '<span style="font-size:0.65rem;color:' + planColor + ';border:1px solid ' + planColor + '33;padding:0.2rem 0.6rem;border-radius:20px;">' + planLabel + '</span>' +
+          '</div>' +
+
+          // Activo + firma
+          '<div style="background:#0a0a0a;border-radius:6px;padding:0.7rem;margin-bottom:0.7rem;">' +
+          '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;">' +
+          '<span style="font-size:0.65rem;color:#555;text-transform:uppercase;">Activo protegido</span>' +
+          '<span style="font-size:0.75rem;color:#fff;font-weight:700;">' + s.asset + '</span>' +
+          '</div>' +
+          '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;">' +
+          '<span style="font-size:0.65rem;color:#555;text-transform:uppercase;">Firma LBH</span>' +
+          '<span style="font-family:Space Mono,monospace;font-size:0.7rem;color:#00ff9f;">' + s.signature + '</span>' +
+          '</div>' +
+          '<div style="display:flex;justify-content:space-between;align-items:center;">' +
+          '<span style="font-size:0.65rem;color:#555;text-transform:uppercase;">Hash SHA-256</span>' +
+          '<span style="font-family:Space Mono,monospace;font-size:0.65rem;color:#444;">' + hashCorto + '</span>' +
+          '</div>' +
+          '</div>' +
+
+          // Validez + estado
+          '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.8rem;">' +
+          '<div>' +
+          '<div style="font-size:0.65rem;color:#555;text-transform:uppercase;margin-bottom:0.2rem;">Válido hasta</div>' +
+          '<div style="font-size:0.72rem;color:#aaa;">' + validez + '</div>' +
+          '</div>' +
+          '<div style="display:flex;align-items:center;gap:0.3rem;">' +
+          '<div style="width:6px;height:6px;border-radius:50%;background:#00ff9f;"></div>' +
+          '<span style="font-size:0.65rem;color:#00ff9f;">Verificado</span>' +
+          '</div>' +
+          '</div>' +
+
+          // Acciones
+          '<div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;">' +
+          '<button onclick="descargarManifest(\'' + s.signature + '\')" style="background:#1a1a1a;border:1px solid rgba(245,197,24,0.3);border-radius:6px;padding:0.5rem;cursor:pointer;font-family:Space Mono,monospace;font-size:0.65rem;color:#f5c518;transition:border 0.2s;" onmouseover="this.style.borderColor=\'#f5c518\'" onmouseout="this.style.borderColor=\'rgba(245,197,24,0.3)\'">📄 Descargar Manifest</button>' +
+          '<a href="https://hormigasais.com#verificar?sig=' + s.signature + '" target="_blank" style="background:#1a1a1a;border:1px solid rgba(0,255,159,0.2);border-radius:6px;padding:0.5rem;text-align:center;text-decoration:none;font-family:Space Mono,monospace;font-size:0.65rem;color:#00ff9f;transition:border 0.2s;" onmouseover="this.style.borderColor=\'#00ff9f\'" onmouseout="this.style.borderColor=\'rgba(0,255,159,0.2)\'">🔍 Verificar</a>' +
+          '</div>' +
+          '<button onclick="toggleNarrador(this,' + idx + ')" style="margin-top:0.5rem;width:100%;background:transparent;border:1px solid #1a3a2a;border-radius:6px;padding:0.5rem;cursor:pointer;font-family:Space Mono,monospace;font-size:0.65rem;color:#555;transition:all 0.2s;" onmouseover="this.style.color=\'#00ff9f\';this.style.borderColor=\'#00ff9f\'" onmouseout="this.style.color=\'#555\';this.style.borderColor=\'#1a3a2a\'">📖 Narrar</button>' +
+
           '</div>';
       });
-      html += '</div>';
     } else {
       html += '<div style="background:#1a1a1a;border:1px solid #2a2a2a;border-radius:8px;padding:1.5rem;text-align:center;">' +
         '<div style="color:#555;font-size:0.8rem;">Aún no tienes sellos — <a href="#" onclick="showSection(\'sello\',document.querySelectorAll(\'nav button\')[3]);return false;" style="color:var(--amarillo)">Sellar ahora →</a></div>' +
@@ -1873,3 +2192,4 @@ async function canjearRegalo() {
   }
 }
 </script>
+
