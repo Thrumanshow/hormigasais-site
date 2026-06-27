@@ -1,0 +1,83 @@
+{
+  "firma": "lbh.human.CLHQ_99_SAN_MIGUEL",
+  "nodo": "A16-SanMiguel-SV",
+  "protocolo": "LBH-v2.0",
+  "rol": "Arquitecto_Soberano",
+  "ecosistema": "HormigasAIS",
+  "sello": "a9c3b67b27795334",
+  "hormiga_graduada": {
+    "id": "Hormiga_Portavoz_01",
+    "sello_examen": "ddb2d679bb5e81f483ed",
+    "modulos_completados": 6,
+    "modulos": [
+      {
+        "id": "MOD_01",
+        "ley": "LEY_04",
+        "concepto": "Observar / No reaccionar",
+        "resultado": "APROBADO"
+      },
+      {
+        "id": "MOD_02",
+        "ley": "LEY_03+LEY_48",
+        "concepto": "Deflexion Diplomatica",
+        "resultado": "APROBADO"
+      },
+      {
+        "id": "MOD_03",
+        "ley": "LEY_06",
+        "concepto": "Filtrar / Proteger atencion",
+        "resultado": "APROBADO"
+      },
+      {
+        "id": "MOD_04",
+        "ley": "LEY_44",
+        "concepto": "Efecto Espejo / Centinela",
+        "resultado": "APROBADO"
+      },
+      {
+        "id": "MOD_05",
+        "ley": "LEY_15",
+        "concepto": "Bloqueo Total",
+        "resultado": "APROBADO"
+      },
+      {
+        "id": "MOD_06",
+        "ley": "MULTI",
+        "concepto": "Examen Final de Consenso",
+        "resultado": "APROBADO (12/12)"
+      }
+    ],
+    "espectro_cubierto": "0.0 - 1.0",
+    "condiciones_adversas": "SUPERADAS",
+    "estado": "PRODUCCION",
+    "timestamp_graduacion": 1781407972.4865448
+  },
+  "sello_produccion": "3d60e280eab42cd9d472",
+  "historial_doctrinal": [
+    {
+      "version": "v2.3-experimental",
+      "timestamp": 1781412171.910386,
+      "cambio": "Parche gradual RECURSOS+ATENCION",
+      "evidencia": "50 vectores Shadow Mode batch",
+      "regla_nueva": {
+        "RECURSOS_ATENCION_0.60_0.89": "FILTRAR",
+        "RECURSOS_ATENCION_0.90_0.94": "ACTIVAR_MECANICO_MAXIMA",
+        "RECURSOS_ATENCION_0.95_plus": "LEY_15_o_ESPEJO"
+      },
+      "estado": "EXPERIMENTAL",
+      "aprobado_por": "lbh.human.CLHQ_99_SAN_MIGUEL"
+    },
+    {
+      "version": "v3.0-arbitro",
+      "timestamp": 1781495975.909144,
+      "cambio": "Hormiga_Arbitro integrada al bus",
+      "reglas": [
+        "ARB_01",
+        "ARB_02",
+        "ARB_03"
+      ],
+      "estado": "EXPERIMENTAL",
+      "aprobado_por": "lbh.human.CLHQ_99_SAN_MIGUEL"
+    }
+  ]
+}

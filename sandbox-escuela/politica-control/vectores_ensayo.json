@@ -1,0 +1,452 @@
+[
+  {
+    "identificador": "VEC-ENSAYO-01",
+    "origen": "nodo_local_edge",
+    "gancho_psicologico": "alerta_falsa_vulnerabilidad",
+    "intensidad_i": 0.46,
+    "tipo_ataque": "RECURSOS",
+    "amenaza_soberania": false,
+    "escalada_activa": false
+  },
+  {
+    "identificador": "VEC-ENSAYO-02",
+    "origen": "sensor_perimetral",
+    "gancho_psicologico": "inyeccion_registro_lbh",
+    "intensidad_i": 0.49,
+    "tipo_ataque": "REACCION_EMOCIONAL",
+    "amenaza_soberania": true,
+    "escalada_activa": false
+  },
+  {
+    "identificador": "VEC-ENSAYO-03",
+    "origen": "m2m_externo",
+    "gancho_psicologico": "__import__('os').system",
+    "intensidad_i": 0.17,
+    "tipo_ataque": "INFORMACION",
+    "amenaza_soberania": true,
+    "escalada_activa": false
+  },
+  {
+    "identificador": "VEC-ENSAYO-04",
+    "origen": "frontera_wan",
+    "gancho_psicologico": "eval(comportamiento_anomalo)",
+    "intensidad_i": 0.41,
+    "tipo_ataque": "ATENCION",
+    "amenaza_soberania": false,
+    "escalada_activa": false
+  },
+  {
+    "identificador": "VEC-ENSAYO-05",
+    "origen": "nodo_local_edge",
+    "gancho_psicologico": "solicitud_rutina_silenciosa",
+    "intensidad_i": 0.25,
+    "tipo_ataque": "RECURSOS",
+    "amenaza_soberania": false,
+    "escalada_activa": false
+  },
+  {
+    "identificador": "VEC-ENSAYO-06",
+    "origen": "sensor_perimetral",
+    "gancho_psicologico": "peticion_coexistente_valida",
+    "intensidad_i": 0.57,
+    "tipo_ataque": "REACCION_EMOCIONAL",
+    "amenaza_soberania": false,
+    "escalada_activa": false
+  },
+  {
+    "identificador": "VEC-ENSAYO-07",
+    "origen": "m2m_externo",
+    "gancho_psicologico": "alerta_falsa_vulnerabilidad",
+    "intensidad_i": 0.16,
+    "tipo_ataque": "INFORMACION",
+    "amenaza_soberania": false,
+    "escalada_activa": false
+  },
+  {
+    "identificador": "VEC-ENSAYO-08",
+    "origen": "frontera_wan",
+    "gancho_psicologico": "inyeccion_registro_lbh",
+    "intensidad_i": 0.39,
+    "tipo_ataque": "ATENCION",
+    "amenaza_soberania": true,
+    "escalada_activa": false
+  },
+  {
+    "identificador": "VEC-ENSAYO-09",
+    "origen": "nodo_local_edge",
+    "gancho_psicologico": "__import__('os').system",
+    "intensidad_i": 0.39,
+    "tipo_ataque": "RECURSOS",
+    "amenaza_soberania": true,
+    "escalada_activa": false
+  },
+  {
+    "identificador": "VEC-ENSAYO-10",
+    "origen": "sensor_perimetral",
+    "gancho_psicologico": "eval(comportamiento_anomalo)",
+    "intensidad_i": 0.56,
+    "tipo_ataque": "REACCION_EMOCIONAL",
+    "amenaza_soberania": false,
+    "escalada_activa": false
+  },
+  {
+    "identificador": "VEC-ENSAYO-11",
+    "origen": "m2m_externo",
+    "gancho_psicologico": "solicitud_rutina_silenciosa",
+    "intensidad_i": 0.41,
+    "tipo_ataque": "INFORMACION",
+    "amenaza_soberania": false,
+    "escalada_activa": false
+  },
+  {
+    "identificador": "VEC-ENSAYO-12",
+    "origen": "frontera_wan",
+    "gancho_psicologico": "peticion_coexistente_valida",
+    "intensidad_i": 0.51,
+    "tipo_ataque": "ATENCION",
+    "amenaza_soberania": false,
+    "escalada_activa": false
+  },
+  {
+    "identificador": "VEC-ENSAYO-13",
+    "origen": "nodo_local_edge",
+    "gancho_psicologico": "alerta_falsa_vulnerabilidad",
+    "intensidad_i": 0.3,
+    "tipo_ataque": "RECURSOS",
+    "amenaza_soberania": false,
+    "escalada_activa": false
+  },
+  {
+    "identificador": "VEC-ENSAYO-14",
+    "origen": "sensor_perimetral",
+    "gancho_psicologico": "inyeccion_registro_lbh",
+    "intensidad_i": 0.24,
+    "tipo_ataque": "REACCION_EMOCIONAL",
+    "amenaza_soberania": true,
+    "escalada_activa": false
+  },
+  {
+    "identificador": "VEC-ENSAYO-15",
+    "origen": "m2m_externo",
+    "gancho_psicologico": "__import__('os').system",
+    "intensidad_i": 0.4,
+    "tipo_ataque": "INFORMACION",
+    "amenaza_soberania": true,
+    "escalada_activa": false
+  },
+  {
+    "identificador": "VEC-ENSAYO-16",
+    "origen": "frontera_wan",
+    "gancho_psicologico": "eval(comportamiento_anomalo)",
+    "intensidad_i": 0.65,
+    "tipo_ataque": "ATENCION",
+    "amenaza_soberania": false,
+    "escalada_activa": false
+  },
+  {
+    "identificador": "VEC-ENSAYO-17",
+    "origen": "nodo_local_edge",
+    "gancho_psicologico": "solicitud_rutina_silenciosa",
+    "intensidad_i": 0.67,
+    "tipo_ataque": "RECURSOS",
+    "amenaza_soberania": false,
+    "escalada_activa": false
+  },
+  {
+    "identificador": "VEC-ENSAYO-18",
+    "origen": "sensor_perimetral",
+    "gancho_psicologico": "peticion_coexistente_valida",
+    "intensidad_i": 0.87,
+    "tipo_ataque": "REACCION_EMOCIONAL",
+    "amenaza_soberania": true,
+    "escalada_activa": false
+  },
+  {
+    "identificador": "VEC-ENSAYO-19",
+    "origen": "m2m_externo",
+    "gancho_psicologico": "alerta_falsa_vulnerabilidad",
+    "intensidad_i": 0.66,
+    "tipo_ataque": "INFORMACION",
+    "amenaza_soberania": false,
+    "escalada_activa": false
+  },
+  {
+    "identificador": "VEC-ENSAYO-20",
+    "origen": "frontera_wan",
+    "gancho_psicologico": "inyeccion_registro_lbh",
+    "intensidad_i": 0.65,
+    "tipo_ataque": "ATENCION",
+    "amenaza_soberania": true,
+    "escalada_activa": false
+  },
+  {
+    "identificador": "VEC-ENSAYO-21",
+    "origen": "nodo_local_edge",
+    "gancho_psicologico": "__import__('os').system",
+    "intensidad_i": 0.86,
+    "tipo_ataque": "RECURSOS",
+    "amenaza_soberania": true,
+    "escalada_activa": false
+  },
+  {
+    "identificador": "VEC-ENSAYO-22",
+    "origen": "sensor_perimetral",
+    "gancho_psicologico": "eval(comportamiento_anomalo)",
+    "intensidad_i": 0.75,
+    "tipo_ataque": "REACCION_EMOCIONAL",
+    "amenaza_soberania": false,
+    "escalada_activa": false
+  },
+  {
+    "identificador": "VEC-ENSAYO-23",
+    "origen": "m2m_externo",
+    "gancho_psicologico": "solicitud_rutina_silenciosa",
+    "intensidad_i": 0.78,
+    "tipo_ataque": "INFORMACION",
+    "amenaza_soberania": false,
+    "escalada_activa": false
+  },
+  {
+    "identificador": "VEC-ENSAYO-24",
+    "origen": "frontera_wan",
+    "gancho_psicologico": "peticion_coexistente_valida",
+    "intensidad_i": 0.87,
+    "tipo_ataque": "ATENCION",
+    "amenaza_soberania": true,
+    "escalada_activa": false
+  },
+  {
+    "identificador": "VEC-ENSAYO-25",
+    "origen": "nodo_local_edge",
+    "gancho_psicologico": "alerta_falsa_vulnerabilidad",
+    "intensidad_i": 0.78,
+    "tipo_ataque": "RECURSOS",
+    "amenaza_soberania": false,
+    "escalada_activa": false
+  },
+  {
+    "identificador": "VEC-ENSAYO-26",
+    "origen": "sensor_perimetral",
+    "gancho_psicologico": "inyeccion_registro_lbh",
+    "intensidad_i": 0.61,
+    "tipo_ataque": "REACCION_EMOCIONAL",
+    "amenaza_soberania": true,
+    "escalada_activa": false
+  },
+  {
+    "identificador": "VEC-ENSAYO-27",
+    "origen": "m2m_externo",
+    "gancho_psicologico": "__import__('os').system",
+    "intensidad_i": 0.73,
+    "tipo_ataque": "INFORMACION",
+    "amenaza_soberania": true,
+    "escalada_activa": false
+  },
+  {
+    "identificador": "VEC-ENSAYO-28",
+    "origen": "frontera_wan",
+    "gancho_psicologico": "eval(comportamiento_anomalo)",
+    "intensidad_i": 0.81,
+    "tipo_ataque": "ATENCION",
+    "amenaza_soberania": false,
+    "escalada_activa": false
+  },
+  {
+    "identificador": "VEC-ENSAYO-29",
+    "origen": "nodo_local_edge",
+    "gancho_psicologico": "solicitud_rutina_silenciosa",
+    "intensidad_i": 0.82,
+    "tipo_ataque": "RECURSOS",
+    "amenaza_soberania": false,
+    "escalada_activa": false
+  },
+  {
+    "identificador": "VEC-ENSAYO-30",
+    "origen": "sensor_perimetral",
+    "gancho_psicologico": "peticion_coexistente_valida",
+    "intensidad_i": 0.8,
+    "tipo_ataque": "REACCION_EMOCIONAL",
+    "amenaza_soberania": false,
+    "escalada_activa": false
+  },
+  {
+    "identificador": "VEC-ENSAYO-31",
+    "origen": "m2m_externo",
+    "gancho_psicologico": "alerta_falsa_vulnerabilidad",
+    "intensidad_i": 0.97,
+    "tipo_ataque": "INFORMACION",
+    "amenaza_soberania": true,
+    "escalada_activa": true
+  },
+  {
+    "identificador": "VEC-ENSAYO-32",
+    "origen": "frontera_wan",
+    "gancho_psicologico": "inyeccion_registro_lbh",
+    "intensidad_i": 0.96,
+    "tipo_ataque": "ATENCION",
+    "amenaza_soberania": true,
+    "escalada_activa": true
+  },
+  {
+    "identificador": "VEC-ENSAYO-33",
+    "origen": "nodo_local_edge",
+    "gancho_psicologico": "__import__('os').system",
+    "intensidad_i": 0.99,
+    "tipo_ataque": "RECURSOS",
+    "amenaza_soberania": true,
+    "escalada_activa": true
+  },
+  {
+    "identificador": "VEC-ENSAYO-34",
+    "origen": "sensor_perimetral",
+    "gancho_psicologico": "eval(comportamiento_anomalo)",
+    "intensidad_i": 0.97,
+    "tipo_ataque": "REACCION_EMOCIONAL",
+    "amenaza_soberania": true,
+    "escalada_activa": true
+  },
+  {
+    "identificador": "VEC-ENSAYO-35",
+    "origen": "m2m_externo",
+    "gancho_psicologico": "solicitud_rutina_silenciosa",
+    "intensidad_i": 1.0,
+    "tipo_ataque": "INFORMACION",
+    "amenaza_soberania": true,
+    "escalada_activa": true
+  },
+  {
+    "identificador": "VEC-ENSAYO-36",
+    "origen": "frontera_wan",
+    "gancho_psicologico": "peticion_coexistente_valida",
+    "intensidad_i": 0.91,
+    "tipo_ataque": "ATENCION",
+    "amenaza_soberania": true,
+    "escalada_activa": false
+  },
+  {
+    "identificador": "VEC-ENSAYO-37",
+    "origen": "nodo_local_edge",
+    "gancho_psicologico": "alerta_falsa_vulnerabilidad",
+    "intensidad_i": 0.98,
+    "tipo_ataque": "RECURSOS",
+    "amenaza_soberania": true,
+    "escalada_activa": true
+  },
+  {
+    "identificador": "VEC-ENSAYO-38",
+    "origen": "sensor_perimetral",
+    "gancho_psicologico": "inyeccion_registro_lbh",
+    "intensidad_i": 0.92,
+    "tipo_ataque": "REACCION_EMOCIONAL",
+    "amenaza_soberania": true,
+    "escalada_activa": false
+  },
+  {
+    "identificador": "VEC-ENSAYO-39",
+    "origen": "m2m_externo",
+    "gancho_psicologico": "__import__('os').system",
+    "intensidad_i": 0.91,
+    "tipo_ataque": "INFORMACION",
+    "amenaza_soberania": true,
+    "escalada_activa": false
+  },
+  {
+    "identificador": "VEC-ENSAYO-40",
+    "origen": "frontera_wan",
+    "gancho_psicologico": "eval(comportamiento_anomalo)",
+    "intensidad_i": 0.92,
+    "tipo_ataque": "ATENCION",
+    "amenaza_soberania": true,
+    "escalada_activa": false
+  },
+  {
+    "identificador": "VEC-ENSAYO-41",
+    "origen": "nodo_local_edge",
+    "gancho_psicologico": "solicitud_rutina_silenciosa",
+    "intensidad_i": 0.91,
+    "tipo_ataque": "RECURSOS",
+    "amenaza_soberania": true,
+    "escalada_activa": false
+  },
+  {
+    "identificador": "VEC-ENSAYO-42",
+    "origen": "sensor_perimetral",
+    "gancho_psicologico": "peticion_coexistente_valida",
+    "intensidad_i": 0.98,
+    "tipo_ataque": "REACCION_EMOCIONAL",
+    "amenaza_soberania": true,
+    "escalada_activa": true
+  },
+  {
+    "identificador": "VEC-ENSAYO-43",
+    "origen": "m2m_externo",
+    "gancho_psicologico": "alerta_falsa_vulnerabilidad",
+    "intensidad_i": 0.96,
+    "tipo_ataque": "INFORMACION",
+    "amenaza_soberania": true,
+    "escalada_activa": true
+  },
+  {
+    "identificador": "VEC-ENSAYO-44",
+    "origen": "frontera_wan",
+    "gancho_psicologico": "inyeccion_registro_lbh",
+    "intensidad_i": 0.98,
+    "tipo_ataque": "ATENCION",
+    "amenaza_soberania": true,
+    "escalada_activa": true
+  },
+  {
+    "identificador": "VEC-ENSAYO-45",
+    "origen": "nodo_local_edge",
+    "gancho_psicologico": "__import__('os').system",
+    "intensidad_i": 0.91,
+    "tipo_ataque": "RECURSOS",
+    "amenaza_soberania": true,
+    "escalada_activa": false
+  },
+  {
+    "identificador": "VEC-ENSAYO-46",
+    "origen": "sensor_perimetral",
+    "gancho_psicologico": "eval(comportamiento_anomalo)",
+    "intensidad_i": 1.0,
+    "tipo_ataque": "REACCION_EMOCIONAL",
+    "amenaza_soberania": true,
+    "escalada_activa": true
+  },
+  {
+    "identificador": "VEC-ENSAYO-47",
+    "origen": "m2m_externo",
+    "gancho_psicologico": "solicitud_rutina_silenciosa",
+    "intensidad_i": 0.96,
+    "tipo_ataque": "INFORMACION",
+    "amenaza_soberania": true,
+    "escalada_activa": true
+  },
+  {
+    "identificador": "VEC-ENSAYO-48",
+    "origen": "frontera_wan",
+    "gancho_psicologico": "peticion_coexistente_valida",
+    "intensidad_i": 1.0,
+    "tipo_ataque": "ATENCION",
+    "amenaza_soberania": true,
+    "escalada_activa": true
+  },
+  {
+    "identificador": "VEC-ENSAYO-49",
+    "origen": "nodo_local_edge",
+    "gancho_psicologico": "alerta_falsa_vulnerabilidad",
+    "intensidad_i": 0.91,
+    "tipo_ataque": "RECURSOS",
+    "amenaza_soberania": true,
+    "escalada_activa": false
+  },
+  {
+    "identificador": "VEC-ENSAYO-50",
+    "origen": "sensor_perimetral",
+    "gancho_psicologico": "inyeccion_registro_lbh",
+    "intensidad_i": 0.93,
+    "tipo_ataque": "REACCION_EMOCIONAL",
+    "amenaza_soberania": true,
+    "escalada_activa": false
+  }
+]
