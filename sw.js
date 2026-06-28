@@ -1,4 +1,4 @@
-onst CACHE_NAME = 'hormigasais-lbh-v3';
+const CACHE_NAME = 'hormigasais-lbh-v3';
 const ASSETS = [
   '/',
   '/index.html',
