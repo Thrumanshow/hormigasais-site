@@ -12,3 +12,6 @@ www/
 hormigasais-site
 index.html.bak_prod_*
 hormigasais_borde.db
+*.backup
+*.bak*
+*.fixbackup
