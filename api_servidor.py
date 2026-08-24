@@ -1,3 +1,4 @@
+import os
 import http.server
 import json
 import hashlib
@@ -7,7 +8,10 @@ import datetime
 
 PORT = 5000
 NODE_ID = "A16"
-NODE_SECRET = b"HormigasAIS_Corporate_Secret_2026"
+NODE_SECRET = os.environ.get("NODE_SECRET", "").encode("utf-8")
+if not NODE_SECRET:
+    raise RuntimeError("NODE_SECRET no está configurado en el entorno")
+
 
 print("🐜 Actualizando la API del Nodo A16 a la estructura corporativa...")
 
@@ -43,7 +47,7 @@ init_corporate_db()
 
 class CorporateAPIHandler(http.server.BaseHTTPRequestHandler):
     def end_headers(self):
-        self.send_header('Access-Control-Allow-Origin', '*')
+        self.send_header('Access-Control-Allow-Origin', os.environ.get('ALLOWED_ORIGIN', 'https://hormigasais.com'))
         self.send_header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
         self.send_header('Access-Control-Allow-Headers', 'Content-Type')
         super().end_headers()
