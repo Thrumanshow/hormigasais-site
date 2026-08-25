@@ -99,6 +99,6 @@ Fundador de HormigasAIS · Nodo A16 · San Miguel, El Salvador
 
 Para una explicación gráfica de la separación de responsabilidades entre el sitio, la base institucional, los nodos Edge, los SDKs y las integraciones periféricas, consulta el documento oficial de diseño:
 
-- **[Descargar Arquitectura Modular de HormigasAIS (PDF)](docs/assets/hormigasais-arquitectura-modular.pdf)**
+- **[Descargar Arquitectura Modular de HormigasAIS (PDF)](../docs/assets/hormigasais-arquitectura-modular.pdf)**
 
 Este documento complementa la especificación técnica, la política de seguridad (`SECURITY.md`) y el marco legal del ecosistema, sirviendo como evidencia visual de la infraestructura soberana bajo el principio: *"Una función, un repositorio, una responsabilidad"*.
