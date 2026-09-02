@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+# Evitar paneles internos y APIs que no deben salir en buscadores
+Disallow: /admin/
+Disallow: /api/
+Disallow: /private/
+Disallow: /logs/
+Disallow: /*.env
+Disallow: /*.git/
+
+# Sitemap para acelerar indexación del enjambre
+Sitemap: https://hormigasais.com/sitemap.xml
+Sitemap: https://hormigasais.com/sitemap-repos.xml
