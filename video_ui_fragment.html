@@ -1,0 +1,73 @@
+<!-- Fragmento de interfaz para client_hormigasais.js -->
+<section id="video-analyzer" aria-labelledby="video-analyzer-title">
+  <header>
+    <h2 id="video-analyzer-title">Video Intelligence Checker</h2>
+    <p>Introduce una URL pública para solicitar el análisis del nodo.</p>
+  </header>
+
+  <form id="video-analyzer-form">
+    <label for="input-url-video">URL del video</label>
+    <input
+      id="input-url-video"
+      name="video_url"
+      type="url"
+      inputmode="url"
+      autocomplete="url"
+      placeholder="https://..."
+      required
+      aria-describedby="video-url-help"
+    />
+    <small id="video-url-help">Debe comenzar con http:// o https://.</small>
+
+    <button id="btn-analizar" type="submit">Analizar video</button>
+  </form>
+
+  <p id="video-loading" role="status" aria-live="polite" hidden>
+    Analizando video…
+  </p>
+
+  <div id="video-error" role="alert" aria-live="assertive" hidden></div>
+
+  <section id="video-result" aria-labelledby="video-result-title" hidden>
+    <h3 id="video-result-title">Resultado del análisis</h3>
+
+    <dl>
+      <div>
+        <dt>Resolución</dt>
+        <dd id="resultado-resolucion">—</dd>
+      </div>
+      <div>
+        <dt>Puntaje biológico</dt>
+        <dd><span id="score-biologico">—</span><span aria-hidden="true">%</span></dd>
+      </div>
+      <div>
+        <dt>Puntaje IA</dt>
+        <dd><span id="score-ia">—</span><span aria-hidden="true">%</span></dd>
+      </div>
+      <div>
+        <dt>Feromona</dt>
+        <dd id="badge-feromona">—</dd>
+      </div>
+    </dl>
+
+    <p id="resultado-nota"></p>
+  </section>
+</section>
+
+<script>
+  // Configuración opcional del gateway estable antes de invocar el cliente
+  window.HORMIGASAIS_VIDEO_API = 'https://a16.hormigasais.com/video/analizar';
+</script>
+<script src="/js/client_hormigasais.js"></script>
+
+<script>
+  document.getElementById('video-analyzer-form').addEventListener('submit', async function (event) {
+    event.preventDefault()
+    const input = document.getElementById('input-url-video')
+    try {
+      await window.analizarVideoEnjambre(input.value)
+    } catch (_) {
+      // El adaptador ya presenta el error en #video-error.
+    }
+  })
+</script>
