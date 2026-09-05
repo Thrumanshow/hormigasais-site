@@ -1,0 +1,12 @@
+{
+  "file": "robots.txt",
+  "sha256": "374bf15b4e0309a7e336ca90747f4abb42f85bc6b6ace52d4aca5bbda512439c",
+  "hmac_sha256": "79f11439b1c7bff4e16df8cf6e8e616e0b1e5f8a6284c66419f661d0f7341bfd",
+  "size": 342,
+  "issuer": "HormigasAIS-Ecosystem",
+  "node": "A16",
+  "timestamp": 1788587030,
+  "protocol": "LBH-v2.0",
+  "parent_commit": "b1b7001",
+  "audio_seal": "assets/sounds/star4.wav.lbh.json"
+}

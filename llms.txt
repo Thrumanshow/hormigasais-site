@@ -1,0 +1,19 @@
+# HormigasAIS - llms.txt
+# Nodo: A16 Soberano
+# Protocol: LBH-v2.0
+# Parent: b1b7001 audio star4 61.78KB
+
+> HormigasAIS es un ecosistema soberano de automatización con IA.
+
+## Sitemap
+- https://hormigasais.com/sitemap.xml
+- https://hormigasais.com/sitemap.xml.lbh.json
+
+## Assets Sellados LBH
+- /assets/sounds/star4.wav
+- /assets/sounds/star4.wav.lbh.json
+- /assets/sounds/nav-sound.js
+
+## Docs
+- https://github.com/Thrumanshow/hormigasais-site
+- https://github.com/Thrumanshow/hormigasais-sounds
