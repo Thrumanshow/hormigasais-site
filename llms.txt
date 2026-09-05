@@ -17,3 +17,9 @@
 ## Docs
 - https://github.com/Thrumanshow/hormigasais-site
 - https://github.com/Thrumanshow/hormigasais-sounds
+
+## Enjambre Centinela A16
+- Repo: https://github.com/Thrumanshow/hormigasais-centinela-a16
+- Protocolo: LBH-v2.0 umbral 39°C trabajo enjambre
+- Parent: 1d897b3
+- Logs: guardia_dia.log 1229B sha:d05604f09f 4 regs 1 alerta >=39°C

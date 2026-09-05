@@ -1,12 +1,12 @@
 {
   "file": "llms.txt",
-  "sha256": "d04d9671130d9c81c95943b00ced45eae3a399d479b171cbd493d42bc403fb47",
-  "hmac_sha256": "2b0f076bc6fd543ea7fe4c6d1872a44c08335d3841874144358c72481f0456d7",
-  "size": 498,
-  "issuer": "HormigasAIS-Ecosystem",
+  "sha256": "5da820017f9c73418a301edb307ebdaecf576d5a93b5a481be85a5d3589d8eb1",
+  "hmac_sha256": "6546d8b8098a87b21f24801b7da915442c2367abee09b1eebca196da1d7794f1",
+  "size": 729,
+  "issuer": "HormigasAIS",
   "node": "A16",
-  "timestamp": 1788587199,
+  "timestamp": 1788594958,
   "protocol": "LBH-v2.0",
-  "parent_commit": "b1b7001",
-  "audio_seal": "assets/sounds/star4.wav.lbh.json"
+  "parent": "1d897b3",
+  "enjambre": "hormigasais-centinela-a16 39C"
 }
