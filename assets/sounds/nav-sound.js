@@ -1,0 +1,3 @@
+// LBH v2.0 - star4 61.78KB sealed
+const LBH_SOUND={file:'/assets/sounds/star4.wav',lbh:'/assets/sounds/star4.wav.lbh.json'};
+(function(){const a=new Audio(LBH_SOUND.file);a.preload='auto';a.volume=0.25;let u=false;function unlock(){if(!u){a.play().then(()=>{a.pause();a.currentTime=0;u=true;document.removeEventListener('click',unlock);}).catch(()=>{})}}document.addEventListener('click',unlock);document.addEventListener('touchstart',unlock);document.addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('.hamburger,#nav-toggle,[data-nav="burger"]').forEach(b=>{b.addEventListener('click',()=>{if(u){a.currentTime=0;a.play().catch(()=>{})}else{unlock();setTimeout(()=>{a.currentTime=0;a.play().catch(()=>{})},100)}})})})})();

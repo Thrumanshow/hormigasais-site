@@ -1,0 +1,17 @@
+{
+  "lbh_version": "2.0",
+  "asset": "star4.wav",
+  "issuer": "HormigasAIS-Ecosystem",
+  "timestamp": 1788578586,
+  "size": 61782,
+  "sha256": "7330c38da6b3e51b6154abfe89e8a81035d7d6b4c9a1dadc6c1dd1f0b7e168d2",
+  "hmac_sha256": "54bb31708e645157e1beee9516c85ac29a10bd7977e7aff48f69f9ead234965d",
+  "config": {
+    "start_freq": 620,
+    "end_freq": 920,
+    "square_weight": 0.8,
+    "saw_weight": 0.2,
+    "duration": 0.7
+  },
+  "note": "Sellado soberano - Termux local v3.0"
+}

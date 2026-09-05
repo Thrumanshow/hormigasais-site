@@ -953,7 +953,7 @@ loadStats();
       d=document.getElementById('navDrawer'),
       o=document.getElementById('menuOverlay'),
       c=document.getElementById('drawerClose');
-  function open(){d.classList.add('active');o.classList.add('active');t&&t.classList.add('open');t&&t.setAttribute('aria-expanded','true');document.body.style.overflow='hidden'}
+  function open(){ try{ const a=document.getElementById("menuSound"); if(a){ a.volume=0.25; a.currentTime=0; a.play().catch(()=>{});} }catch(e){} d.classList.add('active');o.classList.add('active');t&&t.classList.add('open');t&&t.setAttribute('aria-expanded','true');document.body.style.overflow='hidden'}
   function close(){d.classList.remove('active');o.classList.remove('active');t&&t.classList.remove('open');t&&t.setAttribute('aria-expanded','false');document.body.style.overflow=''}
   t&&t.addEventListener('click',function(){d.classList.contains('active')?close():open()});
   c&&c.addEventListener('click',close);
@@ -1167,6 +1167,8 @@ function showSectionDrawer(id,btn){
         });
       }
     </script>
+<audio id="menuSound" src="assets/sounds/star4.wav" data-lbh="assets/sounds/star4.wav.lbh.json" preload="auto"></audio>
+<script src="assets/sounds/nav-sound.js"></script>
 </body>
 </html>
 <script>
