@@ -1,0 +1,3 @@
+[submodule "docs/lbh/lbh-spec"]
+	path = docs/lbh/lbh-spec
+	url = https://github.com/HormigasAIS/lbh-spec
