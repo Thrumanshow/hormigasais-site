@@ -102,3 +102,4 @@ Para una explicación gráfica de la separación de responsabilidades entre el s
 - **[Descargar Arquitectura Modular de HormigasAIS (PDF)](https://raw.githubusercontent.com/Thrumanshow/hormigasais-site/main/docs/assets/hormigasais-arquitectura-modular.pdf)**
 
 Este documento complementa la especificación técnica, la política de seguridad (`SECURITY.md`) y el marco legal del ecosistema, sirviendo como evidencia visual de la infraestructura soberana bajo el principio: *"Una función, un repositorio, una responsabilidad"*.
+# hormigasais.com vive en HormigasAIS.github.io — NO en este repo. Este repo es solo lbh.hormigasais.com
