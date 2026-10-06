@@ -104,7 +104,7 @@ window.RenderHormigasAccesible = function() {
           Ingresa una firma CLHQ-XXXXXXXX para ver su representation en Braille Unicode y escucharla en voz alta.
         </p>
         <div style="display:flex;gap:0.8rem;margin-bottom:1rem;">
-          <input type="text" id="firmaInput" placeholder="CLHQ-Q5PTRLA0"
+          <input type="text" id="firmaInput" placeholder="CLHQ-HINN9XSU"
             aria-label="Ingresa tu firma LBH"
             style="flex:1;background:#0a0a0a;border:1px solid #333;border-radius:6px;color:#e8e8e8;font-family:'Space Mono',monospace;font-size:0.82rem;padding:0.7rem 0.9rem;outline:none;letter-spacing:0.08em;"
             onkeydown="if(event.key==='Enter') traducirFirma()">
@@ -179,7 +179,7 @@ window.RenderHormigasAccesible = function() {
           Ingresa una firma y el sistema verificará el sello en la red LBH y leerá el resultado en voz alta.
         </p>
         <div style="display:flex;gap:0.8rem;margin-bottom:1rem;">
-          <input type="text" id="firmaVozInput" placeholder="CLHQ-Q5PTRLA0"
+          <input type="text" id="firmaVozInput" placeholder="CLHQ-HINN9XSU"
             aria-label="Firma para verificar con voz"
             style="flex:1;background:#0a0a0a;border:1px solid #333;border-radius:6px;color:#e8e8e8;font-family:'Space Mono',monospace;font-size:0.82rem;padding:0.7rem 0.9rem;outline:none;"
             onkeydown="if(event.key==='Enter') verificarConVoz()">
