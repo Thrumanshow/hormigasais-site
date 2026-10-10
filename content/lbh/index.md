@@ -58,7 +58,7 @@ You may: **Share** — copy and redistribute the material in any medium or forma
 Under the following condition:
 **Attribution — You must give appropriate credit to the original authorship, reference the LBH protocol name, and include the DOI when applicable.**
 
-For full legal terms, see: [LICENSE](/lbh-spec/LICENSE)
+For full legal terms, see: [LICENSE](https://github.com/HormigasAIS/lbh-spec/blob/main/LICENSE)
 
 © 2026 HormigasAIS — El Salvador Digital Pheromones — Distributed Sovereignty
 Responsable y Custodio: Cristhiam Leonardo Hernández Quiñonez (CLHQ) — Arquitecto del Protocolo LBH
