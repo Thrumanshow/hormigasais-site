@@ -103,10 +103,3 @@ Para una explicación gráfica de la separación de responsabilidades entre el s
 
 Este documento complementa la especificación técnica, la política de seguridad (`SECURITY.md`) y el marco legal del ecosistema, sirviendo como evidencia visual de la infraestructura soberana bajo el principio: *"Una función, un repositorio, una responsabilidad"*.
 # hormigasais.com vive en HormigasAIS.github.io — NO en este repo. Este repo es solo lbh.hormigasais.com
-
-## License
-
-This specification is licensed under CC BY 4.0
-(https://creativecommons.org/licenses/by/4.0/).
-
-Attribution: Cristhiam Leonardo Hernández Quiñonez (CLHQ) / HormigasAIS
