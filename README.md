@@ -103,3 +103,10 @@ Para una explicación gráfica de la separación de responsabilidades entre el s
 
 Este documento complementa la especificación técnica, la política de seguridad (`SECURITY.md`) y el marco legal del ecosistema, sirviendo como evidencia visual de la infraestructura soberana bajo el principio: *"Una función, un repositorio, una responsabilidad"*.
 # hormigasais.com vive en HormigasAIS.github.io — NO en este repo. Este repo es solo lbh.hormigasais.com
+
+---
+
+## Licencia
+
+Sitio (wrapper, PWA y assets): **Apache-2.0** — © 2025 Cristhiam Leonardo Hernández Quiñonez (HormigasAIS).
+Especificación LBH (`docs/lbh/lbh-spec`, submódulo): **CC BY 4.0 + MESENTERY v1.0**.
